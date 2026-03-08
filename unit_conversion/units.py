@@ -1,3 +1,6 @@
+# Copyright (c) 2026 Yota Yamamoto
+# SPDX-License-Identifier: MIT
+
 """Unit conversion service built on top of Pint."""
 
 from __future__ import annotations

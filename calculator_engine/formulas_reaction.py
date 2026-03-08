@@ -1,3 +1,6 @@
+# Copyright (c) 2026 Yota Yamamoto
+# SPDX-License-Identifier: MIT
+
 """Reaction-engineering formulas."""
 
 from __future__ import annotations

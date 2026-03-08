@@ -1,3 +1,6 @@
+# Copyright (c) 2026 Yota Yamamoto
+# SPDX-License-Identifier: MIT
+
 """Convenience wrappers for conversion use cases."""
 
 from __future__ import annotations

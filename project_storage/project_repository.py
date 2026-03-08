@@ -1,3 +1,6 @@
+# Copyright (c) 2026 Yota Yamamoto
+# SPDX-License-Identifier: MIT
+
 """SQLite repository for projects and calculation cases."""
 
 from __future__ import annotations

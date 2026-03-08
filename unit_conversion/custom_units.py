@@ -1,3 +1,6 @@
+# Copyright (c) 2026 Yota Yamamoto
+# SPDX-License-Identifier: MIT
+
 """Custom unit definitions for process-engineering work."""
 
 from __future__ import annotations

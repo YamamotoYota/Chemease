@@ -1,3 +1,6 @@
+# Copyright (c) 2026 Yota Yamamoto
+# SPDX-License-Identifier: MIT
+
 """Shared types and helper functions for calculation formulas."""
 
 from __future__ import annotations

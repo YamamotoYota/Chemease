@@ -1,3 +1,6 @@
+# Copyright (c) 2026 Yota Yamamoto
+# SPDX-License-Identifier: MIT
+
 """Search and lookup service for representative properties."""
 
 from __future__ import annotations

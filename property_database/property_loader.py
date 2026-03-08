@@ -1,3 +1,6 @@
+# Copyright (c) 2026 Yota Yamamoto
+# SPDX-License-Identifier: MIT
+
 """Load representative physical-property records from JSON."""
 
 from __future__ import annotations

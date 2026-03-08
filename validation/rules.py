@@ -1,3 +1,6 @@
+# Copyright (c) 2026 Yota Yamamoto
+# SPDX-License-Identifier: MIT
+
 """Generic validation rules for formula inputs."""
 
 from __future__ import annotations
