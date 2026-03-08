@@ -1,0 +1,5 @@
+[
+  {"title":"水のReynolds数サンプル","formula_id":"fluid_reynolds_number","inputs":{"density":998.0,"velocity":1.5,"diameter":0.05,"viscosity":0.001002},"units":{"density":"kg/m^3","velocity":"m/s","diameter":"m","viscosity":"Pas"}},
+  {"title":"熱交換のLMTDサンプル","formula_id":"heat_lmtd","inputs":{"delta_t1":40.0,"delta_t2":20.0},"units":{"delta_t1":"K","delta_t2":"K"}},
+  {"title":"理想気体モル数サンプル","formula_id":"basic_ideal_gas_moles","inputs":{"pressure":101.325,"volume":1.0,"temperature":25.0},"units":{"pressure":"kPa","volume":"m^3","temperature":"degC"}}
+]
