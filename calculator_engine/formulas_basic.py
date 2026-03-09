@@ -58,6 +58,15 @@ def humidity_ratio(inputs: dict[str, float]) -> FormulaComputation:
     return FormulaComputation(outputs={"humidity_ratio": ratio})
 
 
+def ideal_gas_density(inputs: dict[str, float]) -> FormulaComputation:
+    density = inputs["pressure"] * inputs["molecular_weight"] / (UNIVERSAL_GAS_CONSTANT * inputs["temperature"])
+    return FormulaComputation(outputs={"density": density})
+
+
+def mass_to_moles(inputs: dict[str, float]) -> FormulaComputation:
+    return FormulaComputation(outputs={"moles": inputs["mass"] / inputs["molecular_weight"]})
+
+
 FUNCTIONS = {
     ideal_gas_moles.__name__: ideal_gas_moles,
     mixture_molecular_weight.__name__: mixture_molecular_weight,
@@ -68,5 +77,7 @@ FUNCTIONS = {
     molar_to_mass_flow.__name__: molar_to_mass_flow,
     volumetric_to_molar_flow.__name__: volumetric_to_molar_flow,
     humidity_ratio.__name__: humidity_ratio,
+    ideal_gas_density.__name__: ideal_gas_density,
+    mass_to_moles.__name__: mass_to_moles,
 }
 

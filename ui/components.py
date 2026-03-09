@@ -11,7 +11,7 @@ import pandas as pd
 import streamlit as st
 
 from formula_registry.models import FormulaDefinition, ValidationMessage
-from property_database.property_models import PropertyRecord
+from property_database.property_models import PROPERTY_FIELD_DEFINITIONS, PropertyRecord
 
 
 PROPERTY_KEYS = [
@@ -48,20 +48,20 @@ def property_record_to_dataframe(
     """Convert a property record into a display table."""
 
     rows: list[dict[str, Any]] = []
-    labels = {
-        "molecular_weight": "分子量",
-        "density": "密度",
-        "specific_heat": "比熱",
-        "viscosity": "粘度",
-        "thermal_conductivity": "熱伝導率",
-        "latent_heat": "潜熱",
-    }
-    for key in PROPERTY_KEYS:
+    labels = {key: label for key, label, _ in PROPERTY_FIELD_DEFINITIONS}
+    for key, _, _ in PROPERTY_FIELD_DEFINITIONS:
         entry = get_effective_property_entry(record, key, overrides)
         if entry is None:
             continue
         value, unit, note = entry
         rows.append({"物性": labels[key], "値": value, "単位": unit, "備考": note})
+    rows.extend(
+        [
+            {"物性": "相・代表状態", "値": record.phase_reference, "単位": "", "備考": ""},
+            {"物性": "適用温度範囲", "値": record.temperature_range, "単位": "", "備考": ""},
+            {"物性": "データ出所", "値": record.data_origin, "単位": "", "備考": ""},
+        ]
+    )
     return pd.DataFrame(rows)
 
 

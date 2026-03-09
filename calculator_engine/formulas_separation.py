@@ -50,11 +50,22 @@ def separation_factor_basic(inputs: dict[str, float]) -> FormulaComputation:
     return FormulaComputation(outputs={"separation_factor": numerator / denominator})
 
 
+def stage_cut(inputs: dict[str, float]) -> FormulaComputation:
+    return FormulaComputation(outputs={"stage_cut": inputs["distillate_flow"] / inputs["feed_flow"]})
+
+
+def component_recovery(inputs: dict[str, float]) -> FormulaComputation:
+    recovery = inputs["distillate_flow"] * inputs["distillate_composition"] / (inputs["feed_flow"] * inputs["feed_composition"])
+    return FormulaComputation(outputs={"recovery": recovery})
+
+
 FUNCTIONS = {
     relative_volatility.__name__: relative_volatility,
     simple_flash.__name__: simple_flash,
     theoretical_stages_simple.__name__: theoretical_stages_simple,
     minimum_reflux_ratio_simple.__name__: minimum_reflux_ratio_simple,
     separation_factor_basic.__name__: separation_factor_basic,
+    stage_cut.__name__: stage_cut,
+    component_recovery.__name__: component_recovery,
 }
 

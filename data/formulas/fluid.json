@@ -1,12 +1,984 @@
 [
-  {"formula_id":"fluid_average_velocity","name_ja":"平均流速","category":"流体","summary":"流量と断面積から平均流速を求めます。","description":"配管やダクトの平均流速を計算する最も基本的な式です。圧力損失やReynolds数の前処理によく使います。","equation_latex":"v = Q / A","inputs":[{"key":"volumetric_flow","label_ja":"体積流量","description":"流れる流体の体積流量","standard_unit":"m^3/s","allowed_units":["m^3/s","m^3/h","L/min"],"positive_only":true,"nonzero":true},{"key":"area","label_ja":"断面積","description":"流路断面積","standard_unit":"m^2","allowed_units":["m^2","cm^2"],"positive_only":true,"nonzero":true}],"outputs":[{"key":"velocity","label_ja":"平均流速","description":"断面平均流速","standard_unit":"m/s","allowed_units":["m/s"],"required":false}],"variable_definitions":{"volumetric_flow":"体積流量 Q","area":"断面積 A","velocity":"平均流速 v"},"applicability":["定常流れの概算","断面平均値を使う場面"],"assumptions":["断面内で平均化する","圧縮性の影響は別途考慮"],"cautions":["局所最大流速ではありません","脈動流では代表値に注意"],"references":["化学工学便覧レベルの基礎式"],"function_name":"average_velocity","keywords":["流速","流量","断面積"],"interpretation_hint":"得られた流速はReynolds数や動圧の計算にそのまま利用できます。"},
-  {"formula_id":"fluid_reynolds_number","name_ja":"Reynolds数","category":"流体","summary":"流れの層流・乱流の目安を求めます。","description":"慣性力と粘性力の比を表す無次元数です。管内流れでは摩擦係数や伝熱相関の選定に使います。","equation_latex":"Re = rho v D / mu","inputs":[{"key":"density","label_ja":"密度","description":"流体密度","standard_unit":"kg/m^3","allowed_units":["kg/m^3","g/cm^3"],"positive_only":true,"nonzero":true,"suggested_property_key":"density"},{"key":"velocity","label_ja":"流速","description":"代表流速","standard_unit":"m/s","allowed_units":["m/s"],"positive_only":true,"nonzero":true},{"key":"diameter","label_ja":"代表長さ","description":"通常は管内径","standard_unit":"m","allowed_units":["m","mm","cm","inch","ft"],"positive_only":true,"nonzero":true},{"key":"viscosity","label_ja":"粘度","description":"動粘度ではなく粘度","standard_unit":"Pas","allowed_units":["Pas","mPas","cP"],"positive_only":true,"nonzero":true,"suggested_property_key":"viscosity"}],"outputs":[{"key":"reynolds_number","label_ja":"Reynolds数","description":"無次元のReynolds数","standard_unit":"fraction","allowed_units":["fraction"],"required":false}],"variable_definitions":{"density":"密度 rho","velocity":"流速 v","diameter":"代表長さ D","viscosity":"粘度 mu","reynolds_number":"Reynolds数 Re"},"applicability":["管内流れの概算","相関式選定の前処理"],"assumptions":["単相流の代表値","物性一定近似"],"cautions":["非Newton流体では別式検討","二相流にはそのまま適用しない"],"references":["化学工学便覧レベルの基礎式"],"function_name":"reynolds_number","keywords":["Re","レイノルズ数"],"interpretation_hint":"一般に管内では Re < 2300 で層流、Re > 4000 で乱流の目安です。"},
-  {"formula_id":"fluid_froude_number","name_ja":"Froude数","category":"流体","summary":"慣性力と重力の比を評価します。","description":"自由表面流れや液面挙動の概算で使う無次元数です。重力支配か慣性支配かの目安になります。","equation_latex":"Fr = v / sqrt(g L)","inputs":[{"key":"velocity","label_ja":"流速","description":"代表流速","standard_unit":"m/s","allowed_units":["m/s"],"positive_only":true,"nonzero":true},{"key":"characteristic_length","label_ja":"代表長さ","description":"液深や代表寸法","standard_unit":"m","allowed_units":["m","mm","cm","ft"],"positive_only":true,"nonzero":true}],"outputs":[{"key":"froude_number","label_ja":"Froude数","description":"無次元のFroude数","standard_unit":"fraction","allowed_units":["fraction"],"required":false}],"variable_definitions":{"velocity":"流速 v","characteristic_length":"代表長さ L","froude_number":"Froude数 Fr"},"applicability":["自由表面流","液面の概算評価"],"assumptions":["重力加速度一定","代表長さで近似"],"cautions":["密閉配管の通常設計では優先度低め"],"references":["流体力学の基礎式"],"function_name":"froude_number","keywords":["Fr","自由表面"],"interpretation_hint":"Fr が大きいほど慣性支配、小さいほど重力支配の傾向です。"},
-  {"formula_id":"fluid_darcy_weisbach_pressure_drop","name_ja":"Darcy-Weisbach圧力損失","category":"流体","summary":"配管直管部の圧力損失を求めます。","description":"摩擦係数を用いて直管の圧力損失を推算する代表式です。配管設計の初期見積りで広く使います。","equation_latex":"Delta P = f (L/D) (rho v^2 / 2)","inputs":[{"key":"friction_factor","label_ja":"摩擦係数","description":"Darcy摩擦係数","standard_unit":"fraction","allowed_units":["fraction"],"positive_only":true,"nonzero":true},{"key":"pipe_length","label_ja":"配管長さ","description":"直管長さ","standard_unit":"m","allowed_units":["m","mm","cm","km","ft"],"positive_only":true,"nonzero":true},{"key":"diameter","label_ja":"管内径","description":"代表径","standard_unit":"m","allowed_units":["m","mm","cm","inch","ft"],"positive_only":true,"nonzero":true},{"key":"density","label_ja":"密度","description":"流体密度","standard_unit":"kg/m^3","allowed_units":["kg/m^3","g/cm^3"],"positive_only":true,"nonzero":true,"suggested_property_key":"density"},{"key":"velocity","label_ja":"流速","description":"平均流速","standard_unit":"m/s","allowed_units":["m/s"],"positive_only":true,"nonzero":true}],"outputs":[{"key":"pressure_drop","label_ja":"圧力損失","description":"直管部の圧力損失","standard_unit":"Pa","allowed_units":["Pa","kPa","MPa","bar"],"required":false,"output_preferred_unit":"kPa"}],"variable_definitions":{"friction_factor":"摩擦係数 f","pipe_length":"配管長さ L","diameter":"管内径 D","density":"密度 rho","velocity":"流速 v","pressure_drop":"圧力損失 Delta P"},"applicability":["単相の直管圧損概算","配管サイズ比較"],"assumptions":["局部損失は別扱い","平均物性で近似"],"cautions":["継手や弁の損失は含みません","二相流やスラリーは別検討"],"references":["配管設計の代表式"],"function_name":"darcy_weisbach_pressure_drop","keywords":["圧損","配管"],"interpretation_hint":"結果は直管摩擦のみです。実設計では局部損失を別途加算してください。"},
-  {"formula_id":"fluid_pipe_friction_factor","name_ja":"配管摩擦係数","category":"流体","summary":"層流と乱流の簡易式で摩擦係数を推算します。","description":"層流では 64/Re、乱流では Haaland 近似を使うMVP向け簡易実装です。粗さの影響も概算できます。","equation_latex":"f = 64/Re or Haaland approximation","inputs":[{"key":"reynolds_number","label_ja":"Reynolds数","description":"流れのReynolds数","standard_unit":"fraction","allowed_units":["fraction"],"positive_only":true,"nonzero":true},{"key":"roughness","label_ja":"絶対粗さ","description":"管内面の粗さ","standard_unit":"m","allowed_units":["m","mm"],"positive_only":true,"default_value":0.000045},{"key":"diameter","label_ja":"管内径","description":"管内径","standard_unit":"m","allowed_units":["m","mm","cm","inch"],"positive_only":true,"nonzero":true}],"outputs":[{"key":"friction_factor","label_ja":"摩擦係数","description":"Darcy摩擦係数","standard_unit":"fraction","allowed_units":["fraction"],"required":false}],"variable_definitions":{"reynolds_number":"Reynolds数 Re","roughness":"絶対粗さ epsilon","diameter":"管内径 D","friction_factor":"Darcy摩擦係数 f"},"applicability":["単相流の概算","直管圧損の前処理"],"assumptions":["円管を想定","乱流は近似式"],"cautions":["遷移域では精度低下","Colebrook厳密解ではありません"],"references":["便覧レベルの近似式"],"function_name":"pipe_friction_factor","keywords":["摩擦係数","Haaland"],"interpretation_hint":"遷移域では安全側確認のため他式でも比較するのが実務的です。"},
-  {"formula_id":"fluid_continuity_equation","name_ja":"連続の式","category":"流体","summary":"断面積と流速から体積流量を求めます。","description":"非圧縮性近似の基礎式です。平均流速と断面積から流量を計算します。","equation_latex":"Q = A v","inputs":[{"key":"area","label_ja":"断面積","description":"流路断面積","standard_unit":"m^2","allowed_units":["m^2","cm^2"],"positive_only":true,"nonzero":true},{"key":"velocity","label_ja":"流速","description":"平均流速","standard_unit":"m/s","allowed_units":["m/s"],"positive_only":true,"nonzero":true}],"outputs":[{"key":"volumetric_flow","label_ja":"体積流量","description":"流体の体積流量","standard_unit":"m^3/s","allowed_units":["m^3/s","m^3/h","L/min"],"required":false,"output_preferred_unit":"m^3/h"}],"variable_definitions":{"area":"断面積 A","velocity":"流速 v","volumetric_flow":"体積流量 Q"},"applicability":["定常流れの概算"],"assumptions":["断面平均流速を使う"],"cautions":["圧縮性が大きいときは密度変化に注意"],"references":["流体計算の基礎式"],"function_name":"continuity_equation","keywords":["連続の式","流量"],"interpretation_hint":"断面積の単位ミスが起こりやすいので内径から求めるときは注意してください。"},
-  {"formula_id":"fluid_pump_power","name_ja":"ポンプ動力","category":"流体","summary":"必要軸動力を概算します。","description":"揚程、流量、密度、効率からポンプ軸動力を見積もる基礎式です。設備選定の初期段階で使えます。","equation_latex":"P = rho g Q H / eta","inputs":[{"key":"density","label_ja":"密度","description":"液密度","standard_unit":"kg/m^3","allowed_units":["kg/m^3","g/cm^3"],"positive_only":true,"nonzero":true,"suggested_property_key":"density"},{"key":"volumetric_flow","label_ja":"体積流量","description":"ポンプ流量","standard_unit":"m^3/s","allowed_units":["m^3/s","m^3/h","L/min"],"positive_only":true,"nonzero":true},{"key":"head","label_ja":"揚程","description":"全揚程","standard_unit":"m","allowed_units":["m","mm","cm","ft"],"positive_only":true,"nonzero":true},{"key":"efficiency","label_ja":"効率","description":"ポンプ効率","standard_unit":"fraction","allowed_units":["fraction","mol%"],"positive_only":true,"nonzero":true,"default_value":0.7}],"outputs":[{"key":"pump_power","label_ja":"ポンプ動力","description":"必要軸動力","standard_unit":"W","allowed_units":["W","kW"],"required":false,"output_preferred_unit":"kW"}],"variable_definitions":{"density":"密度 rho","volumetric_flow":"流量 Q","head":"揚程 H","efficiency":"効率 eta","pump_power":"動力 P"},"applicability":["液ポンプの初期見積り"],"assumptions":["機械損失は効率に包含"],"cautions":["NPSH確認には使えません","効率の妥当性を別途確認"],"references":["ポンプ動力の基礎式"],"function_name":"pump_power","keywords":["ポンプ","動力"],"interpretation_hint":"モータ容量選定では余裕率や起動条件も別途見込みます。"},
-  {"formula_id":"fluid_static_pressure_difference","name_ja":"静圧差計算","category":"流体","summary":"液柱差による静圧差を求めます。","description":"密度と高さ差から静水圧差を計算します。液位差やヘッド換算の基本です。","equation_latex":"Delta P = rho g Delta z","inputs":[{"key":"density","label_ja":"密度","description":"流体密度","standard_unit":"kg/m^3","allowed_units":["kg/m^3","g/cm^3"],"positive_only":true,"nonzero":true,"suggested_property_key":"density"},{"key":"height_difference","label_ja":"高さ差","description":"液面や測点の高さ差","standard_unit":"m","allowed_units":["m","mm","cm","ft"],"positive_only":true,"nonzero":true}],"outputs":[{"key":"pressure_difference","label_ja":"静圧差","description":"静水圧差","standard_unit":"Pa","allowed_units":["Pa","kPa","bar"],"required":false,"output_preferred_unit":"kPa"}],"variable_definitions":{"density":"密度 rho","height_difference":"高さ差 Delta z","pressure_difference":"静圧差 Delta P"},"applicability":["液柱差の概算","液位差の圧力換算"],"assumptions":["密度一定"],"cautions":["気体では圧縮性の影響に注意"],"references":["静水圧の基礎式"],"function_name":"static_pressure_difference","keywords":["静圧","ヘッド"],"interpretation_hint":"高さ差 10 m、水でおよそ 98 kPa 程度の静圧差になります。"},
-  {"formula_id":"fluid_dynamic_pressure","name_ja":"動圧","category":"流体","summary":"流速による動圧を求めます。","description":"Bernoulli式に現れる速度頭の圧力換算です。計器差圧や噴流の概算に使います。","equation_latex":"q = rho v^2 / 2","inputs":[{"key":"density","label_ja":"密度","description":"流体密度","standard_unit":"kg/m^3","allowed_units":["kg/m^3","g/cm^3"],"positive_only":true,"nonzero":true,"suggested_property_key":"density"},{"key":"velocity","label_ja":"流速","description":"流速","standard_unit":"m/s","allowed_units":["m/s"],"positive_only":true,"nonzero":true}],"outputs":[{"key":"dynamic_pressure","label_ja":"動圧","description":"流速起因の圧力","standard_unit":"Pa","allowed_units":["Pa","kPa"],"required":false,"output_preferred_unit":"kPa"}],"variable_definitions":{"density":"密度 rho","velocity":"流速 v","dynamic_pressure":"動圧 q"},"applicability":["Bernoulli式の概算","差圧見積り"],"assumptions":["平均流速を用いる"],"cautions":["静圧とは別概念です"],"references":["流体力学の基礎式"],"function_name":"dynamic_pressure","keywords":["動圧","ベルヌーイ"],"interpretation_hint":"流速が2倍になると動圧は4倍になるため、速度依存性に注意してください。"},
-  {"formula_id":"fluid_pipe_cross_section_area","name_ja":"管断面積","category":"流体","summary":"管径から断面積を求めます。","description":"円管の断面積を計算します。流速や流量換算の前処理として最も頻繁に使う式です。","equation_latex":"A = pi D^2 / 4","inputs":[{"key":"diameter","label_ja":"管内径","description":"管の内径","standard_unit":"m","allowed_units":["m","mm","cm","inch","ft"],"positive_only":true,"nonzero":true}],"outputs":[{"key":"area","label_ja":"断面積","description":"円管断面積","standard_unit":"m^2","allowed_units":["m^2","cm^2"],"required":false}],"variable_definitions":{"diameter":"管内径 D","area":"断面積 A"},"applicability":["円管断面の計算"],"assumptions":["完全な円形断面"],"cautions":["外径ではなく内径を使ってください"],"references":["幾何学の基礎式"],"function_name":"pipe_cross_section_area","keywords":["断面積","管径"],"interpretation_hint":"流量計算では配管呼び径ではなく実内径で評価するのが安全です。"}
+  {
+    "formula_id": "fluid_average_velocity",
+    "name_ja": "平均流速",
+    "category": "流体",
+    "summary": "流量と断面積から平均流速を求めます。",
+    "description": "配管やダクトの平均流速を計算する最も基本的な式です。圧力損失やReynolds数の前処理によく使います。",
+    "equation_latex": "v = Q / A",
+    "inputs": [
+      {
+        "key": "volumetric_flow",
+        "label_ja": "体積流量",
+        "description": "流れる流体の体積流量",
+        "standard_unit": "m^3/s",
+        "allowed_units": [
+          "m^3/s",
+          "m^3/h",
+          "L/min"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "area",
+        "label_ja": "断面積",
+        "description": "流路断面積",
+        "standard_unit": "m^2",
+        "allowed_units": [
+          "m^2",
+          "cm^2"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "velocity",
+        "label_ja": "平均流速",
+        "description": "断面平均流速",
+        "standard_unit": "m/s",
+        "allowed_units": [
+          "m/s"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "volumetric_flow": "体積流量 Q",
+      "area": "断面積 A",
+      "velocity": "平均流速 v"
+    },
+    "applicability": [
+      "定常流れの概算",
+      "断面平均値を使う場面"
+    ],
+    "assumptions": [
+      "断面内で平均化する",
+      "圧縮性の影響は別途考慮"
+    ],
+    "cautions": [
+      "局所最大流速ではありません",
+      "脈動流では代表値に注意"
+    ],
+    "references": [
+      "化学工学便覧レベルの基礎式"
+    ],
+    "function_name": "average_velocity",
+    "keywords": [
+      "流速",
+      "流量",
+      "断面積"
+    ],
+    "interpretation_hint": "得られた流速はReynolds数や動圧の計算にそのまま利用できます。"
+  },
+  {
+    "formula_id": "fluid_reynolds_number",
+    "name_ja": "Reynolds数",
+    "category": "流体",
+    "summary": "流れの層流・乱流の目安を求めます。",
+    "description": "慣性力と粘性力の比を表す無次元数です。管内流れでは摩擦係数や伝熱相関の選定に使います。",
+    "equation_latex": "Re = rho v D / mu",
+    "inputs": [
+      {
+        "key": "density",
+        "label_ja": "密度",
+        "description": "流体密度",
+        "standard_unit": "kg/m^3",
+        "allowed_units": [
+          "kg/m^3",
+          "g/cm^3"
+        ],
+        "positive_only": true,
+        "nonzero": true,
+        "suggested_property_key": "density"
+      },
+      {
+        "key": "velocity",
+        "label_ja": "流速",
+        "description": "代表流速",
+        "standard_unit": "m/s",
+        "allowed_units": [
+          "m/s"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "diameter",
+        "label_ja": "代表長さ",
+        "description": "通常は管内径",
+        "standard_unit": "m",
+        "allowed_units": [
+          "m",
+          "mm",
+          "cm",
+          "inch",
+          "ft"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "viscosity",
+        "label_ja": "粘度",
+        "description": "動粘度ではなく粘度",
+        "standard_unit": "Pas",
+        "allowed_units": [
+          "Pas",
+          "mPas",
+          "cP"
+        ],
+        "positive_only": true,
+        "nonzero": true,
+        "suggested_property_key": "viscosity"
+      }
+    ],
+    "outputs": [
+      {
+        "key": "reynolds_number",
+        "label_ja": "Reynolds数",
+        "description": "無次元のReynolds数",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "density": "密度 rho",
+      "velocity": "流速 v",
+      "diameter": "代表長さ D",
+      "viscosity": "粘度 mu",
+      "reynolds_number": "Reynolds数 Re"
+    },
+    "applicability": [
+      "管内流れの概算",
+      "相関式選定の前処理"
+    ],
+    "assumptions": [
+      "単相流の代表値",
+      "物性一定近似"
+    ],
+    "cautions": [
+      "非Newton流体では別式検討",
+      "二相流にはそのまま適用しない"
+    ],
+    "references": [
+      "化学工学便覧レベルの基礎式"
+    ],
+    "function_name": "reynolds_number",
+    "keywords": [
+      "Re",
+      "レイノルズ数"
+    ],
+    "interpretation_hint": "一般に管内では Re < 2300 で層流、Re > 4000 で乱流の目安です。"
+  },
+  {
+    "formula_id": "fluid_froude_number",
+    "name_ja": "Froude数",
+    "category": "流体",
+    "summary": "慣性力と重力の比を評価します。",
+    "description": "自由表面流れや液面挙動の概算で使う無次元数です。重力支配か慣性支配かの目安になります。",
+    "equation_latex": "Fr = v / sqrt(g L)",
+    "inputs": [
+      {
+        "key": "velocity",
+        "label_ja": "流速",
+        "description": "代表流速",
+        "standard_unit": "m/s",
+        "allowed_units": [
+          "m/s"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "characteristic_length",
+        "label_ja": "代表長さ",
+        "description": "液深や代表寸法",
+        "standard_unit": "m",
+        "allowed_units": [
+          "m",
+          "mm",
+          "cm",
+          "ft"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "froude_number",
+        "label_ja": "Froude数",
+        "description": "無次元のFroude数",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "velocity": "流速 v",
+      "characteristic_length": "代表長さ L",
+      "froude_number": "Froude数 Fr"
+    },
+    "applicability": [
+      "自由表面流",
+      "液面の概算評価"
+    ],
+    "assumptions": [
+      "重力加速度一定",
+      "代表長さで近似"
+    ],
+    "cautions": [
+      "密閉配管の通常設計では優先度低め"
+    ],
+    "references": [
+      "流体力学の基礎式"
+    ],
+    "function_name": "froude_number",
+    "keywords": [
+      "Fr",
+      "自由表面"
+    ],
+    "interpretation_hint": "Fr が大きいほど慣性支配、小さいほど重力支配の傾向です。"
+  },
+  {
+    "formula_id": "fluid_darcy_weisbach_pressure_drop",
+    "name_ja": "Darcy-Weisbach圧力損失",
+    "category": "流体",
+    "summary": "配管直管部の圧力損失を求めます。",
+    "description": "摩擦係数を用いて直管の圧力損失を推算する代表式です。配管設計の初期見積りで広く使います。",
+    "equation_latex": "Delta P = f (L/D) (rho v^2 / 2)",
+    "inputs": [
+      {
+        "key": "friction_factor",
+        "label_ja": "摩擦係数",
+        "description": "Darcy摩擦係数",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "pipe_length",
+        "label_ja": "配管長さ",
+        "description": "直管長さ",
+        "standard_unit": "m",
+        "allowed_units": [
+          "m",
+          "mm",
+          "cm",
+          "km",
+          "ft"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "diameter",
+        "label_ja": "管内径",
+        "description": "代表径",
+        "standard_unit": "m",
+        "allowed_units": [
+          "m",
+          "mm",
+          "cm",
+          "inch",
+          "ft"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "density",
+        "label_ja": "密度",
+        "description": "流体密度",
+        "standard_unit": "kg/m^3",
+        "allowed_units": [
+          "kg/m^3",
+          "g/cm^3"
+        ],
+        "positive_only": true,
+        "nonzero": true,
+        "suggested_property_key": "density"
+      },
+      {
+        "key": "velocity",
+        "label_ja": "流速",
+        "description": "平均流速",
+        "standard_unit": "m/s",
+        "allowed_units": [
+          "m/s"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "pressure_drop",
+        "label_ja": "圧力損失",
+        "description": "直管部の圧力損失",
+        "standard_unit": "Pa",
+        "allowed_units": [
+          "Pa",
+          "kPa",
+          "MPa",
+          "bar"
+        ],
+        "required": false,
+        "output_preferred_unit": "kPa"
+      }
+    ],
+    "variable_definitions": {
+      "friction_factor": "摩擦係数 f",
+      "pipe_length": "配管長さ L",
+      "diameter": "管内径 D",
+      "density": "密度 rho",
+      "velocity": "流速 v",
+      "pressure_drop": "圧力損失 Delta P"
+    },
+    "applicability": [
+      "単相の直管圧損概算",
+      "配管サイズ比較"
+    ],
+    "assumptions": [
+      "局部損失は別扱い",
+      "平均物性で近似"
+    ],
+    "cautions": [
+      "継手や弁の損失は含みません",
+      "二相流やスラリーは別検討"
+    ],
+    "references": [
+      "配管設計の代表式"
+    ],
+    "function_name": "darcy_weisbach_pressure_drop",
+    "keywords": [
+      "圧損",
+      "配管"
+    ],
+    "interpretation_hint": "結果は直管摩擦のみです。実設計では局部損失を別途加算してください。"
+  },
+  {
+    "formula_id": "fluid_pipe_friction_factor",
+    "name_ja": "配管摩擦係数",
+    "category": "流体",
+    "summary": "層流と乱流の簡易式で摩擦係数を推算します。",
+    "description": "層流では 64/Re、乱流では Haaland 近似を使うMVP向け簡易実装です。粗さの影響も概算できます。",
+    "equation_latex": "f = 64/Re or Haaland approximation",
+    "inputs": [
+      {
+        "key": "reynolds_number",
+        "label_ja": "Reynolds数",
+        "description": "流れのReynolds数",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "roughness",
+        "label_ja": "絶対粗さ",
+        "description": "管内面の粗さ",
+        "standard_unit": "m",
+        "allowed_units": [
+          "m",
+          "mm"
+        ],
+        "positive_only": true,
+        "default_value": 4.5e-05
+      },
+      {
+        "key": "diameter",
+        "label_ja": "管内径",
+        "description": "管内径",
+        "standard_unit": "m",
+        "allowed_units": [
+          "m",
+          "mm",
+          "cm",
+          "inch"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "friction_factor",
+        "label_ja": "摩擦係数",
+        "description": "Darcy摩擦係数",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "reynolds_number": "Reynolds数 Re",
+      "roughness": "絶対粗さ epsilon",
+      "diameter": "管内径 D",
+      "friction_factor": "Darcy摩擦係数 f"
+    },
+    "applicability": [
+      "単相流の概算",
+      "直管圧損の前処理"
+    ],
+    "assumptions": [
+      "円管を想定",
+      "乱流は近似式"
+    ],
+    "cautions": [
+      "遷移域では精度低下",
+      "Colebrook厳密解ではありません"
+    ],
+    "references": [
+      "便覧レベルの近似式"
+    ],
+    "function_name": "pipe_friction_factor",
+    "keywords": [
+      "摩擦係数",
+      "Haaland"
+    ],
+    "interpretation_hint": "遷移域では安全側確認のため他式でも比較するのが実務的です。"
+  },
+  {
+    "formula_id": "fluid_continuity_equation",
+    "name_ja": "連続の式",
+    "category": "流体",
+    "summary": "断面積と流速から体積流量を求めます。",
+    "description": "非圧縮性近似の基礎式です。平均流速と断面積から流量を計算します。",
+    "equation_latex": "Q = A v",
+    "inputs": [
+      {
+        "key": "area",
+        "label_ja": "断面積",
+        "description": "流路断面積",
+        "standard_unit": "m^2",
+        "allowed_units": [
+          "m^2",
+          "cm^2"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "velocity",
+        "label_ja": "流速",
+        "description": "平均流速",
+        "standard_unit": "m/s",
+        "allowed_units": [
+          "m/s"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "volumetric_flow",
+        "label_ja": "体積流量",
+        "description": "流体の体積流量",
+        "standard_unit": "m^3/s",
+        "allowed_units": [
+          "m^3/s",
+          "m^3/h",
+          "L/min"
+        ],
+        "required": false,
+        "output_preferred_unit": "m^3/h"
+      }
+    ],
+    "variable_definitions": {
+      "area": "断面積 A",
+      "velocity": "流速 v",
+      "volumetric_flow": "体積流量 Q"
+    },
+    "applicability": [
+      "定常流れの概算"
+    ],
+    "assumptions": [
+      "断面平均流速を使う"
+    ],
+    "cautions": [
+      "圧縮性が大きいときは密度変化に注意"
+    ],
+    "references": [
+      "流体計算の基礎式"
+    ],
+    "function_name": "continuity_equation",
+    "keywords": [
+      "連続の式",
+      "流量"
+    ],
+    "interpretation_hint": "断面積の単位ミスが起こりやすいので内径から求めるときは注意してください。"
+  },
+  {
+    "formula_id": "fluid_pump_power",
+    "name_ja": "ポンプ動力",
+    "category": "流体",
+    "summary": "必要軸動力を概算します。",
+    "description": "揚程、流量、密度、効率からポンプ軸動力を見積もる基礎式です。設備選定の初期段階で使えます。",
+    "equation_latex": "P = rho g Q H / eta",
+    "inputs": [
+      {
+        "key": "density",
+        "label_ja": "密度",
+        "description": "液密度",
+        "standard_unit": "kg/m^3",
+        "allowed_units": [
+          "kg/m^3",
+          "g/cm^3"
+        ],
+        "positive_only": true,
+        "nonzero": true,
+        "suggested_property_key": "density"
+      },
+      {
+        "key": "volumetric_flow",
+        "label_ja": "体積流量",
+        "description": "ポンプ流量",
+        "standard_unit": "m^3/s",
+        "allowed_units": [
+          "m^3/s",
+          "m^3/h",
+          "L/min"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "head",
+        "label_ja": "揚程",
+        "description": "全揚程",
+        "standard_unit": "m",
+        "allowed_units": [
+          "m",
+          "mm",
+          "cm",
+          "ft"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "efficiency",
+        "label_ja": "効率",
+        "description": "ポンプ効率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction",
+          "mol%"
+        ],
+        "positive_only": true,
+        "nonzero": true,
+        "default_value": 0.7
+      }
+    ],
+    "outputs": [
+      {
+        "key": "pump_power",
+        "label_ja": "ポンプ動力",
+        "description": "必要軸動力",
+        "standard_unit": "W",
+        "allowed_units": [
+          "W",
+          "kW"
+        ],
+        "required": false,
+        "output_preferred_unit": "kW"
+      }
+    ],
+    "variable_definitions": {
+      "density": "密度 rho",
+      "volumetric_flow": "流量 Q",
+      "head": "揚程 H",
+      "efficiency": "効率 eta",
+      "pump_power": "動力 P"
+    },
+    "applicability": [
+      "液ポンプの初期見積り"
+    ],
+    "assumptions": [
+      "機械損失は効率に包含"
+    ],
+    "cautions": [
+      "NPSH確認には使えません",
+      "効率の妥当性を別途確認"
+    ],
+    "references": [
+      "ポンプ動力の基礎式"
+    ],
+    "function_name": "pump_power",
+    "keywords": [
+      "ポンプ",
+      "動力"
+    ],
+    "interpretation_hint": "モータ容量選定では余裕率や起動条件も別途見込みます。"
+  },
+  {
+    "formula_id": "fluid_static_pressure_difference",
+    "name_ja": "静圧差計算",
+    "category": "流体",
+    "summary": "液柱差による静圧差を求めます。",
+    "description": "密度と高さ差から静水圧差を計算します。液位差やヘッド換算の基本です。",
+    "equation_latex": "Delta P = rho g Delta z",
+    "inputs": [
+      {
+        "key": "density",
+        "label_ja": "密度",
+        "description": "流体密度",
+        "standard_unit": "kg/m^3",
+        "allowed_units": [
+          "kg/m^3",
+          "g/cm^3"
+        ],
+        "positive_only": true,
+        "nonzero": true,
+        "suggested_property_key": "density"
+      },
+      {
+        "key": "height_difference",
+        "label_ja": "高さ差",
+        "description": "液面や測点の高さ差",
+        "standard_unit": "m",
+        "allowed_units": [
+          "m",
+          "mm",
+          "cm",
+          "ft"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "pressure_difference",
+        "label_ja": "静圧差",
+        "description": "静水圧差",
+        "standard_unit": "Pa",
+        "allowed_units": [
+          "Pa",
+          "kPa",
+          "bar"
+        ],
+        "required": false,
+        "output_preferred_unit": "kPa"
+      }
+    ],
+    "variable_definitions": {
+      "density": "密度 rho",
+      "height_difference": "高さ差 Delta z",
+      "pressure_difference": "静圧差 Delta P"
+    },
+    "applicability": [
+      "液柱差の概算",
+      "液位差の圧力換算"
+    ],
+    "assumptions": [
+      "密度一定"
+    ],
+    "cautions": [
+      "気体では圧縮性の影響に注意"
+    ],
+    "references": [
+      "静水圧の基礎式"
+    ],
+    "function_name": "static_pressure_difference",
+    "keywords": [
+      "静圧",
+      "ヘッド"
+    ],
+    "interpretation_hint": "高さ差 10 m、水でおよそ 98 kPa 程度の静圧差になります。"
+  },
+  {
+    "formula_id": "fluid_dynamic_pressure",
+    "name_ja": "動圧",
+    "category": "流体",
+    "summary": "流速による動圧を求めます。",
+    "description": "Bernoulli式に現れる速度頭の圧力換算です。計器差圧や噴流の概算に使います。",
+    "equation_latex": "q = rho v^2 / 2",
+    "inputs": [
+      {
+        "key": "density",
+        "label_ja": "密度",
+        "description": "流体密度",
+        "standard_unit": "kg/m^3",
+        "allowed_units": [
+          "kg/m^3",
+          "g/cm^3"
+        ],
+        "positive_only": true,
+        "nonzero": true,
+        "suggested_property_key": "density"
+      },
+      {
+        "key": "velocity",
+        "label_ja": "流速",
+        "description": "流速",
+        "standard_unit": "m/s",
+        "allowed_units": [
+          "m/s"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "dynamic_pressure",
+        "label_ja": "動圧",
+        "description": "流速起因の圧力",
+        "standard_unit": "Pa",
+        "allowed_units": [
+          "Pa",
+          "kPa"
+        ],
+        "required": false,
+        "output_preferred_unit": "kPa"
+      }
+    ],
+    "variable_definitions": {
+      "density": "密度 rho",
+      "velocity": "流速 v",
+      "dynamic_pressure": "動圧 q"
+    },
+    "applicability": [
+      "Bernoulli式の概算",
+      "差圧見積り"
+    ],
+    "assumptions": [
+      "平均流速を用いる"
+    ],
+    "cautions": [
+      "静圧とは別概念です"
+    ],
+    "references": [
+      "流体力学の基礎式"
+    ],
+    "function_name": "dynamic_pressure",
+    "keywords": [
+      "動圧",
+      "ベルヌーイ"
+    ],
+    "interpretation_hint": "流速が2倍になると動圧は4倍になるため、速度依存性に注意してください。"
+  },
+  {
+    "formula_id": "fluid_pipe_cross_section_area",
+    "name_ja": "管断面積",
+    "category": "流体",
+    "summary": "管径から断面積を求めます。",
+    "description": "円管の断面積を計算します。流速や流量換算の前処理として最も頻繁に使う式です。",
+    "equation_latex": "A = pi D^2 / 4",
+    "inputs": [
+      {
+        "key": "diameter",
+        "label_ja": "管内径",
+        "description": "管の内径",
+        "standard_unit": "m",
+        "allowed_units": [
+          "m",
+          "mm",
+          "cm",
+          "inch",
+          "ft"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "area",
+        "label_ja": "断面積",
+        "description": "円管断面積",
+        "standard_unit": "m^2",
+        "allowed_units": [
+          "m^2",
+          "cm^2"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "diameter": "管内径 D",
+      "area": "断面積 A"
+    },
+    "applicability": [
+      "円管断面の計算"
+    ],
+    "assumptions": [
+      "完全な円形断面"
+    ],
+    "cautions": [
+      "外径ではなく内径を使ってください"
+    ],
+    "references": [
+      "幾何学の基礎式"
+    ],
+    "function_name": "pipe_cross_section_area",
+    "keywords": [
+      "断面積",
+      "管径"
+    ],
+    "interpretation_hint": "流量計算では配管呼び径ではなく実内径で評価するのが安全です。"
+  },
+  {
+    "formula_id": "fluid_hydraulic_diameter",
+    "name_ja": "水力直径",
+    "category": "流体",
+    "summary": "非円形流路の代表径を求めます。",
+    "description": "流路面積と濡れ縁長さから水力直径を計算します。",
+    "equation_latex": "D_h = 4 A / P",
+    "inputs": [
+      {
+        "key": "flow_area",
+        "label_ja": "流路断面積",
+        "description": "実流路の断面積",
+        "standard_unit": "m^2",
+        "allowed_units": [
+          "m^2",
+          "cm^2"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "wetted_perimeter",
+        "label_ja": "濡れ縁長さ",
+        "description": "流体が接する周長",
+        "standard_unit": "m",
+        "allowed_units": [
+          "m",
+          "mm",
+          "cm"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "hydraulic_diameter",
+        "label_ja": "水力直径",
+        "description": "相関式に使う代表径",
+        "standard_unit": "m",
+        "allowed_units": [
+          "m",
+          "mm",
+          "cm"
+        ],
+        "required": false,
+        "output_preferred_unit": "mm"
+      }
+    ],
+    "variable_definitions": {
+      "flow_area": "流路断面積 A",
+      "wetted_perimeter": "濡れ縁長さ P",
+      "hydraulic_diameter": "水力直径 Dh"
+    },
+    "applicability": [
+      "非円形流路の概算"
+    ],
+    "assumptions": [
+      "平均断面で代表化"
+    ],
+    "cautions": [
+      "円管内径そのものではありません"
+    ],
+    "references": [
+      "流体設計の代表量"
+    ],
+    "function_name": "hydraulic_diameter",
+    "keywords": [
+      "水力直径"
+    ],
+    "interpretation_hint": "矩形ダクトなどの相関式へ流し込む代表寸法です。"
+  },
+  {
+    "formula_id": "fluid_mass_flow_from_density",
+    "name_ja": "質量流量",
+    "category": "流体",
+    "summary": "密度と体積流量から質量流量を求めます。",
+    "description": "流量整理で頻繁に使う基礎式です。",
+    "equation_latex": "m_dot = rho Q",
+    "inputs": [
+      {
+        "key": "density",
+        "label_ja": "密度",
+        "description": "流体密度",
+        "standard_unit": "kg/m^3",
+        "allowed_units": [
+          "kg/m^3",
+          "g/cm^3"
+        ],
+        "positive_only": true,
+        "nonzero": true,
+        "suggested_property_key": "density"
+      },
+      {
+        "key": "volumetric_flow",
+        "label_ja": "体積流量",
+        "description": "流体の体積流量",
+        "standard_unit": "m^3/s",
+        "allowed_units": [
+          "m^3/s",
+          "m^3/h",
+          "L/min"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "mass_flow",
+        "label_ja": "質量流量",
+        "description": "換算後の質量流量",
+        "standard_unit": "kg/s",
+        "allowed_units": [
+          "kg/s",
+          "kg/h",
+          "t/h"
+        ],
+        "required": false,
+        "output_preferred_unit": "kg/h"
+      }
+    ],
+    "variable_definitions": {
+      "density": "密度 rho",
+      "volumetric_flow": "体積流量 Q",
+      "mass_flow": "質量流量 mdot"
+    },
+    "applicability": [
+      "流量換算の基礎"
+    ],
+    "assumptions": [
+      "平均密度で近似"
+    ],
+    "cautions": [
+      "圧縮性流体は条件変化に注意"
+    ],
+    "references": [
+      "化学工学基礎式"
+    ],
+    "function_name": "mass_flow_from_density",
+    "keywords": [
+      "質量流量"
+    ],
+    "interpretation_hint": "体積基準を質量基準へ切り替える基本式です。"
+  }
 ]

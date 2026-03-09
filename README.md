@@ -1,26 +1,28 @@
 # Chemease
 
-化学工学エンジニア向けの、日本語 UI で使える Streamlit ベースの化工計算アプリです。化学工学便覧レベルの基礎式・経験式・簡易設計式を、単位換算・物性候補表示・案件保存付きで扱えるようにしています。
+化学工学エンジニア向けの、日本語 UI で使える Streamlit ベースの化工計算アプリです。化学工学便覧レベルの基礎式・経験式・簡易設計式を、単位換算、物性 DB、案件保存、GUI 編集付きで扱えるようにしています。
 
 ## アプリ概要
 
 - 日本語 UI のローカル Web アプリ
 - 式の意味、適用条件、前提、注意点を画面表示
 - `pint` による標準単位ベースの単位換算
-- JSON 管理の式定義・物性 DB
+- JSON 管理の式定義と基礎物性 DB
 - SQLite 管理の案件保存
-- 物性 DB 候補を入力へ反映し、手入力上書きも可能
+- 物性 DB を GUI 上で登録、編集、削除可能
 - 将来の式追加や熱力学モデル追加をしやすい分離構造
 
-初期版では以下の 54 式を搭載しています。
+現行版では以下の 68 式を搭載しています。
 
-- 流体: 10 式
-- 伝熱: 10 式
-- 物質移動: 7 式
-- 蒸留・分離: 5 式
-- 反応工学: 8 式
-- 粉体・機械操作: 5 式
-- 物性・基礎化工計算: 9 式
+- 流体: 12 式
+- 伝熱: 12 式
+- 物質移動: 9 式
+- 蒸留・分離: 7 式
+- 反応工学: 10 式
+- 粉体・機械操作: 7 式
+- 物性・基礎化工計算: 11 式
+
+物性 DB は 21 物質を初期搭載し、代表値に加えて沸点、融点、臨界物性、表面張力、蒸気圧、Prandtl 数などを保持できます。
 
 ## 主な機能
 
@@ -28,10 +30,12 @@
 - 各式の説明、LaTeX、適用条件、前提、注意事項の表示
 - 入力ごとの単位選択と内部標準単位への換算
 - 代表物質 DB からの物性候補読込
-- 物性値のセッション内手入力上書き
-- 案件作成、案件ごとの計算ケース保存・再読込・複製
+- 物性 DB の GUI 登録、編集、削除
+- 計算時の案件内一時上書き
+- 案件作成、案件ごとの計算ケース保存、再読込、複製
 - 結果の CSV / JSON 出力
 - `pytest` による主要機能テスト
+- Windows 向け実行ファイルのビルド対応
 
 ## 画面イメージの説明
 
@@ -68,15 +72,21 @@
 - 物質名検索
 - 物性一覧
 - 適用温度範囲、出典、注意事項
-- セッション内の手入力上書き
+- 案件内の一時上書き
+- GUI からの新規登録、既存編集、削除
 
 ## ディレクトリ構成
 
 ```text
 Chemease/
 ├─ app.py
+├─ launcher.py
 ├─ requirements.txt
+├─ requirements-build.txt
 ├─ README.md
+├─ LICENSE
+├─ Chemease.spec
+├─ build_exe.ps1
 ├─ ui/
 │  ├─ home.py
 │  ├─ calculator_page.py
@@ -105,6 +115,7 @@ Chemease/
 ├─ property_database/
 │  ├─ property_models.py
 │  ├─ property_loader.py
+│  ├─ property_repository.py
 │  └─ property_service.py
 ├─ validation/
 │  ├─ rules.py
@@ -129,7 +140,8 @@ Chemease/
 │  │  └─ substances.json
 │  └─ sample_cases.json
 ├─ projects/
-│  └─ .gitkeep
+│  ├─ .gitkeep
+│  └─ custom_properties.json
 └─ tests/
    ├─ test_units.py
    ├─ test_registry.py
@@ -140,6 +152,7 @@ Chemease/
    ├─ test_formulas_basic.py
    ├─ test_formulas_reaction.py
    ├─ test_formulas_particles.py
+   ├─ test_formulas_extended.py
    └─ test_validation.py
 ```
 
@@ -148,7 +161,7 @@ Chemease/
 ### 前提
 
 - Python 3.11 以上
-- Windows / macOS / Linux いずれでも可
+- Windows / macOS / Linux
 
 ### インストール
 
@@ -169,15 +182,39 @@ python -m pip install -r requirements.txt
 
 ## 起動方法
 
+### 開発時
+
 ```bash
 streamlit run app.py
 ```
 
 初回起動時に以下が利用可能です。
 
-- 54 の計算式
-- 10 物質の代表物性 DB
+- 68 の計算式
+- 21 物質の代表物性 DB
 - SQLite ベースの案件保存先
+- GUI 編集可能なカスタム物性 DB
+
+### 実行ファイル
+
+ローカルビルド済みの Windows 実行ファイルは以下に出力されます。
+
+- `dist/Chemease/Chemease.exe`
+
+実行ファイルを再生成する場合:
+
+```powershell
+./build_exe.ps1
+```
+
+または手動で:
+
+```bash
+python -m pip install -r requirements-build.txt
+pyinstaller --noconfirm --clean Chemease.spec
+```
+
+`launcher.py` が Streamlit サーバを起動し、ブラウザで `http://127.0.0.1:8501` を開きます。
 
 ## テスト方法
 
@@ -195,15 +232,29 @@ python -m pytest -q
 
 ## 物性 DB 更新方法
 
-物性 DB は `data/properties/substances.json` を編集します。
+物性 DB は、同梱 DB とユーザー編集 DB の 2 層構造です。
 
-### 追加・更新手順
+- 同梱 DB: `data/properties/substances.json`
+- ユーザー編集 DB: `projects/custom_properties.json`
+
+### GUI から追加、編集、削除する
+
+1. アプリの `物性参照` 画面を開く
+2. `DB登録・編集` タブを選ぶ
+3. `新規登録` または `既存編集` を選ぶ
+4. 物質名、別名、物性値、単位、出典、備考を入力する
+5. `DBへ保存` を押す
+6. ユーザー登録レコードは `projects/custom_properties.json` に保存される
+
+同じ `substance_id` を保存した場合、同梱 DB よりカスタム DB の値が優先されます。
+
+### ファイルを直接更新する
 
 1. `substance_id` を一意に決める
 2. `name_ja` と `aliases` を設定する
 3. 必要な物性項目を `value` と `unit` で追加する
-4. `temperature_range`、`notes`、`source` を明記する
-5. 必要ならテストを追加する
+4. 必要に応じて `note`、`temperature_range`、`source`、`phase_reference` を記載する
+5. 反映後にテストを実行する
 
 ### 物性 JSON 例
 
@@ -213,13 +264,14 @@ python -m pytest -q
   "name_ja": "サンプル物質",
   "aliases": ["Sample"],
   "density": {"value": 1000.0, "unit": "kg/m^3", "note": "代表値"},
+  "boiling_point": {"value": 373.15, "unit": "K", "note": "1 atm"},
   "source": "社内標準物性表"
 }
 ```
 
 ## 式追加方法
 
-式追加は、**メタデータ** と **計算ロジック** を分けて行います。
+式追加は、メタデータと計算ロジックを分けて行います。
 
 ### 1. JSON に式定義を追加
 
@@ -263,7 +315,7 @@ python -m pytest -q
 初期版では SQLite を採用しています。理由は以下です。
 
 - `Project` と `CalculationCase` の関係を保ちやすい
-- JSON より一覧・検索・更新がしやすい
+- JSON より一覧、検索、更新がしやすい
 - ローカルアプリで配布しやすい
 - 将来の比較機能や履歴管理へ拡張しやすい
 
@@ -308,16 +360,17 @@ python -m pytest -q
 
 - 式定義: `data/formulas/*.json`
 - 物性 DB: `data/properties/substances.json`
+- ユーザー物性 DB: `projects/custom_properties.json`
 - サンプルケース: `data/sample_cases.json`
 
 ## 今後の拡張案
 
 - Antoine 式、蒸気圧 DB、相平衡計算
 - 活量係数モデル、EOS ベース熱力学
-- さらに多くの相関式・装置設計式追加
+- 装置設計式、配管設計式、伝熱相関式の追加
 - PDF / Excel 帳票出力
 - ケース比較の差分表示強化
-- 物性 DB のバージョン管理とインポート機能
+- 物性 DB のインポート、エクスポート、承認フロー
 
 ## ライセンス
 
@@ -328,7 +381,7 @@ python -m pytest -q
 
 ## 注意事項
 
-- 初期版は **MVP** として広く浅く式を搭載しています。
-- 多くの式は便覧レベルの**簡易式・近似式**です。
-- 物性値は**代表値・参考値**です。
-- 実機設計、法規対応、最終仕様決定では、必ず対象条件に合う最新データ・詳細設計式をご確認ください。
+- 多くの式は便覧レベルの簡易式、近似式です。
+- 物性値は代表値、参考値です。
+- GUI で編集した物性 DB はローカルの `projects/custom_properties.json` に保存されます。
+- 実機設計、法規対応、最終仕様決定では、必ず対象条件に合う最新データ、詳細設計式、実測値をご確認ください。

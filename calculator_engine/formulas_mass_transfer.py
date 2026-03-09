@@ -42,6 +42,15 @@ def molar_flux_basic(inputs: dict[str, float]) -> FormulaComputation:
     return FormulaComputation(outputs={"molar_flux": inputs["molar_flow_rate"] / inputs["area"]})
 
 
+def lewis_number(inputs: dict[str, float]) -> FormulaComputation:
+    return FormulaComputation(outputs={"lewis_number": inputs["thermal_diffusivity"] / inputs["diffusivity"]})
+
+
+def overall_mass_transfer_rate(inputs: dict[str, float]) -> FormulaComputation:
+    rate = inputs["overall_mass_transfer_coefficient"] * inputs["area"] * inputs["concentration_difference"]
+    return FormulaComputation(outputs={"mass_transfer_rate": rate})
+
+
 FUNCTIONS = {
     fick_law.__name__: fick_law,
     mass_transfer_rate.__name__: mass_transfer_rate,
@@ -50,5 +59,7 @@ FUNCTIONS = {
     henry_law.__name__: henry_law,
     raoult_law_simple.__name__: raoult_law_simple,
     molar_flux_basic.__name__: molar_flux_basic,
+    lewis_number.__name__: lewis_number,
+    overall_mass_transfer_rate.__name__: overall_mass_transfer_rate,
 }
 

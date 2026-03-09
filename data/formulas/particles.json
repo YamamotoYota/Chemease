@@ -1,7 +1,690 @@
 [
-  {"formula_id":"pt_stokes_settling_velocity","name_ja":"沈降速度（Stokes域）","category":"粉体・機械操作","summary":"微小粒子の終末沈降速度を求めます。","description":"Re が十分小さいStokes域を仮定した基礎式です。粒子分級や沈降の粗い見積りに使います。","equation_latex":"v = g (rho_p - rho_f) d^2 / (18 mu)","inputs":[{"key":"particle_density","label_ja":"粒子密度","description":"粒子の密度","standard_unit":"kg/m^3","allowed_units":["kg/m^3","g/cm^3"],"positive_only":true,"nonzero":true},{"key":"fluid_density","label_ja":"流体密度","description":"連続相の密度","standard_unit":"kg/m^3","allowed_units":["kg/m^3","g/cm^3"],"positive_only":true,"nonzero":true,"suggested_property_key":"density"},{"key":"particle_diameter","label_ja":"粒径","description":"粒子代表径","standard_unit":"m","allowed_units":["m","mm","cm"],"positive_only":true,"nonzero":true},{"key":"viscosity","label_ja":"粘度","description":"流体粘度","standard_unit":"Pas","allowed_units":["Pas","mPas","cP"],"positive_only":true,"nonzero":true,"suggested_property_key":"viscosity"}],"outputs":[{"key":"settling_velocity","label_ja":"沈降速度","description":"Stokes域の終末沈降速度","standard_unit":"m/s","allowed_units":["m/s"],"required":false}],"variable_definitions":{"particle_density":"粒子密度 rho_p","fluid_density":"流体密度 rho_f","particle_diameter":"粒径 d","viscosity":"粘度 mu","settling_velocity":"沈降速度 v"},"applicability":["微小粒子のStokes域"],"assumptions":["球形粒子近似","Re が小さい"],"cautions":["粗粒子では使えません"],"references":["Stokesの式"],"function_name":"stokes_settling_velocity","keywords":["沈降","Stokes"],"interpretation_hint":"まず結果から Re を逆算し、Stokes域の前提が妥当か確認するのが実務的です。"},
-  {"formula_id":"pt_filtration_basic","name_ja":"ろ過基礎式","category":"粉体・機械操作","summary":"定圧ろ過の時間を概算します。","description":"ケーク抵抗とろ材抵抗を含む便覧レベルの簡易式です。単位の整合に注意してください。","equation_latex":"t = mu alpha C V^2 / (2 A^2 Delta P) + mu Rm V / (A Delta P)","inputs":[{"key":"viscosity","label_ja":"粘度","description":"ろ液の粘度","standard_unit":"Pas","allowed_units":["Pas","mPas","cP"],"positive_only":true,"nonzero":true},{"key":"specific_cake_resistance","label_ja":"比ケーク抵抗","description":"ケークの比抵抗","standard_unit":"m/kg","allowed_units":["m/kg"],"positive_only":true,"nonzero":true},{"key":"cake_solids_concentration","label_ja":"固形分濃度","description":"ろ液中の固形分濃度","standard_unit":"kg/m^3","allowed_units":["kg/m^3"],"positive_only":true,"nonzero":true},{"key":"filter_area","label_ja":"ろ過面積","description":"ろ過面積","standard_unit":"m^2","allowed_units":["m^2","cm^2"],"positive_only":true,"nonzero":true},{"key":"pressure_drop","label_ja":"圧力差","description":"ろ過駆動圧","standard_unit":"Pa","allowed_units":["Pa","kPa","bar"],"positive_only":true,"nonzero":true},{"key":"filtrate_volume","label_ja":"ろ液量","description":"積算ろ液量","standard_unit":"m^3","allowed_units":["m^3","L"],"positive_only":true,"nonzero":true},{"key":"medium_resistance","label_ja":"ろ材抵抗","description":"ろ材の抵抗係数","standard_unit":"1/m","allowed_units":["1/m"],"positive_only":true}],"outputs":[{"key":"filtration_time","label_ja":"ろ過時間","description":"必要ろ過時間","standard_unit":"s","allowed_units":["s","min","h"],"required":false,"output_preferred_unit":"min"}],"variable_definitions":{"viscosity":"粘度 mu","specific_cake_resistance":"比ケーク抵抗 alpha","cake_solids_concentration":"固形分濃度 C","filter_area":"ろ過面積 A","pressure_drop":"圧力差 Delta P","filtrate_volume":"ろ液量 V","medium_resistance":"ろ材抵抗 Rm","filtration_time":"ろ過時間 t"},"applicability":["定圧ろ過の概算"],"assumptions":["ケーク特性一定"],"cautions":["圧縮性ケークでは精度低下"],"references":["ろ過理論の基礎式"],"function_name":"filtration_basic","keywords":["ろ過","ケーク"],"interpretation_hint":"比ケーク抵抗のオーダーが結果を大きく左右するため、実測値がある場合は優先してください。"},
-  {"formula_id":"pt_centrifuge_simple","name_ja":"遠心分離の簡易式","category":"粉体・機械操作","summary":"遠心加速度とG値を求めます。","description":"回転数と半径から遠心場の強さを概算します。遠心分離機比較の第一歩として使えます。","equation_latex":"a = omega^2 r","inputs":[{"key":"rotational_speed","label_ja":"回転数","description":"回転数 rpm","standard_unit":"rpm","allowed_units":["rpm"],"positive_only":true,"nonzero":true},{"key":"radius","label_ja":"半径","description":"回転半径","standard_unit":"m","allowed_units":["m","mm","cm"],"positive_only":true,"nonzero":true}],"outputs":[{"key":"centrifugal_acceleration","label_ja":"遠心加速度","description":"遠心加速度","standard_unit":"m/s^2","allowed_units":["m/s^2"],"required":false},{"key":"g_factor","label_ja":"G値","description":"重力加速度比","standard_unit":"fraction","allowed_units":["fraction"],"required":false}],"variable_definitions":{"rotational_speed":"回転数 N","radius":"半径 r","centrifugal_acceleration":"遠心加速度 a","g_factor":"G値"},"applicability":["遠心分離機の比較"],"assumptions":["一定半径で評価"],"cautions":["実際の分離性能は流動様式にも依存"],"references":["遠心操作の基礎式"],"function_name":"centrifuge_simple","keywords":["遠心分離","G値"],"interpretation_hint":"回転数は二乗で効くため、少しの増速でもG値が大きく変わります。"},
-  {"formula_id":"pt_drying_rate_basic","name_ja":"乾燥速度の基礎式","category":"粉体・機械操作","summary":"表面とバルクの湿り差から乾燥速度を求めます。","description":"一定速度乾燥期を意識した簡易式です。乾燥操作の初期見積りに使います。","equation_latex":"N = k (Y_s - Y)","inputs":[{"key":"drying_coefficient","label_ja":"乾燥係数","description":"乾燥速度係数","standard_unit":"kg/(m^2*s)","allowed_units":["kg/(m^2*s)"],"positive_only":true,"nonzero":true},{"key":"surface_humidity","label_ja":"表面湿り","description":"表面側の湿り比や相当指標","standard_unit":"fraction","allowed_units":["fraction","wt%"],"positive_only":true},{"key":"bulk_humidity","label_ja":"バルク湿り","description":"バルク側の湿り比や相当指標","standard_unit":"fraction","allowed_units":["fraction","wt%"],"positive_only":true}],"outputs":[{"key":"drying_rate","label_ja":"乾燥速度","description":"面積基準の乾燥速度","standard_unit":"kg/(m^2*s)","allowed_units":["kg/(m^2*s)"],"required":false}],"variable_definitions":{"drying_coefficient":"乾燥係数 k","surface_humidity":"表面湿り Y_s","bulk_humidity":"バルク湿り Y","drying_rate":"乾燥速度 N"},"applicability":["一定速度乾燥期の概算"],"assumptions":["乾燥係数一定"],"cautions":["減率乾燥期には不十分"],"references":["乾燥操作の基礎式"],"function_name":"drying_rate_basic","keywords":["乾燥速度"],"interpretation_hint":"乾燥後半の減率期では別モデルを使う拡張余地があります。"},
-  {"formula_id":"pt_mixing_ratio","name_ja":"混合比計算","category":"粉体・機械操作","summary":"2流の混合濃度を求めます。","description":"2流混合の質量平均を計算する基礎式です。粉体混合や液混合の簡易評価に使えます。","equation_latex":"x_mix = (F1 x1 + F2 x2) / (F1 + F2)","inputs":[{"key":"stream1_flow","label_ja":"流れ1流量","description":"流れ1の流量","standard_unit":"kg/s","allowed_units":["kg/s","kg/h","t/h"],"positive_only":true,"nonzero":true},{"key":"stream1_concentration","label_ja":"流れ1濃度","description":"流れ1の濃度や含有率","standard_unit":"fraction","allowed_units":["fraction","wt%"],"positive_only":true},{"key":"stream2_flow","label_ja":"流れ2流量","description":"流れ2の流量","standard_unit":"kg/s","allowed_units":["kg/s","kg/h","t/h"],"positive_only":true,"nonzero":true},{"key":"stream2_concentration","label_ja":"流れ2濃度","description":"流れ2の濃度や含有率","standard_unit":"fraction","allowed_units":["fraction","wt%"],"positive_only":true}],"outputs":[{"key":"mixed_concentration","label_ja":"混合後濃度","description":"混合後の平均濃度","standard_unit":"fraction","allowed_units":["fraction","wt%"],"required":false}],"variable_definitions":{"stream1_flow":"流れ1流量 F1","stream1_concentration":"流れ1濃度 x1","stream2_flow":"流れ2流量 F2","stream2_concentration":"流れ2濃度 x2","mixed_concentration":"混合後濃度 xmix"},"applicability":["2流混合の概算"],"assumptions":["完全混合"],"cautions":["体積収縮や発熱は考慮していません"],"references":["混合計算の基礎式"],"function_name":"mixing_ratio","keywords":["混合比","平均濃度"],"interpretation_hint":"流量比を大きく変えると混合後濃度は支配側流れの値に強く引っ張られます。"}
+  {
+    "formula_id": "pt_stokes_settling_velocity",
+    "name_ja": "沈降速度（Stokes域）",
+    "category": "粉体・機械操作",
+    "summary": "微小粒子の終末沈降速度を求めます。",
+    "description": "Re が十分小さいStokes域を仮定した基礎式です。粒子分級や沈降の粗い見積りに使います。",
+    "equation_latex": "v = g (rho_p - rho_f) d^2 / (18 mu)",
+    "inputs": [
+      {
+        "key": "particle_density",
+        "label_ja": "粒子密度",
+        "description": "粒子の密度",
+        "standard_unit": "kg/m^3",
+        "allowed_units": [
+          "kg/m^3",
+          "g/cm^3"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "fluid_density",
+        "label_ja": "流体密度",
+        "description": "連続相の密度",
+        "standard_unit": "kg/m^3",
+        "allowed_units": [
+          "kg/m^3",
+          "g/cm^3"
+        ],
+        "positive_only": true,
+        "nonzero": true,
+        "suggested_property_key": "density"
+      },
+      {
+        "key": "particle_diameter",
+        "label_ja": "粒径",
+        "description": "粒子代表径",
+        "standard_unit": "m",
+        "allowed_units": [
+          "m",
+          "mm",
+          "cm"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "viscosity",
+        "label_ja": "粘度",
+        "description": "流体粘度",
+        "standard_unit": "Pas",
+        "allowed_units": [
+          "Pas",
+          "mPas",
+          "cP"
+        ],
+        "positive_only": true,
+        "nonzero": true,
+        "suggested_property_key": "viscosity"
+      }
+    ],
+    "outputs": [
+      {
+        "key": "settling_velocity",
+        "label_ja": "沈降速度",
+        "description": "Stokes域の終末沈降速度",
+        "standard_unit": "m/s",
+        "allowed_units": [
+          "m/s"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "particle_density": "粒子密度 rho_p",
+      "fluid_density": "流体密度 rho_f",
+      "particle_diameter": "粒径 d",
+      "viscosity": "粘度 mu",
+      "settling_velocity": "沈降速度 v"
+    },
+    "applicability": [
+      "微小粒子のStokes域"
+    ],
+    "assumptions": [
+      "球形粒子近似",
+      "Re が小さい"
+    ],
+    "cautions": [
+      "粗粒子では使えません"
+    ],
+    "references": [
+      "Stokesの式"
+    ],
+    "function_name": "stokes_settling_velocity",
+    "keywords": [
+      "沈降",
+      "Stokes"
+    ],
+    "interpretation_hint": "まず結果から Re を逆算し、Stokes域の前提が妥当か確認するのが実務的です。"
+  },
+  {
+    "formula_id": "pt_filtration_basic",
+    "name_ja": "ろ過基礎式",
+    "category": "粉体・機械操作",
+    "summary": "定圧ろ過の時間を概算します。",
+    "description": "ケーク抵抗とろ材抵抗を含む便覧レベルの簡易式です。単位の整合に注意してください。",
+    "equation_latex": "t = mu alpha C V^2 / (2 A^2 Delta P) + mu Rm V / (A Delta P)",
+    "inputs": [
+      {
+        "key": "viscosity",
+        "label_ja": "粘度",
+        "description": "ろ液の粘度",
+        "standard_unit": "Pas",
+        "allowed_units": [
+          "Pas",
+          "mPas",
+          "cP"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "specific_cake_resistance",
+        "label_ja": "比ケーク抵抗",
+        "description": "ケークの比抵抗",
+        "standard_unit": "m/kg",
+        "allowed_units": [
+          "m/kg"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "cake_solids_concentration",
+        "label_ja": "固形分濃度",
+        "description": "ろ液中の固形分濃度",
+        "standard_unit": "kg/m^3",
+        "allowed_units": [
+          "kg/m^3"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "filter_area",
+        "label_ja": "ろ過面積",
+        "description": "ろ過面積",
+        "standard_unit": "m^2",
+        "allowed_units": [
+          "m^2",
+          "cm^2"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "pressure_drop",
+        "label_ja": "圧力差",
+        "description": "ろ過駆動圧",
+        "standard_unit": "Pa",
+        "allowed_units": [
+          "Pa",
+          "kPa",
+          "bar"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "filtrate_volume",
+        "label_ja": "ろ液量",
+        "description": "積算ろ液量",
+        "standard_unit": "m^3",
+        "allowed_units": [
+          "m^3",
+          "L"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "medium_resistance",
+        "label_ja": "ろ材抵抗",
+        "description": "ろ材の抵抗係数",
+        "standard_unit": "1/m",
+        "allowed_units": [
+          "1/m"
+        ],
+        "positive_only": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "filtration_time",
+        "label_ja": "ろ過時間",
+        "description": "必要ろ過時間",
+        "standard_unit": "s",
+        "allowed_units": [
+          "s",
+          "min",
+          "h"
+        ],
+        "required": false,
+        "output_preferred_unit": "min"
+      }
+    ],
+    "variable_definitions": {
+      "viscosity": "粘度 mu",
+      "specific_cake_resistance": "比ケーク抵抗 alpha",
+      "cake_solids_concentration": "固形分濃度 C",
+      "filter_area": "ろ過面積 A",
+      "pressure_drop": "圧力差 Delta P",
+      "filtrate_volume": "ろ液量 V",
+      "medium_resistance": "ろ材抵抗 Rm",
+      "filtration_time": "ろ過時間 t"
+    },
+    "applicability": [
+      "定圧ろ過の概算"
+    ],
+    "assumptions": [
+      "ケーク特性一定"
+    ],
+    "cautions": [
+      "圧縮性ケークでは精度低下"
+    ],
+    "references": [
+      "ろ過理論の基礎式"
+    ],
+    "function_name": "filtration_basic",
+    "keywords": [
+      "ろ過",
+      "ケーク"
+    ],
+    "interpretation_hint": "比ケーク抵抗のオーダーが結果を大きく左右するため、実測値がある場合は優先してください。"
+  },
+  {
+    "formula_id": "pt_centrifuge_simple",
+    "name_ja": "遠心分離の簡易式",
+    "category": "粉体・機械操作",
+    "summary": "遠心加速度とG値を求めます。",
+    "description": "回転数と半径から遠心場の強さを概算します。遠心分離機比較の第一歩として使えます。",
+    "equation_latex": "a = omega^2 r",
+    "inputs": [
+      {
+        "key": "rotational_speed",
+        "label_ja": "回転数",
+        "description": "回転数 rpm",
+        "standard_unit": "rpm",
+        "allowed_units": [
+          "rpm"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "radius",
+        "label_ja": "半径",
+        "description": "回転半径",
+        "standard_unit": "m",
+        "allowed_units": [
+          "m",
+          "mm",
+          "cm"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "centrifugal_acceleration",
+        "label_ja": "遠心加速度",
+        "description": "遠心加速度",
+        "standard_unit": "m/s^2",
+        "allowed_units": [
+          "m/s^2"
+        ],
+        "required": false
+      },
+      {
+        "key": "g_factor",
+        "label_ja": "G値",
+        "description": "重力加速度比",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "rotational_speed": "回転数 N",
+      "radius": "半径 r",
+      "centrifugal_acceleration": "遠心加速度 a",
+      "g_factor": "G値"
+    },
+    "applicability": [
+      "遠心分離機の比較"
+    ],
+    "assumptions": [
+      "一定半径で評価"
+    ],
+    "cautions": [
+      "実際の分離性能は流動様式にも依存"
+    ],
+    "references": [
+      "遠心操作の基礎式"
+    ],
+    "function_name": "centrifuge_simple",
+    "keywords": [
+      "遠心分離",
+      "G値"
+    ],
+    "interpretation_hint": "回転数は二乗で効くため、少しの増速でもG値が大きく変わります。"
+  },
+  {
+    "formula_id": "pt_drying_rate_basic",
+    "name_ja": "乾燥速度の基礎式",
+    "category": "粉体・機械操作",
+    "summary": "表面とバルクの湿り差から乾燥速度を求めます。",
+    "description": "一定速度乾燥期を意識した簡易式です。乾燥操作の初期見積りに使います。",
+    "equation_latex": "N = k (Y_s - Y)",
+    "inputs": [
+      {
+        "key": "drying_coefficient",
+        "label_ja": "乾燥係数",
+        "description": "乾燥速度係数",
+        "standard_unit": "kg/(m^2*s)",
+        "allowed_units": [
+          "kg/(m^2*s)"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "surface_humidity",
+        "label_ja": "表面湿り",
+        "description": "表面側の湿り比や相当指標",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction",
+          "wt%"
+        ],
+        "positive_only": true
+      },
+      {
+        "key": "bulk_humidity",
+        "label_ja": "バルク湿り",
+        "description": "バルク側の湿り比や相当指標",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction",
+          "wt%"
+        ],
+        "positive_only": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "drying_rate",
+        "label_ja": "乾燥速度",
+        "description": "面積基準の乾燥速度",
+        "standard_unit": "kg/(m^2*s)",
+        "allowed_units": [
+          "kg/(m^2*s)"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "drying_coefficient": "乾燥係数 k",
+      "surface_humidity": "表面湿り Y_s",
+      "bulk_humidity": "バルク湿り Y",
+      "drying_rate": "乾燥速度 N"
+    },
+    "applicability": [
+      "一定速度乾燥期の概算"
+    ],
+    "assumptions": [
+      "乾燥係数一定"
+    ],
+    "cautions": [
+      "減率乾燥期には不十分"
+    ],
+    "references": [
+      "乾燥操作の基礎式"
+    ],
+    "function_name": "drying_rate_basic",
+    "keywords": [
+      "乾燥速度"
+    ],
+    "interpretation_hint": "乾燥後半の減率期では別モデルを使う拡張余地があります。"
+  },
+  {
+    "formula_id": "pt_mixing_ratio",
+    "name_ja": "混合比計算",
+    "category": "粉体・機械操作",
+    "summary": "2流の混合濃度を求めます。",
+    "description": "2流混合の質量平均を計算する基礎式です。粉体混合や液混合の簡易評価に使えます。",
+    "equation_latex": "x_mix = (F1 x1 + F2 x2) / (F1 + F2)",
+    "inputs": [
+      {
+        "key": "stream1_flow",
+        "label_ja": "流れ1流量",
+        "description": "流れ1の流量",
+        "standard_unit": "kg/s",
+        "allowed_units": [
+          "kg/s",
+          "kg/h",
+          "t/h"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "stream1_concentration",
+        "label_ja": "流れ1濃度",
+        "description": "流れ1の濃度や含有率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction",
+          "wt%"
+        ],
+        "positive_only": true
+      },
+      {
+        "key": "stream2_flow",
+        "label_ja": "流れ2流量",
+        "description": "流れ2の流量",
+        "standard_unit": "kg/s",
+        "allowed_units": [
+          "kg/s",
+          "kg/h",
+          "t/h"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "stream2_concentration",
+        "label_ja": "流れ2濃度",
+        "description": "流れ2の濃度や含有率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction",
+          "wt%"
+        ],
+        "positive_only": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "mixed_concentration",
+        "label_ja": "混合後濃度",
+        "description": "混合後の平均濃度",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction",
+          "wt%"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "stream1_flow": "流れ1流量 F1",
+      "stream1_concentration": "流れ1濃度 x1",
+      "stream2_flow": "流れ2流量 F2",
+      "stream2_concentration": "流れ2濃度 x2",
+      "mixed_concentration": "混合後濃度 xmix"
+    },
+    "applicability": [
+      "2流混合の概算"
+    ],
+    "assumptions": [
+      "完全混合"
+    ],
+    "cautions": [
+      "体積収縮や発熱は考慮していません"
+    ],
+    "references": [
+      "混合計算の基礎式"
+    ],
+    "function_name": "mixing_ratio",
+    "keywords": [
+      "混合比",
+      "平均濃度"
+    ],
+    "interpretation_hint": "流量比を大きく変えると混合後濃度は支配側流れの値に強く引っ張られます。"
+  },
+  {
+    "formula_id": "pt_ergun_pressure_drop",
+    "name_ja": "Ergun式圧力損失",
+    "category": "粉体・機械操作",
+    "summary": "充填層の圧力損失を推算します。",
+    "description": "固定床や充填塔の初期設計で使う代表式です。",
+    "equation_latex": "Delta P = L [150 (1-eps)^2 mu v / (eps^3 dp^2) + 1.75 (1-eps) rho v^2 / (eps^3 dp)]",
+    "inputs": [
+      {
+        "key": "void_fraction",
+        "label_ja": "空隙率",
+        "description": "充填層の空隙率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction",
+          "vol%"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "bed_length",
+        "label_ja": "層高",
+        "description": "充填層の高さ",
+        "standard_unit": "m",
+        "allowed_units": [
+          "m",
+          "mm",
+          "cm"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "particle_diameter",
+        "label_ja": "粒径",
+        "description": "代表粒径",
+        "standard_unit": "m",
+        "allowed_units": [
+          "m",
+          "mm",
+          "cm"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "viscosity",
+        "label_ja": "粘度",
+        "description": "流体粘度",
+        "standard_unit": "Pas",
+        "allowed_units": [
+          "Pas",
+          "mPas",
+          "cP"
+        ],
+        "positive_only": true,
+        "nonzero": true,
+        "suggested_property_key": "viscosity"
+      },
+      {
+        "key": "superficial_velocity",
+        "label_ja": "空塔速度",
+        "description": "空塔基準速度",
+        "standard_unit": "m/s",
+        "allowed_units": [
+          "m/s"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "fluid_density",
+        "label_ja": "流体密度",
+        "description": "流体密度",
+        "standard_unit": "kg/m^3",
+        "allowed_units": [
+          "kg/m^3",
+          "g/cm^3"
+        ],
+        "positive_only": true,
+        "nonzero": true,
+        "suggested_property_key": "density"
+      }
+    ],
+    "outputs": [
+      {
+        "key": "pressure_drop",
+        "label_ja": "圧力損失",
+        "description": "充填層圧力損失",
+        "standard_unit": "Pa",
+        "allowed_units": [
+          "Pa",
+          "kPa",
+          "bar"
+        ],
+        "required": false,
+        "output_preferred_unit": "kPa"
+      }
+    ],
+    "variable_definitions": {
+      "void_fraction": "空隙率 eps",
+      "bed_length": "層高 L",
+      "particle_diameter": "粒径 dp",
+      "viscosity": "粘度 mu",
+      "superficial_velocity": "空塔速度 v",
+      "fluid_density": "密度 rho",
+      "pressure_drop": "圧力損失 Delta P"
+    },
+    "applicability": [
+      "固定床・充填塔の初期設計"
+    ],
+    "assumptions": [
+      "代表粒径で近似"
+    ],
+    "cautions": [
+      "非常に高Reでは精度確認が必要"
+    ],
+    "references": [
+      "Ergun式"
+    ],
+    "function_name": "ergun_pressure_drop",
+    "keywords": [
+      "Ergun",
+      "充填層圧損"
+    ],
+    "interpretation_hint": "粒径と空隙率の影響が大きいので、充填材データがあれば優先してください。"
+  },
+  {
+    "formula_id": "pt_screen_open_area_ratio",
+    "name_ja": "ふるい開口率",
+    "category": "粉体・機械操作",
+    "summary": "ふるい面の開口率を求めます。",
+    "description": "開口寸法とピッチから簡易的に開口率を見積もります。",
+    "equation_latex": "phi = (a / p)^2",
+    "inputs": [
+      {
+        "key": "aperture",
+        "label_ja": "開口寸法",
+        "description": "1つの開口幅",
+        "standard_unit": "m",
+        "allowed_units": [
+          "m",
+          "mm",
+          "cm"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "pitch",
+        "label_ja": "ピッチ",
+        "description": "中心間ピッチ",
+        "standard_unit": "m",
+        "allowed_units": [
+          "m",
+          "mm",
+          "cm"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "open_area_ratio",
+        "label_ja": "開口率",
+        "description": "ふるい開口率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction",
+          "vol%"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "aperture": "開口寸法 a",
+      "pitch": "ピッチ p",
+      "open_area_ratio": "開口率 phi"
+    },
+    "applicability": [
+      "ふるい・スクリーンの比較"
+    ],
+    "assumptions": [
+      "単純格子で近似"
+    ],
+    "cautions": [
+      "線径や骨材形状は別途考慮"
+    ],
+    "references": [
+      "ふるい設計の基本量"
+    ],
+    "function_name": "screen_open_area_ratio",
+    "keywords": [
+      "開口率"
+    ],
+    "interpretation_hint": "開口率が高いほど処理量に有利ですが、強度や分級性能とのバランスが必要です。"
+  }
 ]

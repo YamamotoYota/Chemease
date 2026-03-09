@@ -54,6 +54,16 @@ def wall_resistance_series(inputs: dict[str, float]) -> FormulaComputation:
     return FormulaComputation(outputs={"total_resistance": total_resistance, "overall_u": 1.0 / total_resistance})
 
 
+def thermal_resistance_basic(inputs: dict[str, float]) -> FormulaComputation:
+    resistance = inputs["thickness"] / (inputs["thermal_conductivity"] * inputs["area"])
+    return FormulaComputation(outputs={"thermal_resistance": resistance})
+
+
+def nusselt_number(inputs: dict[str, float]) -> FormulaComputation:
+    nusselt = inputs["heat_transfer_coefficient"] * inputs["characteristic_length"] / inputs["thermal_conductivity"]
+    return FormulaComputation(outputs={"nusselt_number": nusselt})
+
+
 FUNCTIONS = {
     sensible_heat.__name__: sensible_heat,
     latent_heat.__name__: latent_heat,
@@ -65,5 +75,7 @@ FUNCTIONS = {
     lmtd.__name__: lmtd,
     overall_heat_transfer_coefficient.__name__: overall_heat_transfer_coefficient,
     wall_resistance_series.__name__: wall_resistance_series,
+    thermal_resistance_basic.__name__: thermal_resistance_basic,
+    nusselt_number.__name__: nusselt_number,
 }
 

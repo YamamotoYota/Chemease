@@ -47,6 +47,14 @@ def residence_time(inputs: dict[str, float]) -> FormulaComputation:
     return FormulaComputation(outputs={"residence_time": inputs["reactor_volume"] / inputs["volumetric_flow"]})
 
 
+def damkohler_number(inputs: dict[str, float]) -> FormulaComputation:
+    return FormulaComputation(outputs={"damkohler_number": inputs["rate_constant"] * inputs["residence_time"]})
+
+
+def first_order_rate(inputs: dict[str, float]) -> FormulaComputation:
+    return FormulaComputation(outputs={"reaction_rate": inputs["rate_constant"] * inputs["concentration"]})
+
+
 FUNCTIONS = {
     conversion.__name__: conversion,
     yield_value.__name__: yield_value,
@@ -56,5 +64,7 @@ FUNCTIONS = {
     cstr_first_order.__name__: cstr_first_order,
     pfr_first_order.__name__: pfr_first_order,
     residence_time.__name__: residence_time,
+    damkohler_number.__name__: damkohler_number,
+    first_order_rate.__name__: first_order_rate,
 }
 

@@ -48,11 +48,31 @@ def mixing_ratio(inputs: dict[str, float]) -> FormulaComputation:
     return FormulaComputation(outputs={"mixed_concentration": mixed_concentration})
 
 
+def ergun_pressure_drop(inputs: dict[str, float]) -> FormulaComputation:
+    void_fraction = inputs["void_fraction"]
+    packed_length = inputs["bed_length"]
+    particle_diameter = inputs["particle_diameter"]
+    viscosity = inputs["viscosity"]
+    superficial_velocity = inputs["superficial_velocity"]
+    density = inputs["fluid_density"]
+    first_term = 150.0 * (1.0 - void_fraction) ** 2 * viscosity * superficial_velocity / (void_fraction ** 3 * particle_diameter ** 2)
+    second_term = 1.75 * (1.0 - void_fraction) * density * superficial_velocity ** 2 / (void_fraction ** 3 * particle_diameter)
+    pressure_drop = packed_length * (first_term + second_term)
+    return FormulaComputation(outputs={"pressure_drop": pressure_drop})
+
+
+def screen_open_area_ratio(inputs: dict[str, float]) -> FormulaComputation:
+    ratio = (inputs["aperture"] / inputs["pitch"]) ** 2
+    return FormulaComputation(outputs={"open_area_ratio": ratio})
+
+
 FUNCTIONS = {
     stokes_settling_velocity.__name__: stokes_settling_velocity,
     filtration_basic.__name__: filtration_basic,
     centrifuge_simple.__name__: centrifuge_simple,
     drying_rate_basic.__name__: drying_rate_basic,
     mixing_ratio.__name__: mixing_ratio,
+    ergun_pressure_drop.__name__: ergun_pressure_drop,
+    screen_open_area_ratio.__name__: screen_open_area_ratio,
 }
 

@@ -84,6 +84,16 @@ def pipe_cross_section_area(inputs: dict[str, float]) -> FormulaComputation:
     return FormulaComputation(outputs={"area": math.pi * diameter ** 2 / 4.0})
 
 
+def hydraulic_diameter(inputs: dict[str, float]) -> FormulaComputation:
+    diameter = 4.0 * inputs["flow_area"] / inputs["wetted_perimeter"]
+    return FormulaComputation(outputs={"hydraulic_diameter": diameter})
+
+
+def mass_flow_from_density(inputs: dict[str, float]) -> FormulaComputation:
+    mass_flow = inputs["density"] * inputs["volumetric_flow"]
+    return FormulaComputation(outputs={"mass_flow": mass_flow})
+
+
 FUNCTIONS = {
     average_velocity.__name__: average_velocity,
     reynolds_number.__name__: reynolds_number,
@@ -95,5 +105,7 @@ FUNCTIONS = {
     static_pressure_difference.__name__: static_pressure_difference,
     dynamic_pressure.__name__: dynamic_pressure,
     pipe_cross_section_area.__name__: pipe_cross_section_area,
+    hydraulic_diameter.__name__: hydraulic_diameter,
+    mass_flow_from_density.__name__: mass_flow_from_density,
 }
 

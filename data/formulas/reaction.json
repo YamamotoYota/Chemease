@@ -1,10 +1,705 @@
 [
-  {"formula_id":"rx_conversion","name_ja":"転化率","category":"反応工学","summary":"反応物がどれだけ消費されたかを求めます。","description":"入口と出口の反応物量から転化率を計算する最も基本的な式です。","equation_latex":"X = (F0 - F) / F0","inputs":[{"key":"feed_molar_flow","label_ja":"入口モル流量","description":"反応物の入口モル流量","standard_unit":"mol/s","allowed_units":["mol/s","kmol/h"],"positive_only":true,"nonzero":true},{"key":"outlet_molar_flow","label_ja":"出口モル流量","description":"反応物の出口モル流量","standard_unit":"mol/s","allowed_units":["mol/s","kmol/h"],"positive_only":true}],"outputs":[{"key":"conversion","label_ja":"転化率","description":"反応物転化率","standard_unit":"fraction","allowed_units":["fraction","mol%"],"required":false}],"variable_definitions":{"feed_molar_flow":"入口流量 F0","outlet_molar_flow":"出口流量 F","conversion":"転化率 X"},"applicability":["反応器性能の基本評価"],"assumptions":["対象反応物を1成分で代表化"],"cautions":["副反応の情報は含みません"],"references":["反応工学の基礎式"],"function_name":"conversion","keywords":["転化率"],"interpretation_hint":"転化率だけでは生成物の有効利用度は分からないため、収率や選択率も併せて見ると有効です。"},
-  {"formula_id":"rx_yield_value","name_ja":"収率","category":"反応工学","summary":"実収量と理論収量から収率を求めます。","description":"生成物が理論上どれだけ得られるかに対する達成割合です。","equation_latex":"Y = actual / theoretical","inputs":[{"key":"actual_product","label_ja":"実収量","description":"実際に得られた生成物量","standard_unit":"kg","allowed_units":["kg","g","t"],"positive_only":true},{"key":"theoretical_product","label_ja":"理論収量","description":"理論上の生成物量","standard_unit":"kg","allowed_units":["kg","g","t"],"positive_only":true,"nonzero":true}],"outputs":[{"key":"yield","label_ja":"収率","description":"実収量/理論収量","standard_unit":"fraction","allowed_units":["fraction","mol%"],"required":false}],"variable_definitions":{"actual_product":"実収量","theoretical_product":"理論収量","yield":"収率 Y"},"applicability":["製造実績の整理"],"assumptions":["比較基準を統一"],"cautions":["質量基準かモル基準かを揃える"],"references":["反応工学の基本指標"],"function_name":"yield_value","keywords":["収率"],"interpretation_hint":"収率は副反応や回収ロスをまとめて反映するため、工程改善の評価に向いています。"},
-  {"formula_id":"rx_selectivity","name_ja":"選択率","category":"反応工学","summary":"目的生成物と副生成物の比を求めます。","description":"副反応の抑制度合いをみる基本指標です。高いほど目的生成物への偏りが大きいことを示します。","equation_latex":"S = desired / byproduct","inputs":[{"key":"desired_product","label_ja":"目的生成物量","description":"目的生成物の量","standard_unit":"mol","allowed_units":["mol","kmol"],"positive_only":true},{"key":"byproduct","label_ja":"副生成物量","description":"副生成物の量","standard_unit":"mol","allowed_units":["mol","kmol"],"positive_only":true,"nonzero":true}],"outputs":[{"key":"selectivity","label_ja":"選択率","description":"目的生成物/副生成物","standard_unit":"fraction","allowed_units":["fraction"],"required":false}],"variable_definitions":{"desired_product":"目的生成物量","byproduct":"副生成物量","selectivity":"選択率 S"},"applicability":["副反応評価"],"assumptions":["比較基準を同一にする"],"cautions":["基準物質量の定義を明示"],"references":["反応工学の基本指標"],"function_name":"selectivity","keywords":["選択率"],"interpretation_hint":"選択率が高くても転化率が低い場合があるため、両者をセットで確認してください。"},
-  {"formula_id":"rx_arrhenius_rate_constant","name_ja":"Arrhenius式","category":"反応工学","summary":"温度から速度定数を求めます。","description":"活性化エネルギーと頻度因子から速度定数を計算する代表式です。温度依存性の把握に使います。","equation_latex":"k = A exp(-Ea / RT)","inputs":[{"key":"pre_exponential_factor","label_ja":"頻度因子","description":"Arrhenius式の A","standard_unit":"1/s","allowed_units":["1/s"],"positive_only":true,"nonzero":true},{"key":"activation_energy","label_ja":"活性化エネルギー","description":"Arrhenius式の Ea","standard_unit":"J/mol","allowed_units":["J/mol","kJ/mol"],"positive_only":true,"nonzero":true},{"key":"temperature","label_ja":"温度","description":"反応温度","standard_unit":"K","allowed_units":["K","degC"],"positive_only":true,"nonzero":true}],"outputs":[{"key":"rate_constant","label_ja":"速度定数","description":"求めた反応速度定数","standard_unit":"1/s","allowed_units":["1/s"],"required":false}],"variable_definitions":{"pre_exponential_factor":"頻度因子 A","activation_energy":"活性化エネルギー Ea","temperature":"温度 T","rate_constant":"速度定数 k"},"applicability":["温度依存性の概算"],"assumptions":["Arrhenius型に従う"],"cautions":["温度単位は絶対温度で扱う"],"references":["Arrhenius式"],"function_name":"arrhenius_rate_constant","keywords":["Arrhenius","速度定数"],"interpretation_hint":"温度が少し上がるだけでも k が大きく増えることがあるため、感度確認に有効です。"},
-  {"formula_id":"rx_batch_reactor_first_order","name_ja":"回分反応器の基礎式","category":"反応工学","summary":"一次反応の回分転化率を求めます。","description":"一次不可逆反応を仮定した回分反応器の基本式です。","equation_latex":"X = 1 - exp(-k t)","inputs":[{"key":"rate_constant","label_ja":"速度定数","description":"一次反応速度定数","standard_unit":"1/s","allowed_units":["1/s"],"positive_only":true,"nonzero":true},{"key":"time","label_ja":"反応時間","description":"滞留または反応時間","standard_unit":"s","allowed_units":["s","min","h"],"positive_only":true,"nonzero":true}],"outputs":[{"key":"conversion","label_ja":"転化率","description":"一次回分の転化率","standard_unit":"fraction","allowed_units":["fraction","mol%"],"required":false}],"variable_definitions":{"rate_constant":"速度定数 k","time":"時間 t","conversion":"転化率 X"},"applicability":["一次不可逆反応"],"assumptions":["等温・一定体積"],"cautions":["高次反応にはそのまま使えません"],"references":["回分反応器の基礎式"],"function_name":"batch_reactor_first_order","keywords":["回分反応器"],"interpretation_hint":"長時間ほど 1 に近づきますが、実機では平衡や副反応で頭打ちになることがあります。"},
-  {"formula_id":"rx_cstr_first_order","name_ja":"CSTRの基礎式","category":"反応工学","summary":"一次反応のCSTR転化率を求めます。","description":"完全混合槽型反応器で一次反応を仮定した簡易式です。","equation_latex":"X = k tau / (1 + k tau)","inputs":[{"key":"rate_constant","label_ja":"速度定数","description":"一次反応速度定数","standard_unit":"1/s","allowed_units":["1/s"],"positive_only":true,"nonzero":true},{"key":"residence_time","label_ja":"滞留時間","description":"反応器滞留時間","standard_unit":"s","allowed_units":["s","min","h"],"positive_only":true,"nonzero":true}],"outputs":[{"key":"conversion","label_ja":"転化率","description":"CSTRの転化率","standard_unit":"fraction","allowed_units":["fraction","mol%"],"required":false}],"variable_definitions":{"rate_constant":"速度定数 k","residence_time":"滞留時間 tau","conversion":"転化率 X"},"applicability":["完全混合CSTRの概算"],"assumptions":["等温・一次反応"],"cautions":["混合不良や多段化は反映しません"],"references":["CSTR設計の基礎式"],"function_name":"cstr_first_order","keywords":["CSTR"],"interpretation_hint":"同じ tau なら一次反応では PFR より低転化になりやすい点を比較に使えます。"},
-  {"formula_id":"rx_pfr_first_order","name_ja":"PFRの基礎式","category":"反応工学","summary":"一次反応のPFR転化率を求めます。","description":"押出し流れ反応器で一次反応を仮定した基礎式です。","equation_latex":"X = 1 - exp(-k tau)","inputs":[{"key":"rate_constant","label_ja":"速度定数","description":"一次反応速度定数","standard_unit":"1/s","allowed_units":["1/s"],"positive_only":true,"nonzero":true},{"key":"residence_time","label_ja":"滞留時間","description":"反応器滞留時間","standard_unit":"s","allowed_units":["s","min","h"],"positive_only":true,"nonzero":true}],"outputs":[{"key":"conversion","label_ja":"転化率","description":"PFRの転化率","standard_unit":"fraction","allowed_units":["fraction","mol%"],"required":false}],"variable_definitions":{"rate_constant":"速度定数 k","residence_time":"滞留時間 tau","conversion":"転化率 X"},"applicability":["一次反応PFRの概算"],"assumptions":["押出し流れ・等温"],"cautions":["軸方向混合や熱効果は無視"],"references":["PFR設計の基礎式"],"function_name":"pfr_first_order","keywords":["PFR"],"interpretation_hint":"同じ滞留時間では CSTR より高転化になりやすい典型例です。"},
-  {"formula_id":"rx_residence_time","name_ja":"滞留時間","category":"反応工学","summary":"反応器容積と流量から滞留時間を求めます。","description":"反応器の平均滞留時間の概算に使う基礎式です。反応器比較の初期指標として便利です。","equation_latex":"tau = V / Q","inputs":[{"key":"reactor_volume","label_ja":"反応器容積","description":"有効反応器容積","standard_unit":"m^3","allowed_units":["m^3","L","mL"],"positive_only":true,"nonzero":true},{"key":"volumetric_flow","label_ja":"体積流量","description":"処理流量","standard_unit":"m^3/s","allowed_units":["m^3/s","m^3/h","L/min"],"positive_only":true,"nonzero":true}],"outputs":[{"key":"residence_time","label_ja":"滞留時間","description":"平均滞留時間","standard_unit":"s","allowed_units":["s","min","h"],"required":false,"output_preferred_unit":"min"}],"variable_definitions":{"reactor_volume":"反応器容積 V","volumetric_flow":"体積流量 Q","residence_time":"滞留時間 tau"},"applicability":["反応器比較","前処理計算"],"assumptions":["平均流量を使用"],"cautions":["デッドゾーンや短絡流は反映しません"],"references":["反応器設計の基本式"],"function_name":"residence_time","keywords":["滞留時間"],"interpretation_hint":"反応速度定数と掛け合わせると Damkohler 数的な感覚が掴みやすくなります。"}
+  {
+    "formula_id": "rx_conversion",
+    "name_ja": "転化率",
+    "category": "反応工学",
+    "summary": "反応物がどれだけ消費されたかを求めます。",
+    "description": "入口と出口の反応物量から転化率を計算する最も基本的な式です。",
+    "equation_latex": "X = (F0 - F) / F0",
+    "inputs": [
+      {
+        "key": "feed_molar_flow",
+        "label_ja": "入口モル流量",
+        "description": "反応物の入口モル流量",
+        "standard_unit": "mol/s",
+        "allowed_units": [
+          "mol/s",
+          "kmol/h"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "outlet_molar_flow",
+        "label_ja": "出口モル流量",
+        "description": "反応物の出口モル流量",
+        "standard_unit": "mol/s",
+        "allowed_units": [
+          "mol/s",
+          "kmol/h"
+        ],
+        "positive_only": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "conversion",
+        "label_ja": "転化率",
+        "description": "反応物転化率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction",
+          "mol%"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "feed_molar_flow": "入口流量 F0",
+      "outlet_molar_flow": "出口流量 F",
+      "conversion": "転化率 X"
+    },
+    "applicability": [
+      "反応器性能の基本評価"
+    ],
+    "assumptions": [
+      "対象反応物を1成分で代表化"
+    ],
+    "cautions": [
+      "副反応の情報は含みません"
+    ],
+    "references": [
+      "反応工学の基礎式"
+    ],
+    "function_name": "conversion",
+    "keywords": [
+      "転化率"
+    ],
+    "interpretation_hint": "転化率だけでは生成物の有効利用度は分からないため、収率や選択率も併せて見ると有効です。"
+  },
+  {
+    "formula_id": "rx_yield_value",
+    "name_ja": "収率",
+    "category": "反応工学",
+    "summary": "実収量と理論収量から収率を求めます。",
+    "description": "生成物が理論上どれだけ得られるかに対する達成割合です。",
+    "equation_latex": "Y = actual / theoretical",
+    "inputs": [
+      {
+        "key": "actual_product",
+        "label_ja": "実収量",
+        "description": "実際に得られた生成物量",
+        "standard_unit": "kg",
+        "allowed_units": [
+          "kg",
+          "g",
+          "t"
+        ],
+        "positive_only": true
+      },
+      {
+        "key": "theoretical_product",
+        "label_ja": "理論収量",
+        "description": "理論上の生成物量",
+        "standard_unit": "kg",
+        "allowed_units": [
+          "kg",
+          "g",
+          "t"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "yield",
+        "label_ja": "収率",
+        "description": "実収量/理論収量",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction",
+          "mol%"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "actual_product": "実収量",
+      "theoretical_product": "理論収量",
+      "yield": "収率 Y"
+    },
+    "applicability": [
+      "製造実績の整理"
+    ],
+    "assumptions": [
+      "比較基準を統一"
+    ],
+    "cautions": [
+      "質量基準かモル基準かを揃える"
+    ],
+    "references": [
+      "反応工学の基本指標"
+    ],
+    "function_name": "yield_value",
+    "keywords": [
+      "収率"
+    ],
+    "interpretation_hint": "収率は副反応や回収ロスをまとめて反映するため、工程改善の評価に向いています。"
+  },
+  {
+    "formula_id": "rx_selectivity",
+    "name_ja": "選択率",
+    "category": "反応工学",
+    "summary": "目的生成物と副生成物の比を求めます。",
+    "description": "副反応の抑制度合いをみる基本指標です。高いほど目的生成物への偏りが大きいことを示します。",
+    "equation_latex": "S = desired / byproduct",
+    "inputs": [
+      {
+        "key": "desired_product",
+        "label_ja": "目的生成物量",
+        "description": "目的生成物の量",
+        "standard_unit": "mol",
+        "allowed_units": [
+          "mol",
+          "kmol"
+        ],
+        "positive_only": true
+      },
+      {
+        "key": "byproduct",
+        "label_ja": "副生成物量",
+        "description": "副生成物の量",
+        "standard_unit": "mol",
+        "allowed_units": [
+          "mol",
+          "kmol"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "selectivity",
+        "label_ja": "選択率",
+        "description": "目的生成物/副生成物",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "desired_product": "目的生成物量",
+      "byproduct": "副生成物量",
+      "selectivity": "選択率 S"
+    },
+    "applicability": [
+      "副反応評価"
+    ],
+    "assumptions": [
+      "比較基準を同一にする"
+    ],
+    "cautions": [
+      "基準物質量の定義を明示"
+    ],
+    "references": [
+      "反応工学の基本指標"
+    ],
+    "function_name": "selectivity",
+    "keywords": [
+      "選択率"
+    ],
+    "interpretation_hint": "選択率が高くても転化率が低い場合があるため、両者をセットで確認してください。"
+  },
+  {
+    "formula_id": "rx_arrhenius_rate_constant",
+    "name_ja": "Arrhenius式",
+    "category": "反応工学",
+    "summary": "温度から速度定数を求めます。",
+    "description": "活性化エネルギーと頻度因子から速度定数を計算する代表式です。温度依存性の把握に使います。",
+    "equation_latex": "k = A exp(-Ea / RT)",
+    "inputs": [
+      {
+        "key": "pre_exponential_factor",
+        "label_ja": "頻度因子",
+        "description": "Arrhenius式の A",
+        "standard_unit": "1/s",
+        "allowed_units": [
+          "1/s"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "activation_energy",
+        "label_ja": "活性化エネルギー",
+        "description": "Arrhenius式の Ea",
+        "standard_unit": "J/mol",
+        "allowed_units": [
+          "J/mol",
+          "kJ/mol"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "temperature",
+        "label_ja": "温度",
+        "description": "反応温度",
+        "standard_unit": "K",
+        "allowed_units": [
+          "K",
+          "degC"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "rate_constant",
+        "label_ja": "速度定数",
+        "description": "求めた反応速度定数",
+        "standard_unit": "1/s",
+        "allowed_units": [
+          "1/s"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "pre_exponential_factor": "頻度因子 A",
+      "activation_energy": "活性化エネルギー Ea",
+      "temperature": "温度 T",
+      "rate_constant": "速度定数 k"
+    },
+    "applicability": [
+      "温度依存性の概算"
+    ],
+    "assumptions": [
+      "Arrhenius型に従う"
+    ],
+    "cautions": [
+      "温度単位は絶対温度で扱う"
+    ],
+    "references": [
+      "Arrhenius式"
+    ],
+    "function_name": "arrhenius_rate_constant",
+    "keywords": [
+      "Arrhenius",
+      "速度定数"
+    ],
+    "interpretation_hint": "温度が少し上がるだけでも k が大きく増えることがあるため、感度確認に有効です。"
+  },
+  {
+    "formula_id": "rx_batch_reactor_first_order",
+    "name_ja": "回分反応器の基礎式",
+    "category": "反応工学",
+    "summary": "一次反応の回分転化率を求めます。",
+    "description": "一次不可逆反応を仮定した回分反応器の基本式です。",
+    "equation_latex": "X = 1 - exp(-k t)",
+    "inputs": [
+      {
+        "key": "rate_constant",
+        "label_ja": "速度定数",
+        "description": "一次反応速度定数",
+        "standard_unit": "1/s",
+        "allowed_units": [
+          "1/s"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "time",
+        "label_ja": "反応時間",
+        "description": "滞留または反応時間",
+        "standard_unit": "s",
+        "allowed_units": [
+          "s",
+          "min",
+          "h"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "conversion",
+        "label_ja": "転化率",
+        "description": "一次回分の転化率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction",
+          "mol%"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "rate_constant": "速度定数 k",
+      "time": "時間 t",
+      "conversion": "転化率 X"
+    },
+    "applicability": [
+      "一次不可逆反応"
+    ],
+    "assumptions": [
+      "等温・一定体積"
+    ],
+    "cautions": [
+      "高次反応にはそのまま使えません"
+    ],
+    "references": [
+      "回分反応器の基礎式"
+    ],
+    "function_name": "batch_reactor_first_order",
+    "keywords": [
+      "回分反応器"
+    ],
+    "interpretation_hint": "長時間ほど 1 に近づきますが、実機では平衡や副反応で頭打ちになることがあります。"
+  },
+  {
+    "formula_id": "rx_cstr_first_order",
+    "name_ja": "CSTRの基礎式",
+    "category": "反応工学",
+    "summary": "一次反応のCSTR転化率を求めます。",
+    "description": "完全混合槽型反応器で一次反応を仮定した簡易式です。",
+    "equation_latex": "X = k tau / (1 + k tau)",
+    "inputs": [
+      {
+        "key": "rate_constant",
+        "label_ja": "速度定数",
+        "description": "一次反応速度定数",
+        "standard_unit": "1/s",
+        "allowed_units": [
+          "1/s"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "residence_time",
+        "label_ja": "滞留時間",
+        "description": "反応器滞留時間",
+        "standard_unit": "s",
+        "allowed_units": [
+          "s",
+          "min",
+          "h"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "conversion",
+        "label_ja": "転化率",
+        "description": "CSTRの転化率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction",
+          "mol%"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "rate_constant": "速度定数 k",
+      "residence_time": "滞留時間 tau",
+      "conversion": "転化率 X"
+    },
+    "applicability": [
+      "完全混合CSTRの概算"
+    ],
+    "assumptions": [
+      "等温・一次反応"
+    ],
+    "cautions": [
+      "混合不良や多段化は反映しません"
+    ],
+    "references": [
+      "CSTR設計の基礎式"
+    ],
+    "function_name": "cstr_first_order",
+    "keywords": [
+      "CSTR"
+    ],
+    "interpretation_hint": "同じ tau なら一次反応では PFR より低転化になりやすい点を比較に使えます。"
+  },
+  {
+    "formula_id": "rx_pfr_first_order",
+    "name_ja": "PFRの基礎式",
+    "category": "反応工学",
+    "summary": "一次反応のPFR転化率を求めます。",
+    "description": "押出し流れ反応器で一次反応を仮定した基礎式です。",
+    "equation_latex": "X = 1 - exp(-k tau)",
+    "inputs": [
+      {
+        "key": "rate_constant",
+        "label_ja": "速度定数",
+        "description": "一次反応速度定数",
+        "standard_unit": "1/s",
+        "allowed_units": [
+          "1/s"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "residence_time",
+        "label_ja": "滞留時間",
+        "description": "反応器滞留時間",
+        "standard_unit": "s",
+        "allowed_units": [
+          "s",
+          "min",
+          "h"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "conversion",
+        "label_ja": "転化率",
+        "description": "PFRの転化率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction",
+          "mol%"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "rate_constant": "速度定数 k",
+      "residence_time": "滞留時間 tau",
+      "conversion": "転化率 X"
+    },
+    "applicability": [
+      "一次反応PFRの概算"
+    ],
+    "assumptions": [
+      "押出し流れ・等温"
+    ],
+    "cautions": [
+      "軸方向混合や熱効果は無視"
+    ],
+    "references": [
+      "PFR設計の基礎式"
+    ],
+    "function_name": "pfr_first_order",
+    "keywords": [
+      "PFR"
+    ],
+    "interpretation_hint": "同じ滞留時間では CSTR より高転化になりやすい典型例です。"
+  },
+  {
+    "formula_id": "rx_residence_time",
+    "name_ja": "滞留時間",
+    "category": "反応工学",
+    "summary": "反応器容積と流量から滞留時間を求めます。",
+    "description": "反応器の平均滞留時間の概算に使う基礎式です。反応器比較の初期指標として便利です。",
+    "equation_latex": "tau = V / Q",
+    "inputs": [
+      {
+        "key": "reactor_volume",
+        "label_ja": "反応器容積",
+        "description": "有効反応器容積",
+        "standard_unit": "m^3",
+        "allowed_units": [
+          "m^3",
+          "L",
+          "mL"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "volumetric_flow",
+        "label_ja": "体積流量",
+        "description": "処理流量",
+        "standard_unit": "m^3/s",
+        "allowed_units": [
+          "m^3/s",
+          "m^3/h",
+          "L/min"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "residence_time",
+        "label_ja": "滞留時間",
+        "description": "平均滞留時間",
+        "standard_unit": "s",
+        "allowed_units": [
+          "s",
+          "min",
+          "h"
+        ],
+        "required": false,
+        "output_preferred_unit": "min"
+      }
+    ],
+    "variable_definitions": {
+      "reactor_volume": "反応器容積 V",
+      "volumetric_flow": "体積流量 Q",
+      "residence_time": "滞留時間 tau"
+    },
+    "applicability": [
+      "反応器比較",
+      "前処理計算"
+    ],
+    "assumptions": [
+      "平均流量を使用"
+    ],
+    "cautions": [
+      "デッドゾーンや短絡流は反映しません"
+    ],
+    "references": [
+      "反応器設計の基本式"
+    ],
+    "function_name": "residence_time",
+    "keywords": [
+      "滞留時間"
+    ],
+    "interpretation_hint": "反応速度定数と掛け合わせると Damkohler 数的な感覚が掴みやすくなります。"
+  },
+  {
+    "formula_id": "rx_damkohler_number",
+    "name_ja": "Damkohler数",
+    "category": "反応工学",
+    "summary": "反応速度と滞留時間の比を無次元化します。",
+    "description": "反応と輸送の相対的な速さを見る実務的な指標です。",
+    "equation_latex": "Da = k tau",
+    "inputs": [
+      {
+        "key": "rate_constant",
+        "label_ja": "速度定数",
+        "description": "一次反応速度定数",
+        "standard_unit": "1/s",
+        "allowed_units": [
+          "1/s"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "residence_time",
+        "label_ja": "滞留時間",
+        "description": "平均滞留時間",
+        "standard_unit": "s",
+        "allowed_units": [
+          "s",
+          "min",
+          "h"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "damkohler_number",
+        "label_ja": "Damkohler数",
+        "description": "反応優勢度を示す無次元数",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "rate_constant": "速度定数 k",
+      "residence_time": "滞留時間 tau",
+      "damkohler_number": "Damkohler数 Da"
+    },
+    "applicability": [
+      "反応器スケール比較"
+    ],
+    "assumptions": [
+      "一次反応近似"
+    ],
+    "cautions": [
+      "輸送律速の厳密評価ではありません"
+    ],
+    "references": [
+      "反応器解析の基本指標"
+    ],
+    "function_name": "damkohler_number",
+    "keywords": [
+      "Damkohler"
+    ],
+    "interpretation_hint": "Da が大きいほど反応が進みやすく、小さいほど滞留不足の可能性があります。"
+  },
+  {
+    "formula_id": "rx_first_order_rate",
+    "name_ja": "一次反応速度式",
+    "category": "反応工学",
+    "summary": "濃度から一次反応速度を求めます。",
+    "description": "最も基本的な速度式 r = kC を扱います。",
+    "equation_latex": "r = k C",
+    "inputs": [
+      {
+        "key": "rate_constant",
+        "label_ja": "速度定数",
+        "description": "一次反応速度定数",
+        "standard_unit": "1/s",
+        "allowed_units": [
+          "1/s"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "concentration",
+        "label_ja": "濃度",
+        "description": "反応物濃度",
+        "standard_unit": "mol/m^3",
+        "allowed_units": [
+          "mol/m^3",
+          "mol/L",
+          "kmol/m^3"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "reaction_rate",
+        "label_ja": "反応速度",
+        "description": "体積基準の一次反応速度",
+        "standard_unit": "mol/(m^3*s)",
+        "allowed_units": [
+          "mol/(m^3*s)"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "rate_constant": "速度定数 k",
+      "concentration": "濃度 C",
+      "reaction_rate": "反応速度 r"
+    },
+    "applicability": [
+      "一次反応の基礎評価"
+    ],
+    "assumptions": [
+      "等温・一次反応"
+    ],
+    "cautions": [
+      "逆反応や阻害は含みません"
+    ],
+    "references": [
+      "化学反応速度論の基礎式"
+    ],
+    "function_name": "first_order_rate",
+    "keywords": [
+      "一次反応"
+    ],
+    "interpretation_hint": "速度定数と濃度のどちらが効いているかを見やすい基本式です。"
+  }
 ]

@@ -1,12 +1,1385 @@
 [
-  {"substance_id":"water","name_ja":"水","aliases":["Water","H2O"],"molecular_weight":{"value":0.018015,"unit":"kg/mol","note":"代表値"},"density":{"value":998.0,"unit":"kg/m^3","note":"20 degC 参考値"},"specific_heat":{"value":4180.0,"unit":"J/(kg*K)","note":"20 degC 参考値"},"viscosity":{"value":0.001002,"unit":"Pas","note":"20 degC 参考値"},"thermal_conductivity":{"value":0.598,"unit":"W/(m*K)","note":"20 degC 参考値"},"latent_heat":{"value":2257000.0,"unit":"J/kg","note":"100 degC 参考値"},"gas_constant_basis":"代表値・参考値","temperature_range":"0～100 degC の代表値","notes":"初期版の代表値です。厳密設計では最新物性表をご確認ください。","source":"一般的な化学工学便覧・公開物性表の代表値"},
-  {"substance_id":"air","name_ja":"空気","aliases":["Air"],"molecular_weight":{"value":0.02897,"unit":"kg/mol","note":"乾き空気代表値"},"density":{"value":1.20,"unit":"kg/m^3","note":"20 degC, 1 atm 参考値"},"specific_heat":{"value":1005.0,"unit":"J/(kg*K)","note":"代表値"},"viscosity":{"value":0.0000181,"unit":"Pas","note":"20 degC 参考値"},"thermal_conductivity":{"value":0.0263,"unit":"W/(m*K)","note":"代表値"},"gas_constant_basis":"理想気体近似で利用しやすい代表値","temperature_range":"常温常圧付近","notes":"湿り空気や高温域では別評価が必要です。","source":"一般的な化学工学便覧・公開物性表の代表値"},
-  {"substance_id":"nitrogen","name_ja":"窒素","aliases":["Nitrogen","N2"],"molecular_weight":{"value":0.0280134,"unit":"kg/mol","note":"代表値"},"density":{"value":1.165,"unit":"kg/m^3","note":"20 degC, 1 atm 参考値"},"specific_heat":{"value":1040.0,"unit":"J/(kg*K)","note":"代表値"},"viscosity":{"value":0.0000179,"unit":"Pas","note":"代表値"},"thermal_conductivity":{"value":0.0258,"unit":"W/(m*K)","note":"代表値"},"gas_constant_basis":"理想気体近似の代表値","temperature_range":"常温常圧付近","notes":"初期版の参考値です。","source":"一般的な公開物性値の代表値"},
-  {"substance_id":"oxygen","name_ja":"酸素","aliases":["Oxygen","O2"],"molecular_weight":{"value":0.031998,"unit":"kg/mol","note":"代表値"},"density":{"value":1.331,"unit":"kg/m^3","note":"20 degC, 1 atm 参考値"},"specific_heat":{"value":918.0,"unit":"J/(kg*K)","note":"代表値"},"viscosity":{"value":0.0000202,"unit":"Pas","note":"代表値"},"thermal_conductivity":{"value":0.0263,"unit":"W/(m*K)","note":"代表値"},"gas_constant_basis":"理想気体近似の代表値","temperature_range":"常温常圧付近","notes":"初期版の参考値です。","source":"一般的な公開物性値の代表値"},
-  {"substance_id":"steam","name_ja":"水蒸気","aliases":["Steam","Vapor"],"molecular_weight":{"value":0.018015,"unit":"kg/mol","note":"代表値"},"density":{"value":0.598,"unit":"kg/m^3","note":"100 degC, 1 atm 参考値"},"specific_heat":{"value":2080.0,"unit":"J/(kg*K)","note":"代表値"},"viscosity":{"value":0.000013,"unit":"Pas","note":"代表値"},"thermal_conductivity":{"value":0.025,"unit":"W/(m*K)","note":"代表値"},"latent_heat":{"value":2257000.0,"unit":"J/kg","note":"100 degC 参考値"},"gas_constant_basis":"蒸気の代表値","temperature_range":"飽和付近の代表値","notes":"飽和・過熱条件で物性は大きく変わります。","source":"一般的な蒸気表・公開物性表の代表値"},
-  {"substance_id":"co2","name_ja":"二酸化炭素","aliases":["Carbon dioxide","CO2"],"molecular_weight":{"value":0.04401,"unit":"kg/mol","note":"代表値"},"density":{"value":1.84,"unit":"kg/m^3","note":"20 degC, 1 atm 参考値"},"specific_heat":{"value":844.0,"unit":"J/(kg*K)","note":"代表値"},"viscosity":{"value":0.0000148,"unit":"Pas","note":"代表値"},"thermal_conductivity":{"value":0.0166,"unit":"W/(m*K)","note":"代表値"},"gas_constant_basis":"理想気体近似の代表値","temperature_range":"常温常圧付近","notes":"高圧では非理想性に注意してください。","source":"一般的な公開物性値の代表値"},
-  {"substance_id":"ethanol","name_ja":"エタノール","aliases":["Ethanol","EtOH"],"molecular_weight":{"value":0.04607,"unit":"kg/mol","note":"代表値"},"density":{"value":789.0,"unit":"kg/m^3","note":"20 degC 参考値"},"specific_heat":{"value":2440.0,"unit":"J/(kg*K)","note":"代表値"},"viscosity":{"value":0.00120,"unit":"Pas","note":"代表値"},"thermal_conductivity":{"value":0.171,"unit":"W/(m*K)","note":"代表値"},"latent_heat":{"value":846000.0,"unit":"J/kg","note":"沸点付近参考値"},"temperature_range":"常温付近の代表値","notes":"初期版の参考値です。","source":"一般的な化学工学便覧・公開物性表の代表値"},
-  {"substance_id":"methanol","name_ja":"メタノール","aliases":["Methanol","MeOH"],"molecular_weight":{"value":0.03204,"unit":"kg/mol","note":"代表値"},"density":{"value":792.0,"unit":"kg/m^3","note":"20 degC 参考値"},"specific_heat":{"value":2510.0,"unit":"J/(kg*K)","note":"代表値"},"viscosity":{"value":0.00059,"unit":"Pas","note":"代表値"},"thermal_conductivity":{"value":0.203,"unit":"W/(m*K)","note":"代表値"},"latent_heat":{"value":1100000.0,"unit":"J/kg","note":"沸点付近参考値"},"temperature_range":"常温付近の代表値","notes":"初期版の参考値です。","source":"一般的な公開物性値の代表値"},
-  {"substance_id":"toluene","name_ja":"トルエン","aliases":["Toluene"],"molecular_weight":{"value":0.09214,"unit":"kg/mol","note":"代表値"},"density":{"value":867.0,"unit":"kg/m^3","note":"20 degC 参考値"},"specific_heat":{"value":1700.0,"unit":"J/(kg*K)","note":"代表値"},"viscosity":{"value":0.00059,"unit":"Pas","note":"代表値"},"thermal_conductivity":{"value":0.130,"unit":"W/(m*K)","note":"代表値"},"latent_heat":{"value":351000.0,"unit":"J/kg","note":"沸点付近参考値"},"temperature_range":"常温付近の代表値","notes":"初期版の参考値です。","source":"一般的な公開物性値の代表値"},
-  {"substance_id":"benzene","name_ja":"ベンゼン","aliases":["Benzene"],"molecular_weight":{"value":0.07811,"unit":"kg/mol","note":"代表値"},"density":{"value":874.0,"unit":"kg/m^3","note":"20 degC 参考値"},"specific_heat":{"value":1740.0,"unit":"J/(kg*K)","note":"代表値"},"viscosity":{"value":0.00065,"unit":"Pas","note":"代表値"},"thermal_conductivity":{"value":0.167,"unit":"W/(m*K)","note":"代表値"},"latent_heat":{"value":394000.0,"unit":"J/kg","note":"沸点付近参考値"},"temperature_range":"常温付近の代表値","notes":"初期版の参考値です。","source":"一般的な公開物性値の代表値"}
+  {
+    "substance_id": "acetic_acid",
+    "name_ja": "酢酸",
+    "aliases": [
+      "Acetic acid"
+    ],
+    "molecular_weight": {
+      "value": 0.06005,
+      "unit": "kg/mol",
+      "note": "代表値"
+    },
+    "density": {
+      "value": 1049.0,
+      "unit": "kg/m^3",
+      "note": "20 degC"
+    },
+    "specific_heat": {
+      "value": 2040.0,
+      "unit": "J/(kg*K)",
+      "note": "代表値"
+    },
+    "viscosity": {
+      "value": 0.00122,
+      "unit": "Pas",
+      "note": "代表値"
+    },
+    "thermal_conductivity": {
+      "value": 0.159,
+      "unit": "W/(m*K)",
+      "note": "代表値"
+    },
+    "latent_heat": {
+      "value": 390000.0,
+      "unit": "J/kg",
+      "note": "代表値"
+    },
+    "boiling_point": {
+      "value": 391.1,
+      "unit": "K",
+      "note": "1 atm"
+    },
+    "melting_point": {
+      "value": 289.8,
+      "unit": "K",
+      "note": "代表値"
+    },
+    "critical_temperature": {
+      "value": 592.0,
+      "unit": "K",
+      "note": "代表値"
+    },
+    "critical_pressure": {
+      "value": 5790000.0,
+      "unit": "Pa",
+      "note": "代表値"
+    },
+    "surface_tension": {
+      "value": 0.0276,
+      "unit": "N/m",
+      "note": "20 degC"
+    },
+    "vapor_pressure": {
+      "value": 2100.0,
+      "unit": "Pa",
+      "note": "20 degC"
+    },
+    "phase_reference": "液体, 20 degC",
+    "temperature_range": "常温付近の代表値",
+    "notes": "代表値・参考値です。",
+    "source": "一般的な公開物性値の代表値"
+  },
+  {
+    "substance_id": "acetone",
+    "name_ja": "アセトン",
+    "aliases": [
+      "Acetone"
+    ],
+    "molecular_weight": {
+      "value": 0.05808,
+      "unit": "kg/mol",
+      "note": "代表値"
+    },
+    "density": {
+      "value": 784.5,
+      "unit": "kg/m^3",
+      "note": "20 degC"
+    },
+    "specific_heat": {
+      "value": 2160.0,
+      "unit": "J/(kg*K)",
+      "note": "代表値"
+    },
+    "viscosity": {
+      "value": 0.00031,
+      "unit": "Pas",
+      "note": "代表値"
+    },
+    "thermal_conductivity": {
+      "value": 0.161,
+      "unit": "W/(m*K)",
+      "note": "代表値"
+    },
+    "latent_heat": {
+      "value": 518000.0,
+      "unit": "J/kg",
+      "note": "代表値"
+    },
+    "boiling_point": {
+      "value": 329.4,
+      "unit": "K",
+      "note": "1 atm"
+    },
+    "melting_point": {
+      "value": 178.5,
+      "unit": "K",
+      "note": "代表値"
+    },
+    "critical_temperature": {
+      "value": 508.1,
+      "unit": "K",
+      "note": "代表値"
+    },
+    "critical_pressure": {
+      "value": 4690000.0,
+      "unit": "Pa",
+      "note": "代表値"
+    },
+    "surface_tension": {
+      "value": 0.0237,
+      "unit": "N/m",
+      "note": "20 degC"
+    },
+    "vapor_pressure": {
+      "value": 30700.0,
+      "unit": "Pa",
+      "note": "20 degC"
+    },
+    "prandtl_number": {
+      "value": 4.2,
+      "unit": "fraction",
+      "note": "代表値"
+    },
+    "phase_reference": "液体, 20 degC",
+    "temperature_range": "常温付近の代表値",
+    "notes": "代表値・参考値です。",
+    "source": "一般的な公開物性値の代表値"
+  },
+  {
+    "substance_id": "air",
+    "name_ja": "空気",
+    "aliases": [
+      "Air"
+    ],
+    "molecular_weight": {
+      "value": 0.02897,
+      "unit": "kg/mol",
+      "note": "乾き空気代表値"
+    },
+    "density": {
+      "value": 1.2,
+      "unit": "kg/m^3",
+      "note": "20 degC, 1 atm 参考値"
+    },
+    "specific_heat": {
+      "value": 1005.0,
+      "unit": "J/(kg*K)",
+      "note": "代表値"
+    },
+    "viscosity": {
+      "value": 1.81e-05,
+      "unit": "Pas",
+      "note": "20 degC 参考値"
+    },
+    "thermal_conductivity": {
+      "value": 0.0263,
+      "unit": "W/(m*K)",
+      "note": "代表値"
+    },
+    "gas_constant_basis": "理想気体近似で利用しやすい代表値",
+    "temperature_range": "常温常圧付近",
+    "notes": "湿り空気や高温域では別評価が必要です。",
+    "source": "一般的な化学工学便覧・公開物性表の代表値",
+    "phase_reference": "気体, 20 degC, 1 atm",
+    "prandtl_number": {
+      "value": 0.71,
+      "unit": "fraction",
+      "note": "常温代表値"
+    }
+  },
+  {
+    "substance_id": "ammonia",
+    "name_ja": "アンモニア",
+    "aliases": [
+      "Ammonia",
+      "NH3"
+    ],
+    "molecular_weight": {
+      "value": 0.017031,
+      "unit": "kg/mol",
+      "note": "代表値"
+    },
+    "density": {
+      "value": 0.73,
+      "unit": "kg/m^3",
+      "note": "20 degC, 1 atm"
+    },
+    "specific_heat": {
+      "value": 2060.0,
+      "unit": "J/(kg*K)",
+      "note": "代表値"
+    },
+    "viscosity": {
+      "value": 9.8e-06,
+      "unit": "Pas",
+      "note": "代表値"
+    },
+    "thermal_conductivity": {
+      "value": 0.024,
+      "unit": "W/(m*K)",
+      "note": "代表値"
+    },
+    "latent_heat": {
+      "value": 1370000.0,
+      "unit": "J/kg",
+      "note": "代表値"
+    },
+    "boiling_point": {
+      "value": 239.8,
+      "unit": "K",
+      "note": "1 atm"
+    },
+    "melting_point": {
+      "value": 195.4,
+      "unit": "K",
+      "note": "代表値"
+    },
+    "critical_temperature": {
+      "value": 405.5,
+      "unit": "K",
+      "note": "代表値"
+    },
+    "critical_pressure": {
+      "value": 11300000.0,
+      "unit": "Pa",
+      "note": "代表値"
+    },
+    "phase_reference": "気体, 20 degC, 1 atm",
+    "temperature_range": "常温常圧付近",
+    "notes": "代表値・参考値です。",
+    "source": "一般的な公開物性値の代表値"
+  },
+  {
+    "substance_id": "argon",
+    "name_ja": "アルゴン",
+    "aliases": [
+      "Argon",
+      "Ar"
+    ],
+    "molecular_weight": {
+      "value": 0.039948,
+      "unit": "kg/mol",
+      "note": "代表値"
+    },
+    "density": {
+      "value": 1.784,
+      "unit": "kg/m^3",
+      "note": "20 degC, 1 atm"
+    },
+    "specific_heat": {
+      "value": 520.0,
+      "unit": "J/(kg*K)",
+      "note": "代表値"
+    },
+    "viscosity": {
+      "value": 2.25e-05,
+      "unit": "Pas",
+      "note": "代表値"
+    },
+    "thermal_conductivity": {
+      "value": 0.0177,
+      "unit": "W/(m*K)",
+      "note": "代表値"
+    },
+    "boiling_point": {
+      "value": 87.3,
+      "unit": "K",
+      "note": "1 atm"
+    },
+    "melting_point": {
+      "value": 83.8,
+      "unit": "K",
+      "note": "代表値"
+    },
+    "critical_temperature": {
+      "value": 150.8,
+      "unit": "K",
+      "note": "代表値"
+    },
+    "critical_pressure": {
+      "value": 4860000.0,
+      "unit": "Pa",
+      "note": "代表値"
+    },
+    "prandtl_number": {
+      "value": 0.67,
+      "unit": "fraction",
+      "note": "代表値"
+    },
+    "phase_reference": "気体, 20 degC, 1 atm",
+    "temperature_range": "常温常圧付近",
+    "notes": "代表値・参考値です。",
+    "source": "一般的な公開物性値の代表値"
+  },
+  {
+    "substance_id": "benzene",
+    "name_ja": "ベンゼン",
+    "aliases": [
+      "Benzene"
+    ],
+    "molecular_weight": {
+      "value": 0.07811,
+      "unit": "kg/mol",
+      "note": "代表値"
+    },
+    "density": {
+      "value": 874.0,
+      "unit": "kg/m^3",
+      "note": "20 degC 参考値"
+    },
+    "specific_heat": {
+      "value": 1740.0,
+      "unit": "J/(kg*K)",
+      "note": "代表値"
+    },
+    "viscosity": {
+      "value": 0.00065,
+      "unit": "Pas",
+      "note": "代表値"
+    },
+    "thermal_conductivity": {
+      "value": 0.167,
+      "unit": "W/(m*K)",
+      "note": "代表値"
+    },
+    "latent_heat": {
+      "value": 394000.0,
+      "unit": "J/kg",
+      "note": "沸点付近参考値"
+    },
+    "temperature_range": "常温付近の代表値",
+    "notes": "初期版の参考値です。",
+    "source": "一般的な公開物性値の代表値",
+    "phase_reference": "液体, 20 degC",
+    "boiling_point": {
+      "value": 353.25,
+      "unit": "K",
+      "note": "1 atm"
+    },
+    "melting_point": {
+      "value": 278.68,
+      "unit": "K",
+      "note": "代表値"
+    },
+    "critical_temperature": {
+      "value": 562.2,
+      "unit": "K",
+      "note": "代表値"
+    },
+    "critical_pressure": {
+      "value": 4890000.0,
+      "unit": "Pa",
+      "note": "代表値"
+    },
+    "surface_tension": {
+      "value": 0.0289,
+      "unit": "N/m",
+      "note": "20 degC"
+    },
+    "vapor_pressure": {
+      "value": 12600.0,
+      "unit": "Pa",
+      "note": "25 degC"
+    },
+    "prandtl_number": {
+      "value": 6.8,
+      "unit": "fraction",
+      "note": "液体代表値"
+    }
+  },
+  {
+    "substance_id": "co2",
+    "name_ja": "二酸化炭素",
+    "aliases": [
+      "Carbon dioxide",
+      "CO2"
+    ],
+    "molecular_weight": {
+      "value": 0.04401,
+      "unit": "kg/mol",
+      "note": "代表値"
+    },
+    "density": {
+      "value": 1.84,
+      "unit": "kg/m^3",
+      "note": "20 degC, 1 atm 参考値"
+    },
+    "specific_heat": {
+      "value": 844.0,
+      "unit": "J/(kg*K)",
+      "note": "代表値"
+    },
+    "viscosity": {
+      "value": 1.48e-05,
+      "unit": "Pas",
+      "note": "代表値"
+    },
+    "thermal_conductivity": {
+      "value": 0.0166,
+      "unit": "W/(m*K)",
+      "note": "代表値"
+    },
+    "gas_constant_basis": "理想気体近似の代表値",
+    "temperature_range": "常温常圧付近",
+    "notes": "高圧では非理想性に注意してください。",
+    "source": "一般的な公開物性値の代表値",
+    "phase_reference": "気体, 20 degC, 1 atm",
+    "critical_temperature": {
+      "value": 304.13,
+      "unit": "K",
+      "note": "代表値"
+    },
+    "critical_pressure": {
+      "value": 7377000.0,
+      "unit": "Pa",
+      "note": "代表値"
+    },
+    "prandtl_number": {
+      "value": 0.75,
+      "unit": "fraction",
+      "note": "常温代表値"
+    }
+  },
+  {
+    "substance_id": "ethanol",
+    "name_ja": "エタノール",
+    "aliases": [
+      "Ethanol",
+      "EtOH"
+    ],
+    "molecular_weight": {
+      "value": 0.04607,
+      "unit": "kg/mol",
+      "note": "代表値"
+    },
+    "density": {
+      "value": 789.0,
+      "unit": "kg/m^3",
+      "note": "20 degC 参考値"
+    },
+    "specific_heat": {
+      "value": 2440.0,
+      "unit": "J/(kg*K)",
+      "note": "代表値"
+    },
+    "viscosity": {
+      "value": 0.0012,
+      "unit": "Pas",
+      "note": "代表値"
+    },
+    "thermal_conductivity": {
+      "value": 0.171,
+      "unit": "W/(m*K)",
+      "note": "代表値"
+    },
+    "latent_heat": {
+      "value": 846000.0,
+      "unit": "J/kg",
+      "note": "沸点付近参考値"
+    },
+    "temperature_range": "常温付近の代表値",
+    "notes": "初期版の参考値です。",
+    "source": "一般的な化学工学便覧・公開物性表の代表値",
+    "phase_reference": "液体, 20 degC",
+    "boiling_point": {
+      "value": 351.52,
+      "unit": "K",
+      "note": "1 atm"
+    },
+    "melting_point": {
+      "value": 159.05,
+      "unit": "K",
+      "note": "代表値"
+    },
+    "critical_temperature": {
+      "value": 514.0,
+      "unit": "K",
+      "note": "代表値"
+    },
+    "critical_pressure": {
+      "value": 6140000.0,
+      "unit": "Pa",
+      "note": "代表値"
+    },
+    "surface_tension": {
+      "value": 0.0223,
+      "unit": "N/m",
+      "note": "20 degC"
+    },
+    "vapor_pressure": {
+      "value": 5900.0,
+      "unit": "Pa",
+      "note": "20 degC"
+    },
+    "prandtl_number": {
+      "value": 17.0,
+      "unit": "fraction",
+      "note": "液体代表値"
+    }
+  },
+  {
+    "substance_id": "helium",
+    "name_ja": "ヘリウム",
+    "aliases": [
+      "Helium",
+      "He"
+    ],
+    "molecular_weight": {
+      "value": 0.004003,
+      "unit": "kg/mol",
+      "note": "代表値"
+    },
+    "density": {
+      "value": 0.1786,
+      "unit": "kg/m^3",
+      "note": "20 degC, 1 atm"
+    },
+    "specific_heat": {
+      "value": 5190.0,
+      "unit": "J/(kg*K)",
+      "note": "代表値"
+    },
+    "viscosity": {
+      "value": 1.96e-05,
+      "unit": "Pas",
+      "note": "代表値"
+    },
+    "thermal_conductivity": {
+      "value": 0.151,
+      "unit": "W/(m*K)",
+      "note": "代表値"
+    },
+    "boiling_point": {
+      "value": 4.22,
+      "unit": "K",
+      "note": "1 atm"
+    },
+    "critical_temperature": {
+      "value": 5.2,
+      "unit": "K",
+      "note": "代表値"
+    },
+    "critical_pressure": {
+      "value": 227000.0,
+      "unit": "Pa",
+      "note": "代表値"
+    },
+    "prandtl_number": {
+      "value": 0.67,
+      "unit": "fraction",
+      "note": "代表値"
+    },
+    "phase_reference": "気体, 20 degC, 1 atm",
+    "temperature_range": "常温常圧付近",
+    "notes": "代表値・参考値です。",
+    "source": "一般的な公開物性値の代表値"
+  },
+  {
+    "substance_id": "heptane",
+    "name_ja": "ヘプタン",
+    "aliases": [
+      "Heptane",
+      "n-Heptane"
+    ],
+    "molecular_weight": {
+      "value": 0.10021,
+      "unit": "kg/mol",
+      "note": "代表値"
+    },
+    "density": {
+      "value": 684.0,
+      "unit": "kg/m^3",
+      "note": "20 degC"
+    },
+    "specific_heat": {
+      "value": 2270.0,
+      "unit": "J/(kg*K)",
+      "note": "代表値"
+    },
+    "viscosity": {
+      "value": 0.00041,
+      "unit": "Pas",
+      "note": "代表値"
+    },
+    "thermal_conductivity": {
+      "value": 0.14,
+      "unit": "W/(m*K)",
+      "note": "代表値"
+    },
+    "latent_heat": {
+      "value": 317000.0,
+      "unit": "J/kg",
+      "note": "代表値"
+    },
+    "boiling_point": {
+      "value": 371.6,
+      "unit": "K",
+      "note": "1 atm"
+    },
+    "melting_point": {
+      "value": 182.6,
+      "unit": "K",
+      "note": "代表値"
+    },
+    "critical_temperature": {
+      "value": 540.2,
+      "unit": "K",
+      "note": "代表値"
+    },
+    "critical_pressure": {
+      "value": 2740000.0,
+      "unit": "Pa",
+      "note": "代表値"
+    },
+    "surface_tension": {
+      "value": 0.0201,
+      "unit": "N/m",
+      "note": "20 degC"
+    },
+    "vapor_pressure": {
+      "value": 6100.0,
+      "unit": "Pa",
+      "note": "20 degC"
+    },
+    "phase_reference": "液体, 20 degC",
+    "temperature_range": "常温付近の代表値",
+    "notes": "代表値・参考値です。",
+    "source": "一般的な公開物性値の代表値"
+  },
+  {
+    "substance_id": "hexane",
+    "name_ja": "ヘキサン",
+    "aliases": [
+      "Hexane",
+      "n-Hexane"
+    ],
+    "molecular_weight": {
+      "value": 0.08618,
+      "unit": "kg/mol",
+      "note": "代表値"
+    },
+    "density": {
+      "value": 655.0,
+      "unit": "kg/m^3",
+      "note": "20 degC"
+    },
+    "specific_heat": {
+      "value": 2260.0,
+      "unit": "J/(kg*K)",
+      "note": "代表値"
+    },
+    "viscosity": {
+      "value": 0.0003,
+      "unit": "Pas",
+      "note": "代表値"
+    },
+    "thermal_conductivity": {
+      "value": 0.124,
+      "unit": "W/(m*K)",
+      "note": "代表値"
+    },
+    "latent_heat": {
+      "value": 334000.0,
+      "unit": "J/kg",
+      "note": "代表値"
+    },
+    "boiling_point": {
+      "value": 341.9,
+      "unit": "K",
+      "note": "1 atm"
+    },
+    "melting_point": {
+      "value": 178.0,
+      "unit": "K",
+      "note": "代表値"
+    },
+    "critical_temperature": {
+      "value": 507.6,
+      "unit": "K",
+      "note": "代表値"
+    },
+    "critical_pressure": {
+      "value": 3030000.0,
+      "unit": "Pa",
+      "note": "代表値"
+    },
+    "surface_tension": {
+      "value": 0.0184,
+      "unit": "N/m",
+      "note": "20 degC"
+    },
+    "vapor_pressure": {
+      "value": 20100.0,
+      "unit": "Pa",
+      "note": "20 degC"
+    },
+    "phase_reference": "液体, 20 degC",
+    "temperature_range": "常温付近の代表値",
+    "notes": "代表値・参考値です。",
+    "source": "一般的な公開物性値の代表値"
+  },
+  {
+    "substance_id": "hydrogen",
+    "name_ja": "水素",
+    "aliases": [
+      "Hydrogen",
+      "H2"
+    ],
+    "molecular_weight": {
+      "value": 0.002016,
+      "unit": "kg/mol",
+      "note": "代表値"
+    },
+    "density": {
+      "value": 0.0899,
+      "unit": "kg/m^3",
+      "note": "20 degC, 1 atm"
+    },
+    "specific_heat": {
+      "value": 14300.0,
+      "unit": "J/(kg*K)",
+      "note": "代表値"
+    },
+    "viscosity": {
+      "value": 8.9e-06,
+      "unit": "Pas",
+      "note": "代表値"
+    },
+    "thermal_conductivity": {
+      "value": 0.18,
+      "unit": "W/(m*K)",
+      "note": "代表値"
+    },
+    "boiling_point": {
+      "value": 20.28,
+      "unit": "K",
+      "note": "1 atm"
+    },
+    "melting_point": {
+      "value": 13.99,
+      "unit": "K",
+      "note": "代表値"
+    },
+    "critical_temperature": {
+      "value": 33.2,
+      "unit": "K",
+      "note": "代表値"
+    },
+    "critical_pressure": {
+      "value": 1297000.0,
+      "unit": "Pa",
+      "note": "代表値"
+    },
+    "prandtl_number": {
+      "value": 0.69,
+      "unit": "fraction",
+      "note": "代表値"
+    },
+    "phase_reference": "気体, 20 degC, 1 atm",
+    "temperature_range": "常温常圧付近",
+    "notes": "代表値・参考値です。",
+    "source": "一般的な公開物性値の代表値"
+  },
+  {
+    "substance_id": "methane",
+    "name_ja": "メタン",
+    "aliases": [
+      "Methane",
+      "CH4"
+    ],
+    "molecular_weight": {
+      "value": 0.01604,
+      "unit": "kg/mol",
+      "note": "代表値"
+    },
+    "density": {
+      "value": 0.656,
+      "unit": "kg/m^3",
+      "note": "20 degC, 1 atm"
+    },
+    "specific_heat": {
+      "value": 2220.0,
+      "unit": "J/(kg*K)",
+      "note": "代表値"
+    },
+    "viscosity": {
+      "value": 1.1e-05,
+      "unit": "Pas",
+      "note": "代表値"
+    },
+    "thermal_conductivity": {
+      "value": 0.034,
+      "unit": "W/(m*K)",
+      "note": "代表値"
+    },
+    "boiling_point": {
+      "value": 111.66,
+      "unit": "K",
+      "note": "1 atm"
+    },
+    "melting_point": {
+      "value": 90.7,
+      "unit": "K",
+      "note": "代表値"
+    },
+    "critical_temperature": {
+      "value": 190.6,
+      "unit": "K",
+      "note": "代表値"
+    },
+    "critical_pressure": {
+      "value": 4600000.0,
+      "unit": "Pa",
+      "note": "代表値"
+    },
+    "prandtl_number": {
+      "value": 0.67,
+      "unit": "fraction",
+      "note": "代表値"
+    },
+    "phase_reference": "気体, 20 degC, 1 atm",
+    "temperature_range": "常温常圧付近",
+    "notes": "代表値・参考値です。",
+    "source": "一般的な公開物性値の代表値"
+  },
+  {
+    "substance_id": "methanol",
+    "name_ja": "メタノール",
+    "aliases": [
+      "Methanol",
+      "MeOH"
+    ],
+    "molecular_weight": {
+      "value": 0.03204,
+      "unit": "kg/mol",
+      "note": "代表値"
+    },
+    "density": {
+      "value": 792.0,
+      "unit": "kg/m^3",
+      "note": "20 degC 参考値"
+    },
+    "specific_heat": {
+      "value": 2510.0,
+      "unit": "J/(kg*K)",
+      "note": "代表値"
+    },
+    "viscosity": {
+      "value": 0.00059,
+      "unit": "Pas",
+      "note": "代表値"
+    },
+    "thermal_conductivity": {
+      "value": 0.203,
+      "unit": "W/(m*K)",
+      "note": "代表値"
+    },
+    "latent_heat": {
+      "value": 1100000.0,
+      "unit": "J/kg",
+      "note": "沸点付近参考値"
+    },
+    "temperature_range": "常温付近の代表値",
+    "notes": "初期版の参考値です。",
+    "source": "一般的な公開物性値の代表値",
+    "phase_reference": "液体, 20 degC",
+    "boiling_point": {
+      "value": 337.85,
+      "unit": "K",
+      "note": "1 atm"
+    },
+    "melting_point": {
+      "value": 175.6,
+      "unit": "K",
+      "note": "代表値"
+    },
+    "critical_temperature": {
+      "value": 512.6,
+      "unit": "K",
+      "note": "代表値"
+    },
+    "critical_pressure": {
+      "value": 8090000.0,
+      "unit": "Pa",
+      "note": "代表値"
+    },
+    "surface_tension": {
+      "value": 0.0226,
+      "unit": "N/m",
+      "note": "20 degC"
+    },
+    "vapor_pressure": {
+      "value": 12800.0,
+      "unit": "Pa",
+      "note": "20 degC"
+    },
+    "prandtl_number": {
+      "value": 7.3,
+      "unit": "fraction",
+      "note": "液体代表値"
+    }
+  },
+  {
+    "substance_id": "nitrogen",
+    "name_ja": "窒素",
+    "aliases": [
+      "Nitrogen",
+      "N2"
+    ],
+    "molecular_weight": {
+      "value": 0.0280134,
+      "unit": "kg/mol",
+      "note": "代表値"
+    },
+    "density": {
+      "value": 1.165,
+      "unit": "kg/m^3",
+      "note": "20 degC, 1 atm 参考値"
+    },
+    "specific_heat": {
+      "value": 1040.0,
+      "unit": "J/(kg*K)",
+      "note": "代表値"
+    },
+    "viscosity": {
+      "value": 1.79e-05,
+      "unit": "Pas",
+      "note": "代表値"
+    },
+    "thermal_conductivity": {
+      "value": 0.0258,
+      "unit": "W/(m*K)",
+      "note": "代表値"
+    },
+    "gas_constant_basis": "理想気体近似の代表値",
+    "temperature_range": "常温常圧付近",
+    "notes": "初期版の参考値です。",
+    "source": "一般的な公開物性値の代表値",
+    "phase_reference": "気体, 20 degC, 1 atm",
+    "boiling_point": {
+      "value": 77.36,
+      "unit": "K",
+      "note": "1 atm"
+    },
+    "melting_point": {
+      "value": 63.15,
+      "unit": "K",
+      "note": "1 atm"
+    },
+    "critical_temperature": {
+      "value": 126.2,
+      "unit": "K",
+      "note": "代表値"
+    },
+    "critical_pressure": {
+      "value": 3390000.0,
+      "unit": "Pa",
+      "note": "代表値"
+    },
+    "prandtl_number": {
+      "value": 0.72,
+      "unit": "fraction",
+      "note": "常温代表値"
+    }
+  },
+  {
+    "substance_id": "oxygen",
+    "name_ja": "酸素",
+    "aliases": [
+      "Oxygen",
+      "O2"
+    ],
+    "molecular_weight": {
+      "value": 0.031998,
+      "unit": "kg/mol",
+      "note": "代表値"
+    },
+    "density": {
+      "value": 1.331,
+      "unit": "kg/m^3",
+      "note": "20 degC, 1 atm 参考値"
+    },
+    "specific_heat": {
+      "value": 918.0,
+      "unit": "J/(kg*K)",
+      "note": "代表値"
+    },
+    "viscosity": {
+      "value": 2.02e-05,
+      "unit": "Pas",
+      "note": "代表値"
+    },
+    "thermal_conductivity": {
+      "value": 0.0263,
+      "unit": "W/(m*K)",
+      "note": "代表値"
+    },
+    "gas_constant_basis": "理想気体近似の代表値",
+    "temperature_range": "常温常圧付近",
+    "notes": "初期版の参考値です。",
+    "source": "一般的な公開物性値の代表値",
+    "phase_reference": "気体, 20 degC, 1 atm",
+    "boiling_point": {
+      "value": 90.19,
+      "unit": "K",
+      "note": "1 atm"
+    },
+    "melting_point": {
+      "value": 54.36,
+      "unit": "K",
+      "note": "1 atm"
+    },
+    "critical_temperature": {
+      "value": 154.6,
+      "unit": "K",
+      "note": "代表値"
+    },
+    "critical_pressure": {
+      "value": 5040000.0,
+      "unit": "Pa",
+      "note": "代表値"
+    },
+    "prandtl_number": {
+      "value": 0.7,
+      "unit": "fraction",
+      "note": "常温代表値"
+    }
+  },
+  {
+    "substance_id": "propane",
+    "name_ja": "プロパン",
+    "aliases": [
+      "Propane",
+      "C3H8"
+    ],
+    "molecular_weight": {
+      "value": 0.0441,
+      "unit": "kg/mol",
+      "note": "代表値"
+    },
+    "density": {
+      "value": 1.87,
+      "unit": "kg/m^3",
+      "note": "20 degC, 1 atm"
+    },
+    "specific_heat": {
+      "value": 1670.0,
+      "unit": "J/(kg*K)",
+      "note": "代表値"
+    },
+    "viscosity": {
+      "value": 8.3e-06,
+      "unit": "Pas",
+      "note": "代表値"
+    },
+    "thermal_conductivity": {
+      "value": 0.018,
+      "unit": "W/(m*K)",
+      "note": "代表値"
+    },
+    "latent_heat": {
+      "value": 356000.0,
+      "unit": "J/kg",
+      "note": "代表値"
+    },
+    "boiling_point": {
+      "value": 231.1,
+      "unit": "K",
+      "note": "1 atm"
+    },
+    "melting_point": {
+      "value": 85.5,
+      "unit": "K",
+      "note": "代表値"
+    },
+    "critical_temperature": {
+      "value": 369.8,
+      "unit": "K",
+      "note": "代表値"
+    },
+    "critical_pressure": {
+      "value": 4250000.0,
+      "unit": "Pa",
+      "note": "代表値"
+    },
+    "phase_reference": "気体, 20 degC, 1 atm",
+    "temperature_range": "常温常圧付近",
+    "notes": "代表値・参考値です。",
+    "source": "一般的な公開物性値の代表値"
+  },
+  {
+    "substance_id": "steam",
+    "name_ja": "水蒸気",
+    "aliases": [
+      "Steam",
+      "Vapor"
+    ],
+    "molecular_weight": {
+      "value": 0.018015,
+      "unit": "kg/mol",
+      "note": "代表値"
+    },
+    "density": {
+      "value": 0.598,
+      "unit": "kg/m^3",
+      "note": "100 degC, 1 atm 参考値"
+    },
+    "specific_heat": {
+      "value": 2080.0,
+      "unit": "J/(kg*K)",
+      "note": "代表値"
+    },
+    "viscosity": {
+      "value": 1.3e-05,
+      "unit": "Pas",
+      "note": "代表値"
+    },
+    "thermal_conductivity": {
+      "value": 0.025,
+      "unit": "W/(m*K)",
+      "note": "代表値"
+    },
+    "latent_heat": {
+      "value": 2257000.0,
+      "unit": "J/kg",
+      "note": "100 degC 参考値"
+    },
+    "gas_constant_basis": "蒸気の代表値",
+    "temperature_range": "飽和付近の代表値",
+    "notes": "飽和・過熱条件で物性は大きく変わります。",
+    "source": "一般的な蒸気表・公開物性表の代表値",
+    "phase_reference": "気体, 100 degC, 1 atm",
+    "boiling_point": {
+      "value": 373.15,
+      "unit": "K",
+      "note": "1 atm"
+    },
+    "critical_temperature": {
+      "value": 647.1,
+      "unit": "K",
+      "note": "代表値"
+    },
+    "critical_pressure": {
+      "value": 22064000.0,
+      "unit": "Pa",
+      "note": "代表値"
+    },
+    "prandtl_number": {
+      "value": 1.0,
+      "unit": "fraction",
+      "note": "蒸気代表値"
+    }
+  },
+  {
+    "substance_id": "sulfuric_acid",
+    "name_ja": "硫酸",
+    "aliases": [
+      "Sulfuric acid",
+      "H2SO4"
+    ],
+    "molecular_weight": {
+      "value": 0.098079,
+      "unit": "kg/mol",
+      "note": "代表値"
+    },
+    "density": {
+      "value": 1840.0,
+      "unit": "kg/m^3",
+      "note": "98 wt%, 20 degC"
+    },
+    "specific_heat": {
+      "value": 1380.0,
+      "unit": "J/(kg*K)",
+      "note": "代表値"
+    },
+    "viscosity": {
+      "value": 0.024,
+      "unit": "Pas",
+      "note": "代表値"
+    },
+    "thermal_conductivity": {
+      "value": 0.35,
+      "unit": "W/(m*K)",
+      "note": "代表値"
+    },
+    "boiling_point": {
+      "value": 610.0,
+      "unit": "K",
+      "note": "参考値"
+    },
+    "melting_point": {
+      "value": 283.0,
+      "unit": "K",
+      "note": "参考値"
+    },
+    "surface_tension": {
+      "value": 0.055,
+      "unit": "N/m",
+      "note": "20 degC"
+    },
+    "vapor_pressure": {
+      "value": 10.0,
+      "unit": "Pa",
+      "note": "20 degC 近似"
+    },
+    "phase_reference": "液体, 98 wt%, 20 degC",
+    "temperature_range": "濃硫酸の代表値",
+    "notes": "濃度依存性が大きいため厳密設計には不向きです。",
+    "source": "一般的な公開物性値の代表値"
+  },
+  {
+    "substance_id": "toluene",
+    "name_ja": "トルエン",
+    "aliases": [
+      "Toluene"
+    ],
+    "molecular_weight": {
+      "value": 0.09214,
+      "unit": "kg/mol",
+      "note": "代表値"
+    },
+    "density": {
+      "value": 867.0,
+      "unit": "kg/m^3",
+      "note": "20 degC 参考値"
+    },
+    "specific_heat": {
+      "value": 1700.0,
+      "unit": "J/(kg*K)",
+      "note": "代表値"
+    },
+    "viscosity": {
+      "value": 0.00059,
+      "unit": "Pas",
+      "note": "代表値"
+    },
+    "thermal_conductivity": {
+      "value": 0.13,
+      "unit": "W/(m*K)",
+      "note": "代表値"
+    },
+    "latent_heat": {
+      "value": 351000.0,
+      "unit": "J/kg",
+      "note": "沸点付近参考値"
+    },
+    "temperature_range": "常温付近の代表値",
+    "notes": "初期版の参考値です。",
+    "source": "一般的な公開物性値の代表値",
+    "phase_reference": "液体, 20 degC",
+    "boiling_point": {
+      "value": 383.75,
+      "unit": "K",
+      "note": "1 atm"
+    },
+    "melting_point": {
+      "value": 178.0,
+      "unit": "K",
+      "note": "代表値"
+    },
+    "critical_temperature": {
+      "value": 591.8,
+      "unit": "K",
+      "note": "代表値"
+    },
+    "critical_pressure": {
+      "value": 4130000.0,
+      "unit": "Pa",
+      "note": "代表値"
+    },
+    "surface_tension": {
+      "value": 0.0285,
+      "unit": "N/m",
+      "note": "20 degC"
+    },
+    "vapor_pressure": {
+      "value": 2900.0,
+      "unit": "Pa",
+      "note": "20 degC"
+    },
+    "prandtl_number": {
+      "value": 7.7,
+      "unit": "fraction",
+      "note": "液体代表値"
+    }
+  },
+  {
+    "substance_id": "water",
+    "name_ja": "水",
+    "aliases": [
+      "Water",
+      "H2O"
+    ],
+    "molecular_weight": {
+      "value": 0.018015,
+      "unit": "kg/mol",
+      "note": "代表値"
+    },
+    "density": {
+      "value": 998.0,
+      "unit": "kg/m^3",
+      "note": "20 degC 参考値"
+    },
+    "specific_heat": {
+      "value": 4180.0,
+      "unit": "J/(kg*K)",
+      "note": "20 degC 参考値"
+    },
+    "viscosity": {
+      "value": 0.001002,
+      "unit": "Pas",
+      "note": "20 degC 参考値"
+    },
+    "thermal_conductivity": {
+      "value": 0.598,
+      "unit": "W/(m*K)",
+      "note": "20 degC 参考値"
+    },
+    "latent_heat": {
+      "value": 2257000.0,
+      "unit": "J/kg",
+      "note": "100 degC 参考値"
+    },
+    "gas_constant_basis": "代表値・参考値",
+    "temperature_range": "0～100 degC の代表値",
+    "notes": "初期版の代表値です。厳密設計では最新物性表をご確認ください。",
+    "source": "一般的な化学工学便覧・公開物性表の代表値",
+    "phase_reference": "液体, 20 degC, 1 atm",
+    "boiling_point": {
+      "value": 373.15,
+      "unit": "K",
+      "note": "1 atm"
+    },
+    "melting_point": {
+      "value": 273.15,
+      "unit": "K",
+      "note": "1 atm"
+    },
+    "critical_temperature": {
+      "value": 647.1,
+      "unit": "K",
+      "note": "代表値"
+    },
+    "critical_pressure": {
+      "value": 22064000.0,
+      "unit": "Pa",
+      "note": "代表値"
+    },
+    "surface_tension": {
+      "value": 0.0728,
+      "unit": "N/m",
+      "note": "20 degC"
+    },
+    "vapor_pressure": {
+      "value": 2339.0,
+      "unit": "Pa",
+      "note": "20 degC"
+    },
+    "prandtl_number": {
+      "value": 7.0,
+      "unit": "fraction",
+      "note": "20 degC"
+    }
+  }
 ]

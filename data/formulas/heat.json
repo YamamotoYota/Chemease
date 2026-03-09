@@ -1,12 +1,997 @@
 [
-  {"formula_id":"heat_sensible_heat","name_ja":"顕熱計算","category":"伝熱","summary":"温度変化に伴う熱量を求めます。","description":"質量、比熱、温度差から顕熱を計算する基本式です。加熱器・冷却器の概算に広く使います。","equation_latex":"Q = m Cp Delta T","inputs":[{"key":"mass","label_ja":"質量","description":"対象物質の質量","standard_unit":"kg","allowed_units":["kg","g","t"],"positive_only":true,"nonzero":true},{"key":"specific_heat","label_ja":"比熱","description":"定圧比熱の代表値","standard_unit":"J/(kg*K)","allowed_units":["J/(kg*K)","kJ/(kg*K)"],"positive_only":true,"nonzero":true,"suggested_property_key":"specific_heat"},{"key":"temperature_change","label_ja":"温度差","description":"加熱または冷却の温度差","standard_unit":"K","allowed_units":["K","degC"],"positive_only":true,"nonzero":true,"is_temperature_difference":true}],"outputs":[{"key":"heat_duty","label_ja":"熱量","description":"必要または除去される熱量","standard_unit":"J","allowed_units":["J","kJ","MJ","kcal"],"required":false,"output_preferred_unit":"kJ"}],"variable_definitions":{"mass":"質量 m","specific_heat":"比熱 Cp","temperature_change":"温度差 Delta T","heat_duty":"熱量 Q"},"applicability":["昇温・降温の熱量概算"],"assumptions":["比熱一定近似","相変化なし"],"cautions":["相変化を伴うときは潜熱を別途加算"],"references":["伝熱の基礎式"],"function_name":"sensible_heat","keywords":["顕熱","比熱"],"interpretation_hint":"比熱の単位と温度差の扱いを間違えやすいので内部換算値も確認してください。"},
-  {"formula_id":"heat_latent_heat","name_ja":"潜熱計算","category":"伝熱","summary":"相変化に伴う熱量を求めます。","description":"蒸発、凝縮、融解などの相変化で必要な熱量を概算します。","equation_latex":"Q = m lambda","inputs":[{"key":"mass","label_ja":"質量","description":"相変化する質量","standard_unit":"kg","allowed_units":["kg","g","t"],"positive_only":true,"nonzero":true},{"key":"latent_heat","label_ja":"潜熱","description":"蒸発潜熱などの代表値","standard_unit":"J/kg","allowed_units":["J/kg","kJ/kg","kcal/kg"],"positive_only":true,"nonzero":true,"suggested_property_key":"latent_heat"}],"outputs":[{"key":"heat_duty","label_ja":"熱量","description":"潜熱負荷","standard_unit":"J","allowed_units":["J","kJ","MJ","kcal"],"required":false,"output_preferred_unit":"kJ"}],"variable_definitions":{"mass":"質量 m","latent_heat":"潜熱 lambda","heat_duty":"熱量 Q"},"applicability":["蒸発・凝縮の概算"],"assumptions":["代表潜熱を使用"],"cautions":["圧力で潜熱が変わる点に注意"],"references":["相変化熱の基礎式"],"function_name":"latent_heat","keywords":["潜熱","蒸発"],"interpretation_hint":"実機では顕熱と潜熱の両方を合算して熱負荷を見積もります。"},
-  {"formula_id":"heat_heat_balance","name_ja":"熱収支","category":"伝熱","summary":"入熱と出熱の差を求めます。","description":"単純な熱収支の確認用です。熱源側と放熱側の差分を把握できます。","equation_latex":"Q_net = Q_in - Q_out","inputs":[{"key":"heat_in","label_ja":"入熱","description":"系に入る熱量または熱流","standard_unit":"W","allowed_units":["W","kW"],"positive_only":true},{"key":"heat_out","label_ja":"出熱","description":"系から出る熱量または熱流","standard_unit":"W","allowed_units":["W","kW"],"positive_only":true}],"outputs":[{"key":"net_heat","label_ja":"正味熱量","description":"差し引きの熱流","standard_unit":"W","allowed_units":["W","kW"],"required":false,"output_preferred_unit":"kW"}],"variable_definitions":{"heat_in":"入熱 Qin","heat_out":"出熱 Qout","net_heat":"正味熱量 Qnet"},"applicability":["設備全体の熱収支確認"],"assumptions":["時間平均値で扱う"],"cautions":["符号規約を統一してください"],"references":["エネルギーバランスの基礎"],"function_name":"heat_balance","keywords":["熱収支","バランス"],"interpretation_hint":"差が大きい場合は単位系か境界条件の取り違えを疑ってください。"},
-  {"formula_id":"heat_heat_flux","name_ja":"熱流束","category":"伝熱","summary":"単位面積当たりの熱流を求めます。","description":"伝熱面の面積基準で熱負荷を比較するときに便利な指標です。","equation_latex":"q = Q / A","inputs":[{"key":"heat_duty","label_ja":"熱量流束の元になる熱量","description":"単位時間当たりの熱量","standard_unit":"W","allowed_units":["W","kW"],"positive_only":true,"nonzero":true},{"key":"area","label_ja":"伝熱面積","description":"伝熱面の面積","standard_unit":"m^2","allowed_units":["m^2","cm^2"],"positive_only":true,"nonzero":true}],"outputs":[{"key":"heat_flux","label_ja":"熱流束","description":"面積当たり熱流","standard_unit":"W/m^2","allowed_units":["W/m^2"],"required":false}],"variable_definitions":{"heat_duty":"熱量流 Q","area":"面積 A","heat_flux":"熱流束 q"},"applicability":["伝熱面評価","設計比較"],"assumptions":["面内平均値"],"cautions":["局所熱流束は別途変動します"],"references":["伝熱設計の基本量"],"function_name":"heat_flux","keywords":["熱流束"],"interpretation_hint":"面積の取り方で値が大きく変わるため、基準面積を明確にしてください。"},
-  {"formula_id":"heat_conduction_basic","name_ja":"熱伝導の基礎式","category":"伝熱","summary":"平板1層の熱伝導量を求めます。","description":"厚み方向に一次元熱伝導すると仮定した簡易式です。断熱材概算に使えます。","equation_latex":"Q = k A Delta T / L","inputs":[{"key":"thermal_conductivity","label_ja":"熱伝導率","description":"材料の熱伝導率","standard_unit":"W/(m*K)","allowed_units":["W/(m*K)"],"positive_only":true,"nonzero":true,"suggested_property_key":"thermal_conductivity"},{"key":"area","label_ja":"面積","description":"伝熱面積","standard_unit":"m^2","allowed_units":["m^2","cm^2"],"positive_only":true,"nonzero":true},{"key":"temperature_difference","label_ja":"温度差","description":"壁両側の温度差","standard_unit":"K","allowed_units":["K","degC"],"positive_only":true,"nonzero":true,"is_temperature_difference":true},{"key":"thickness","label_ja":"厚み","description":"壁厚","standard_unit":"m","allowed_units":["m","mm","cm"],"positive_only":true,"nonzero":true}],"outputs":[{"key":"heat_duty","label_ja":"伝導熱量流","description":"伝導による熱流","standard_unit":"W","allowed_units":["W","kW"],"required":false,"output_preferred_unit":"kW"}],"variable_definitions":{"thermal_conductivity":"熱伝導率 k","area":"面積 A","temperature_difference":"温度差 Delta T","thickness":"厚み L","heat_duty":"熱量流 Q"},"applicability":["平板1層の概算"],"assumptions":["一次元定常伝導","物性一定"],"cautions":["円筒壁は厳密には別式"],"references":["Fourierの法則の簡易形"],"function_name":"conduction_basic","keywords":["熱伝導","Fourier"],"interpretation_hint":"多層壁の場合は熱抵抗を直列合成すると使いやすいです。"},
-  {"formula_id":"heat_newton_cooling","name_ja":"Newtonの冷却則","category":"伝熱","summary":"対流伝熱量を求めます。","description":"熱伝達係数、面積、温度差から対流熱流を見積もる代表式です。","equation_latex":"Q = h A Delta T","inputs":[{"key":"heat_transfer_coefficient","label_ja":"熱伝達係数","description":"対流熱伝達係数","standard_unit":"W/(m^2*K)","allowed_units":["W/(m^2*K)"],"positive_only":true,"nonzero":true},{"key":"area","label_ja":"面積","description":"伝熱面積","standard_unit":"m^2","allowed_units":["m^2","cm^2"],"positive_only":true,"nonzero":true},{"key":"temperature_difference","label_ja":"温度差","description":"壁面と流体の温度差","standard_unit":"K","allowed_units":["K","degC"],"positive_only":true,"nonzero":true,"is_temperature_difference":true}],"outputs":[{"key":"heat_duty","label_ja":"対流熱量流","description":"対流による熱流","standard_unit":"W","allowed_units":["W","kW"],"required":false,"output_preferred_unit":"kW"}],"variable_definitions":{"heat_transfer_coefficient":"熱伝達係数 h","area":"面積 A","temperature_difference":"温度差 Delta T","heat_duty":"熱量流 Q"},"applicability":["対流伝熱の概算"],"assumptions":["平均熱伝達係数を使用"],"cautions":["相変化を伴う伝熱では係数の意味に注意"],"references":["Newtonの冷却則"],"function_name":"newton_cooling","keywords":["対流伝熱"],"interpretation_hint":"h の妥当性が結果に最も強く効きます。相関式の適用範囲も確認してください。"},
-  {"formula_id":"heat_overall_heat_transfer","name_ja":"総括伝熱量","category":"伝熱","summary":"総括伝熱係数から熱量を求めます。","description":"総括伝熱係数、伝熱面積、LMTDから熱交換器の熱負荷を概算します。","equation_latex":"Q = U A LMTD","inputs":[{"key":"overall_u","label_ja":"総括伝熱係数","description":"総括伝熱係数","standard_unit":"W/(m^2*K)","allowed_units":["W/(m^2*K)"],"positive_only":true,"nonzero":true},{"key":"area","label_ja":"伝熱面積","description":"伝熱面積","standard_unit":"m^2","allowed_units":["m^2","cm^2"],"positive_only":true,"nonzero":true},{"key":"lmtd","label_ja":"LMTD","description":"対数平均温度差","standard_unit":"K","allowed_units":["K","degC"],"positive_only":true,"nonzero":true,"is_temperature_difference":true}],"outputs":[{"key":"heat_duty","label_ja":"熱量流","description":"総括伝熱量","standard_unit":"W","allowed_units":["W","kW"],"required":false,"output_preferred_unit":"kW"}],"variable_definitions":{"overall_u":"総括伝熱係数 U","area":"面積 A","lmtd":"対数平均温度差 LMTD","heat_duty":"熱量流 Q"},"applicability":["熱交換器の初期見積り"],"assumptions":["平均Uで代表化"],"cautions":["ファウリングや補正係数は別途考慮"],"references":["熱交換器設計の基本式"],"function_name":"overall_heat_transfer","keywords":["総括伝熱","熱交換器"],"interpretation_hint":"LMTD法は端温度差が正であることが前提です。"},
-  {"formula_id":"heat_lmtd","name_ja":"LMTD","category":"伝熱","summary":"対数平均温度差を求めます。","description":"熱交換器の両端温度差から平均駆動力を評価する代表式です。","equation_latex":"LMTD = (Delta T1 - Delta T2) / ln(Delta T1 / Delta T2)","inputs":[{"key":"delta_t1","label_ja":"端温度差1","description":"片端の温度差","standard_unit":"K","allowed_units":["K","degC"],"positive_only":true,"nonzero":true,"is_temperature_difference":true},{"key":"delta_t2","label_ja":"端温度差2","description":"もう一方の温度差","standard_unit":"K","allowed_units":["K","degC"],"positive_only":true,"nonzero":true,"is_temperature_difference":true}],"outputs":[{"key":"lmtd","label_ja":"対数平均温度差","description":"LMTD","standard_unit":"K","allowed_units":["K","degC"],"required":false,"is_temperature_difference":true}],"variable_definitions":{"delta_t1":"端温度差 Delta T1","delta_t2":"端温度差 Delta T2","lmtd":"対数平均温度差 LMTD"},"applicability":["熱交換器計算の前処理"],"assumptions":["両端温度差が正"],"cautions":["片方が負になる温度クロスでは扱いに注意"],"references":["熱交換器設計の基礎式"],"function_name":"lmtd","keywords":["LMTD","対数平均温度差"],"interpretation_hint":"端温度差が近いときは算術平均に近い値になります。"},
-  {"formula_id":"heat_overall_heat_transfer_coefficient","name_ja":"総括伝熱係数の基本利用","category":"伝熱","summary":"既知の熱量から総括伝熱係数を逆算します。","description":"実績熱量、面積、温度差から見かけの総括伝熱係数を算出します。","equation_latex":"U = Q / (A Delta T)","inputs":[{"key":"heat_duty","label_ja":"熱量流","description":"既知の熱流","standard_unit":"W","allowed_units":["W","kW"],"positive_only":true,"nonzero":true},{"key":"area","label_ja":"伝熱面積","description":"伝熱面積","standard_unit":"m^2","allowed_units":["m^2","cm^2"],"positive_only":true,"nonzero":true},{"key":"temperature_difference","label_ja":"代表温度差","description":"LMTDなどの代表温度差","standard_unit":"K","allowed_units":["K","degC"],"positive_only":true,"nonzero":true,"is_temperature_difference":true}],"outputs":[{"key":"overall_u","label_ja":"総括伝熱係数","description":"見かけの総括伝熱係数","standard_unit":"W/(m^2*K)","allowed_units":["W/(m^2*K)"],"required":false}],"variable_definitions":{"heat_duty":"熱量流 Q","area":"面積 A","temperature_difference":"温度差 Delta T","overall_u":"総括伝熱係数 U"},"applicability":["実績値整理","性能比較"],"assumptions":["温度差を代表値で近似"],"cautions":["ファウリングや補正込みの見かけ値になります"],"references":["総括伝熱係数の基本式"],"function_name":"overall_heat_transfer_coefficient","keywords":["総括伝熱係数","逆算"],"interpretation_hint":"U の大小だけで判断せず、流速や汚れ条件も併せて比較してください。"},
-  {"formula_id":"heat_wall_resistance_series","name_ja":"壁面熱抵抗の直列合成","category":"伝熱","summary":"内外対流と壁伝導の合成熱抵抗を求めます。","description":"1枚壁を挟む直列熱抵抗モデルです。総括伝熱係数の概算に使えます。","equation_latex":"R = 1/hi + L/k + 1/ho","inputs":[{"key":"h_inner","label_ja":"内側熱伝達係数","description":"内側の対流係数","standard_unit":"W/(m^2*K)","allowed_units":["W/(m^2*K)"],"positive_only":true,"nonzero":true},{"key":"wall_thickness","label_ja":"壁厚","description":"壁の厚み","standard_unit":"m","allowed_units":["m","mm","cm"],"positive_only":true,"nonzero":true},{"key":"wall_conductivity","label_ja":"壁熱伝導率","description":"壁材の熱伝導率","standard_unit":"W/(m*K)","allowed_units":["W/(m*K)"],"positive_only":true,"nonzero":true},{"key":"h_outer","label_ja":"外側熱伝達係数","description":"外側の対流係数","standard_unit":"W/(m^2*K)","allowed_units":["W/(m^2*K)"],"positive_only":true,"nonzero":true}],"outputs":[{"key":"total_resistance","label_ja":"合成熱抵抗","description":"面積基準の合成熱抵抗","standard_unit":"m^2*K/W","allowed_units":["m^2*K/W"],"required":false},{"key":"overall_u","label_ja":"総括伝熱係数","description":"熱抵抗から求めたU","standard_unit":"W/(m^2*K)","allowed_units":["W/(m^2*K)"],"required":false}],"variable_definitions":{"h_inner":"内側熱伝達係数 hi","wall_thickness":"壁厚 L","wall_conductivity":"壁熱伝導率 k","h_outer":"外側熱伝達係数 ho","total_resistance":"合成熱抵抗 R","overall_u":"総括伝熱係数 U"},"applicability":["1層壁の概算"],"assumptions":["面積変化を無視","定常伝熱"],"cautions":["円筒壁の厳密式ではありません"],"references":["熱抵抗法の基礎"],"function_name":"wall_resistance_series","keywords":["熱抵抗","直列合成"],"interpretation_hint":"抵抗のうち支配的な項を見れば、改善すべきボトルネックが把握しやすくなります。"}
+  {
+    "formula_id": "heat_sensible_heat",
+    "name_ja": "顕熱計算",
+    "category": "伝熱",
+    "summary": "温度変化に伴う熱量を求めます。",
+    "description": "質量、比熱、温度差から顕熱を計算する基本式です。加熱器・冷却器の概算に広く使います。",
+    "equation_latex": "Q = m Cp Delta T",
+    "inputs": [
+      {
+        "key": "mass",
+        "label_ja": "質量",
+        "description": "対象物質の質量",
+        "standard_unit": "kg",
+        "allowed_units": [
+          "kg",
+          "g",
+          "t"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "specific_heat",
+        "label_ja": "比熱",
+        "description": "定圧比熱の代表値",
+        "standard_unit": "J/(kg*K)",
+        "allowed_units": [
+          "J/(kg*K)",
+          "kJ/(kg*K)"
+        ],
+        "positive_only": true,
+        "nonzero": true,
+        "suggested_property_key": "specific_heat"
+      },
+      {
+        "key": "temperature_change",
+        "label_ja": "温度差",
+        "description": "加熱または冷却の温度差",
+        "standard_unit": "K",
+        "allowed_units": [
+          "K",
+          "degC"
+        ],
+        "positive_only": true,
+        "nonzero": true,
+        "is_temperature_difference": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "heat_duty",
+        "label_ja": "熱量",
+        "description": "必要または除去される熱量",
+        "standard_unit": "J",
+        "allowed_units": [
+          "J",
+          "kJ",
+          "MJ",
+          "kcal"
+        ],
+        "required": false,
+        "output_preferred_unit": "kJ"
+      }
+    ],
+    "variable_definitions": {
+      "mass": "質量 m",
+      "specific_heat": "比熱 Cp",
+      "temperature_change": "温度差 Delta T",
+      "heat_duty": "熱量 Q"
+    },
+    "applicability": [
+      "昇温・降温の熱量概算"
+    ],
+    "assumptions": [
+      "比熱一定近似",
+      "相変化なし"
+    ],
+    "cautions": [
+      "相変化を伴うときは潜熱を別途加算"
+    ],
+    "references": [
+      "伝熱の基礎式"
+    ],
+    "function_name": "sensible_heat",
+    "keywords": [
+      "顕熱",
+      "比熱"
+    ],
+    "interpretation_hint": "比熱の単位と温度差の扱いを間違えやすいので内部換算値も確認してください。"
+  },
+  {
+    "formula_id": "heat_latent_heat",
+    "name_ja": "潜熱計算",
+    "category": "伝熱",
+    "summary": "相変化に伴う熱量を求めます。",
+    "description": "蒸発、凝縮、融解などの相変化で必要な熱量を概算します。",
+    "equation_latex": "Q = m lambda",
+    "inputs": [
+      {
+        "key": "mass",
+        "label_ja": "質量",
+        "description": "相変化する質量",
+        "standard_unit": "kg",
+        "allowed_units": [
+          "kg",
+          "g",
+          "t"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "latent_heat",
+        "label_ja": "潜熱",
+        "description": "蒸発潜熱などの代表値",
+        "standard_unit": "J/kg",
+        "allowed_units": [
+          "J/kg",
+          "kJ/kg",
+          "kcal/kg"
+        ],
+        "positive_only": true,
+        "nonzero": true,
+        "suggested_property_key": "latent_heat"
+      }
+    ],
+    "outputs": [
+      {
+        "key": "heat_duty",
+        "label_ja": "熱量",
+        "description": "潜熱負荷",
+        "standard_unit": "J",
+        "allowed_units": [
+          "J",
+          "kJ",
+          "MJ",
+          "kcal"
+        ],
+        "required": false,
+        "output_preferred_unit": "kJ"
+      }
+    ],
+    "variable_definitions": {
+      "mass": "質量 m",
+      "latent_heat": "潜熱 lambda",
+      "heat_duty": "熱量 Q"
+    },
+    "applicability": [
+      "蒸発・凝縮の概算"
+    ],
+    "assumptions": [
+      "代表潜熱を使用"
+    ],
+    "cautions": [
+      "圧力で潜熱が変わる点に注意"
+    ],
+    "references": [
+      "相変化熱の基礎式"
+    ],
+    "function_name": "latent_heat",
+    "keywords": [
+      "潜熱",
+      "蒸発"
+    ],
+    "interpretation_hint": "実機では顕熱と潜熱の両方を合算して熱負荷を見積もります。"
+  },
+  {
+    "formula_id": "heat_heat_balance",
+    "name_ja": "熱収支",
+    "category": "伝熱",
+    "summary": "入熱と出熱の差を求めます。",
+    "description": "単純な熱収支の確認用です。熱源側と放熱側の差分を把握できます。",
+    "equation_latex": "Q_net = Q_in - Q_out",
+    "inputs": [
+      {
+        "key": "heat_in",
+        "label_ja": "入熱",
+        "description": "系に入る熱量または熱流",
+        "standard_unit": "W",
+        "allowed_units": [
+          "W",
+          "kW"
+        ],
+        "positive_only": true
+      },
+      {
+        "key": "heat_out",
+        "label_ja": "出熱",
+        "description": "系から出る熱量または熱流",
+        "standard_unit": "W",
+        "allowed_units": [
+          "W",
+          "kW"
+        ],
+        "positive_only": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "net_heat",
+        "label_ja": "正味熱量",
+        "description": "差し引きの熱流",
+        "standard_unit": "W",
+        "allowed_units": [
+          "W",
+          "kW"
+        ],
+        "required": false,
+        "output_preferred_unit": "kW"
+      }
+    ],
+    "variable_definitions": {
+      "heat_in": "入熱 Qin",
+      "heat_out": "出熱 Qout",
+      "net_heat": "正味熱量 Qnet"
+    },
+    "applicability": [
+      "設備全体の熱収支確認"
+    ],
+    "assumptions": [
+      "時間平均値で扱う"
+    ],
+    "cautions": [
+      "符号規約を統一してください"
+    ],
+    "references": [
+      "エネルギーバランスの基礎"
+    ],
+    "function_name": "heat_balance",
+    "keywords": [
+      "熱収支",
+      "バランス"
+    ],
+    "interpretation_hint": "差が大きい場合は単位系か境界条件の取り違えを疑ってください。"
+  },
+  {
+    "formula_id": "heat_heat_flux",
+    "name_ja": "熱流束",
+    "category": "伝熱",
+    "summary": "単位面積当たりの熱流を求めます。",
+    "description": "伝熱面の面積基準で熱負荷を比較するときに便利な指標です。",
+    "equation_latex": "q = Q / A",
+    "inputs": [
+      {
+        "key": "heat_duty",
+        "label_ja": "熱量流束の元になる熱量",
+        "description": "単位時間当たりの熱量",
+        "standard_unit": "W",
+        "allowed_units": [
+          "W",
+          "kW"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "area",
+        "label_ja": "伝熱面積",
+        "description": "伝熱面の面積",
+        "standard_unit": "m^2",
+        "allowed_units": [
+          "m^2",
+          "cm^2"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "heat_flux",
+        "label_ja": "熱流束",
+        "description": "面積当たり熱流",
+        "standard_unit": "W/m^2",
+        "allowed_units": [
+          "W/m^2"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "heat_duty": "熱量流 Q",
+      "area": "面積 A",
+      "heat_flux": "熱流束 q"
+    },
+    "applicability": [
+      "伝熱面評価",
+      "設計比較"
+    ],
+    "assumptions": [
+      "面内平均値"
+    ],
+    "cautions": [
+      "局所熱流束は別途変動します"
+    ],
+    "references": [
+      "伝熱設計の基本量"
+    ],
+    "function_name": "heat_flux",
+    "keywords": [
+      "熱流束"
+    ],
+    "interpretation_hint": "面積の取り方で値が大きく変わるため、基準面積を明確にしてください。"
+  },
+  {
+    "formula_id": "heat_conduction_basic",
+    "name_ja": "熱伝導の基礎式",
+    "category": "伝熱",
+    "summary": "平板1層の熱伝導量を求めます。",
+    "description": "厚み方向に一次元熱伝導すると仮定した簡易式です。断熱材概算に使えます。",
+    "equation_latex": "Q = k A Delta T / L",
+    "inputs": [
+      {
+        "key": "thermal_conductivity",
+        "label_ja": "熱伝導率",
+        "description": "材料の熱伝導率",
+        "standard_unit": "W/(m*K)",
+        "allowed_units": [
+          "W/(m*K)"
+        ],
+        "positive_only": true,
+        "nonzero": true,
+        "suggested_property_key": "thermal_conductivity"
+      },
+      {
+        "key": "area",
+        "label_ja": "面積",
+        "description": "伝熱面積",
+        "standard_unit": "m^2",
+        "allowed_units": [
+          "m^2",
+          "cm^2"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "temperature_difference",
+        "label_ja": "温度差",
+        "description": "壁両側の温度差",
+        "standard_unit": "K",
+        "allowed_units": [
+          "K",
+          "degC"
+        ],
+        "positive_only": true,
+        "nonzero": true,
+        "is_temperature_difference": true
+      },
+      {
+        "key": "thickness",
+        "label_ja": "厚み",
+        "description": "壁厚",
+        "standard_unit": "m",
+        "allowed_units": [
+          "m",
+          "mm",
+          "cm"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "heat_duty",
+        "label_ja": "伝導熱量流",
+        "description": "伝導による熱流",
+        "standard_unit": "W",
+        "allowed_units": [
+          "W",
+          "kW"
+        ],
+        "required": false,
+        "output_preferred_unit": "kW"
+      }
+    ],
+    "variable_definitions": {
+      "thermal_conductivity": "熱伝導率 k",
+      "area": "面積 A",
+      "temperature_difference": "温度差 Delta T",
+      "thickness": "厚み L",
+      "heat_duty": "熱量流 Q"
+    },
+    "applicability": [
+      "平板1層の概算"
+    ],
+    "assumptions": [
+      "一次元定常伝導",
+      "物性一定"
+    ],
+    "cautions": [
+      "円筒壁は厳密には別式"
+    ],
+    "references": [
+      "Fourierの法則の簡易形"
+    ],
+    "function_name": "conduction_basic",
+    "keywords": [
+      "熱伝導",
+      "Fourier"
+    ],
+    "interpretation_hint": "多層壁の場合は熱抵抗を直列合成すると使いやすいです。"
+  },
+  {
+    "formula_id": "heat_newton_cooling",
+    "name_ja": "Newtonの冷却則",
+    "category": "伝熱",
+    "summary": "対流伝熱量を求めます。",
+    "description": "熱伝達係数、面積、温度差から対流熱流を見積もる代表式です。",
+    "equation_latex": "Q = h A Delta T",
+    "inputs": [
+      {
+        "key": "heat_transfer_coefficient",
+        "label_ja": "熱伝達係数",
+        "description": "対流熱伝達係数",
+        "standard_unit": "W/(m^2*K)",
+        "allowed_units": [
+          "W/(m^2*K)"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "area",
+        "label_ja": "面積",
+        "description": "伝熱面積",
+        "standard_unit": "m^2",
+        "allowed_units": [
+          "m^2",
+          "cm^2"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "temperature_difference",
+        "label_ja": "温度差",
+        "description": "壁面と流体の温度差",
+        "standard_unit": "K",
+        "allowed_units": [
+          "K",
+          "degC"
+        ],
+        "positive_only": true,
+        "nonzero": true,
+        "is_temperature_difference": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "heat_duty",
+        "label_ja": "対流熱量流",
+        "description": "対流による熱流",
+        "standard_unit": "W",
+        "allowed_units": [
+          "W",
+          "kW"
+        ],
+        "required": false,
+        "output_preferred_unit": "kW"
+      }
+    ],
+    "variable_definitions": {
+      "heat_transfer_coefficient": "熱伝達係数 h",
+      "area": "面積 A",
+      "temperature_difference": "温度差 Delta T",
+      "heat_duty": "熱量流 Q"
+    },
+    "applicability": [
+      "対流伝熱の概算"
+    ],
+    "assumptions": [
+      "平均熱伝達係数を使用"
+    ],
+    "cautions": [
+      "相変化を伴う伝熱では係数の意味に注意"
+    ],
+    "references": [
+      "Newtonの冷却則"
+    ],
+    "function_name": "newton_cooling",
+    "keywords": [
+      "対流伝熱"
+    ],
+    "interpretation_hint": "h の妥当性が結果に最も強く効きます。相関式の適用範囲も確認してください。"
+  },
+  {
+    "formula_id": "heat_overall_heat_transfer",
+    "name_ja": "総括伝熱量",
+    "category": "伝熱",
+    "summary": "総括伝熱係数から熱量を求めます。",
+    "description": "総括伝熱係数、伝熱面積、LMTDから熱交換器の熱負荷を概算します。",
+    "equation_latex": "Q = U A LMTD",
+    "inputs": [
+      {
+        "key": "overall_u",
+        "label_ja": "総括伝熱係数",
+        "description": "総括伝熱係数",
+        "standard_unit": "W/(m^2*K)",
+        "allowed_units": [
+          "W/(m^2*K)"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "area",
+        "label_ja": "伝熱面積",
+        "description": "伝熱面積",
+        "standard_unit": "m^2",
+        "allowed_units": [
+          "m^2",
+          "cm^2"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "lmtd",
+        "label_ja": "LMTD",
+        "description": "対数平均温度差",
+        "standard_unit": "K",
+        "allowed_units": [
+          "K",
+          "degC"
+        ],
+        "positive_only": true,
+        "nonzero": true,
+        "is_temperature_difference": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "heat_duty",
+        "label_ja": "熱量流",
+        "description": "総括伝熱量",
+        "standard_unit": "W",
+        "allowed_units": [
+          "W",
+          "kW"
+        ],
+        "required": false,
+        "output_preferred_unit": "kW"
+      }
+    ],
+    "variable_definitions": {
+      "overall_u": "総括伝熱係数 U",
+      "area": "面積 A",
+      "lmtd": "対数平均温度差 LMTD",
+      "heat_duty": "熱量流 Q"
+    },
+    "applicability": [
+      "熱交換器の初期見積り"
+    ],
+    "assumptions": [
+      "平均Uで代表化"
+    ],
+    "cautions": [
+      "ファウリングや補正係数は別途考慮"
+    ],
+    "references": [
+      "熱交換器設計の基本式"
+    ],
+    "function_name": "overall_heat_transfer",
+    "keywords": [
+      "総括伝熱",
+      "熱交換器"
+    ],
+    "interpretation_hint": "LMTD法は端温度差が正であることが前提です。"
+  },
+  {
+    "formula_id": "heat_lmtd",
+    "name_ja": "LMTD",
+    "category": "伝熱",
+    "summary": "対数平均温度差を求めます。",
+    "description": "熱交換器の両端温度差から平均駆動力を評価する代表式です。",
+    "equation_latex": "LMTD = (Delta T1 - Delta T2) / ln(Delta T1 / Delta T2)",
+    "inputs": [
+      {
+        "key": "delta_t1",
+        "label_ja": "端温度差1",
+        "description": "片端の温度差",
+        "standard_unit": "K",
+        "allowed_units": [
+          "K",
+          "degC"
+        ],
+        "positive_only": true,
+        "nonzero": true,
+        "is_temperature_difference": true
+      },
+      {
+        "key": "delta_t2",
+        "label_ja": "端温度差2",
+        "description": "もう一方の温度差",
+        "standard_unit": "K",
+        "allowed_units": [
+          "K",
+          "degC"
+        ],
+        "positive_only": true,
+        "nonzero": true,
+        "is_temperature_difference": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "lmtd",
+        "label_ja": "対数平均温度差",
+        "description": "LMTD",
+        "standard_unit": "K",
+        "allowed_units": [
+          "K",
+          "degC"
+        ],
+        "required": false,
+        "is_temperature_difference": true
+      }
+    ],
+    "variable_definitions": {
+      "delta_t1": "端温度差 Delta T1",
+      "delta_t2": "端温度差 Delta T2",
+      "lmtd": "対数平均温度差 LMTD"
+    },
+    "applicability": [
+      "熱交換器計算の前処理"
+    ],
+    "assumptions": [
+      "両端温度差が正"
+    ],
+    "cautions": [
+      "片方が負になる温度クロスでは扱いに注意"
+    ],
+    "references": [
+      "熱交換器設計の基礎式"
+    ],
+    "function_name": "lmtd",
+    "keywords": [
+      "LMTD",
+      "対数平均温度差"
+    ],
+    "interpretation_hint": "端温度差が近いときは算術平均に近い値になります。"
+  },
+  {
+    "formula_id": "heat_overall_heat_transfer_coefficient",
+    "name_ja": "総括伝熱係数の基本利用",
+    "category": "伝熱",
+    "summary": "既知の熱量から総括伝熱係数を逆算します。",
+    "description": "実績熱量、面積、温度差から見かけの総括伝熱係数を算出します。",
+    "equation_latex": "U = Q / (A Delta T)",
+    "inputs": [
+      {
+        "key": "heat_duty",
+        "label_ja": "熱量流",
+        "description": "既知の熱流",
+        "standard_unit": "W",
+        "allowed_units": [
+          "W",
+          "kW"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "area",
+        "label_ja": "伝熱面積",
+        "description": "伝熱面積",
+        "standard_unit": "m^2",
+        "allowed_units": [
+          "m^2",
+          "cm^2"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "temperature_difference",
+        "label_ja": "代表温度差",
+        "description": "LMTDなどの代表温度差",
+        "standard_unit": "K",
+        "allowed_units": [
+          "K",
+          "degC"
+        ],
+        "positive_only": true,
+        "nonzero": true,
+        "is_temperature_difference": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "overall_u",
+        "label_ja": "総括伝熱係数",
+        "description": "見かけの総括伝熱係数",
+        "standard_unit": "W/(m^2*K)",
+        "allowed_units": [
+          "W/(m^2*K)"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "heat_duty": "熱量流 Q",
+      "area": "面積 A",
+      "temperature_difference": "温度差 Delta T",
+      "overall_u": "総括伝熱係数 U"
+    },
+    "applicability": [
+      "実績値整理",
+      "性能比較"
+    ],
+    "assumptions": [
+      "温度差を代表値で近似"
+    ],
+    "cautions": [
+      "ファウリングや補正込みの見かけ値になります"
+    ],
+    "references": [
+      "総括伝熱係数の基本式"
+    ],
+    "function_name": "overall_heat_transfer_coefficient",
+    "keywords": [
+      "総括伝熱係数",
+      "逆算"
+    ],
+    "interpretation_hint": "U の大小だけで判断せず、流速や汚れ条件も併せて比較してください。"
+  },
+  {
+    "formula_id": "heat_wall_resistance_series",
+    "name_ja": "壁面熱抵抗の直列合成",
+    "category": "伝熱",
+    "summary": "内外対流と壁伝導の合成熱抵抗を求めます。",
+    "description": "1枚壁を挟む直列熱抵抗モデルです。総括伝熱係数の概算に使えます。",
+    "equation_latex": "R = 1/hi + L/k + 1/ho",
+    "inputs": [
+      {
+        "key": "h_inner",
+        "label_ja": "内側熱伝達係数",
+        "description": "内側の対流係数",
+        "standard_unit": "W/(m^2*K)",
+        "allowed_units": [
+          "W/(m^2*K)"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "wall_thickness",
+        "label_ja": "壁厚",
+        "description": "壁の厚み",
+        "standard_unit": "m",
+        "allowed_units": [
+          "m",
+          "mm",
+          "cm"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "wall_conductivity",
+        "label_ja": "壁熱伝導率",
+        "description": "壁材の熱伝導率",
+        "standard_unit": "W/(m*K)",
+        "allowed_units": [
+          "W/(m*K)"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "h_outer",
+        "label_ja": "外側熱伝達係数",
+        "description": "外側の対流係数",
+        "standard_unit": "W/(m^2*K)",
+        "allowed_units": [
+          "W/(m^2*K)"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "total_resistance",
+        "label_ja": "合成熱抵抗",
+        "description": "面積基準の合成熱抵抗",
+        "standard_unit": "m^2*K/W",
+        "allowed_units": [
+          "m^2*K/W"
+        ],
+        "required": false
+      },
+      {
+        "key": "overall_u",
+        "label_ja": "総括伝熱係数",
+        "description": "熱抵抗から求めたU",
+        "standard_unit": "W/(m^2*K)",
+        "allowed_units": [
+          "W/(m^2*K)"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "h_inner": "内側熱伝達係数 hi",
+      "wall_thickness": "壁厚 L",
+      "wall_conductivity": "壁熱伝導率 k",
+      "h_outer": "外側熱伝達係数 ho",
+      "total_resistance": "合成熱抵抗 R",
+      "overall_u": "総括伝熱係数 U"
+    },
+    "applicability": [
+      "1層壁の概算"
+    ],
+    "assumptions": [
+      "面積変化を無視",
+      "定常伝熱"
+    ],
+    "cautions": [
+      "円筒壁の厳密式ではありません"
+    ],
+    "references": [
+      "熱抵抗法の基礎"
+    ],
+    "function_name": "wall_resistance_series",
+    "keywords": [
+      "熱抵抗",
+      "直列合成"
+    ],
+    "interpretation_hint": "抵抗のうち支配的な項を見れば、改善すべきボトルネックが把握しやすくなります。"
+  },
+  {
+    "formula_id": "heat_thermal_resistance_basic",
+    "name_ja": "熱抵抗の基礎式",
+    "category": "伝熱",
+    "summary": "平板1層の熱抵抗を求めます。",
+    "description": "厚み・熱伝導率・面積から伝導熱抵抗を算出します。",
+    "equation_latex": "R = L / (k A)",
+    "inputs": [
+      {
+        "key": "thickness",
+        "label_ja": "厚み",
+        "description": "壁厚",
+        "standard_unit": "m",
+        "allowed_units": [
+          "m",
+          "mm",
+          "cm"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "thermal_conductivity",
+        "label_ja": "熱伝導率",
+        "description": "材料の熱伝導率",
+        "standard_unit": "W/(m*K)",
+        "allowed_units": [
+          "W/(m*K)"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "area",
+        "label_ja": "面積",
+        "description": "伝熱面積",
+        "standard_unit": "m^2",
+        "allowed_units": [
+          "m^2",
+          "cm^2"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "thermal_resistance",
+        "label_ja": "熱抵抗",
+        "description": "伝導熱抵抗",
+        "standard_unit": "K/W",
+        "allowed_units": [
+          "K/W"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "thickness": "厚み L",
+      "thermal_conductivity": "熱伝導率 k",
+      "area": "面積 A",
+      "thermal_resistance": "熱抵抗 R"
+    },
+    "applicability": [
+      "伝導抵抗の概算"
+    ],
+    "assumptions": [
+      "一次元定常伝熱"
+    ],
+    "cautions": [
+      "多層壁では各抵抗を合成します"
+    ],
+    "references": [
+      "熱抵抗法の基礎"
+    ],
+    "function_name": "thermal_resistance_basic",
+    "keywords": [
+      "熱抵抗"
+    ],
+    "interpretation_hint": "抵抗が大きい層ほど熱を通しにくいと解釈できます。"
+  },
+  {
+    "formula_id": "heat_nusselt_number",
+    "name_ja": "Nusselt数",
+    "category": "伝熱",
+    "summary": "対流伝熱係数を無次元化します。",
+    "description": "伝熱相関式の整理に使う代表無次元数です。",
+    "equation_latex": "Nu = h L / k",
+    "inputs": [
+      {
+        "key": "heat_transfer_coefficient",
+        "label_ja": "熱伝達係数",
+        "description": "代表熱伝達係数",
+        "standard_unit": "W/(m^2*K)",
+        "allowed_units": [
+          "W/(m^2*K)"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "characteristic_length",
+        "label_ja": "代表長さ",
+        "description": "代表寸法",
+        "standard_unit": "m",
+        "allowed_units": [
+          "m",
+          "mm",
+          "cm"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "thermal_conductivity",
+        "label_ja": "熱伝導率",
+        "description": "流体熱伝導率",
+        "standard_unit": "W/(m*K)",
+        "allowed_units": [
+          "W/(m*K)"
+        ],
+        "positive_only": true,
+        "nonzero": true,
+        "suggested_property_key": "thermal_conductivity"
+      }
+    ],
+    "outputs": [
+      {
+        "key": "nusselt_number",
+        "label_ja": "Nusselt数",
+        "description": "無次元のNu",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "heat_transfer_coefficient": "熱伝達係数 h",
+      "characteristic_length": "代表長さ L",
+      "thermal_conductivity": "熱伝導率 k",
+      "nusselt_number": "Nusselt数 Nu"
+    },
+    "applicability": [
+      "伝熱相関の整理"
+    ],
+    "assumptions": [
+      "代表長さで近似"
+    ],
+    "cautions": [
+      "局所値と平均値を区別"
+    ],
+    "references": [
+      "伝熱無次元数の基礎"
+    ],
+    "function_name": "nusselt_number",
+    "keywords": [
+      "Nusselt"
+    ],
+    "interpretation_hint": "Nu が大きいほど対流効果が強いことを示します。"
+  }
 ]

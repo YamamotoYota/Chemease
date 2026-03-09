@@ -1,9 +1,680 @@
 [
-  {"formula_id":"mass_fick_law","name_ja":"Fickの法則","category":"物質移動","summary":"濃度勾配から拡散モル流束を求めます。","description":"一次元定常拡散の基本式です。符号は高濃度側から低濃度側への移動を表します。","equation_latex":"N = -D dC/dz","inputs":[{"key":"diffusivity","label_ja":"拡散係数","description":"分子拡散係数","standard_unit":"m^2/s","allowed_units":["m^2/s"],"positive_only":true,"nonzero":true},{"key":"concentration_gradient","label_ja":"濃度勾配","description":"濃度の空間勾配","standard_unit":"mol/m^4","allowed_units":["mol/m^4"],"nonzero":true}],"outputs":[{"key":"molar_flux","label_ja":"モル流束","description":"拡散によるモル流束","standard_unit":"mol/(m^2*s)","allowed_units":["mol/(m^2*s)"],"required":false}],"variable_definitions":{"diffusivity":"拡散係数 D","concentration_gradient":"濃度勾配 dC/dz","molar_flux":"モル流束 N"},"applicability":["一次元拡散の概算"],"assumptions":["定常・等温近似"],"cautions":["対流成分は含みません"],"references":["物質移動の基礎式"],"function_name":"fick_law","keywords":["Fick","拡散"],"interpretation_hint":"負号は濃度降下方向への移動を表すので、絶対値で量を評価する運用もよく行われます。"},
-  {"formula_id":"mass_mass_transfer_rate","name_ja":"物質移動速度","category":"物質移動","summary":"物質移動係数と駆動力から移動速度を求めます。","description":"境膜モデルでよく使う基礎式です。面積を掛けて全体移動速度を概算します。","equation_latex":"N = k A Delta C","inputs":[{"key":"mass_transfer_coefficient","label_ja":"物質移動係数","description":"境膜基準の物質移動係数","standard_unit":"m/s","allowed_units":["m/s"],"positive_only":true,"nonzero":true},{"key":"area","label_ja":"面積","description":"移動面積","standard_unit":"m^2","allowed_units":["m^2","cm^2"],"positive_only":true,"nonzero":true},{"key":"concentration_difference","label_ja":"濃度差","description":"物質移動の駆動力","standard_unit":"mol/m^3","allowed_units":["mol/m^3","mol/L","kmol/m^3"],"positive_only":true,"nonzero":true}],"outputs":[{"key":"mass_transfer_rate","label_ja":"物質移動速度","description":"全体のモル移動速度","standard_unit":"mol/s","allowed_units":["mol/s","kmol/h"],"required":false,"output_preferred_unit":"kmol/h"}],"variable_definitions":{"mass_transfer_coefficient":"物質移動係数 k","area":"面積 A","concentration_difference":"濃度差 Delta C","mass_transfer_rate":"移動速度 N"},"applicability":["境膜支配の概算"],"assumptions":["平均物質移動係数を使用"],"cautions":["反応や相変化があるときは解釈に注意"],"references":["境膜モデルの基本式"],"function_name":"mass_transfer_rate","keywords":["物質移動係数"],"interpretation_hint":"実務では k と K の取り違えが起きやすいので、相基準を明確にしてください。"},
-  {"formula_id":"mass_sherwood_number","name_ja":"Sherwood数","category":"物質移動","summary":"無次元の物質移動係数を求めます。","description":"伝熱でいうNusselt数に対応する無次元数です。相関式整理に使います。","equation_latex":"Sh = k L / D","inputs":[{"key":"mass_transfer_coefficient","label_ja":"物質移動係数","description":"代表物質移動係数","standard_unit":"m/s","allowed_units":["m/s"],"positive_only":true,"nonzero":true},{"key":"characteristic_length","label_ja":"代表長さ","description":"代表寸法","standard_unit":"m","allowed_units":["m","mm","cm"],"positive_only":true,"nonzero":true},{"key":"diffusivity","label_ja":"拡散係数","description":"分子拡散係数","standard_unit":"m^2/s","allowed_units":["m^2/s"],"positive_only":true,"nonzero":true}],"outputs":[{"key":"sherwood_number","label_ja":"Sherwood数","description":"無次元のSh","standard_unit":"fraction","allowed_units":["fraction"],"required":false}],"variable_definitions":{"mass_transfer_coefficient":"物質移動係数 k","characteristic_length":"代表長さ L","diffusivity":"拡散係数 D","sherwood_number":"Sherwood数 Sh"},"applicability":["相関式整理"],"assumptions":["代表長さで近似"],"cautions":["k の基準相を揃えること"],"references":["無次元相関の基礎"],"function_name":"sherwood_number","keywords":["Sh","無次元数"],"interpretation_hint":"Sh は移動速度の強さを示すので、Re や Sc と合わせて扱うのが一般的です。"},
-  {"formula_id":"mass_schmidt_number","name_ja":"Schmidt数","category":"物質移動","summary":"運動量拡散と分子拡散の比を求めます。","description":"流体物性から計算する無次元数です。Sherwood相関の前処理としてよく使います。","equation_latex":"Sc = mu / (rho D)","inputs":[{"key":"viscosity","label_ja":"粘度","description":"流体粘度","standard_unit":"Pas","allowed_units":["Pas","mPas","cP"],"positive_only":true,"nonzero":true,"suggested_property_key":"viscosity"},{"key":"density","label_ja":"密度","description":"流体密度","standard_unit":"kg/m^3","allowed_units":["kg/m^3","g/cm^3"],"positive_only":true,"nonzero":true,"suggested_property_key":"density"},{"key":"diffusivity","label_ja":"拡散係数","description":"拡散係数","standard_unit":"m^2/s","allowed_units":["m^2/s"],"positive_only":true,"nonzero":true}],"outputs":[{"key":"schmidt_number","label_ja":"Schmidt数","description":"無次元のSc","standard_unit":"fraction","allowed_units":["fraction"],"required":false}],"variable_definitions":{"viscosity":"粘度 mu","density":"密度 rho","diffusivity":"拡散係数 D","schmidt_number":"Schmidt数 Sc"},"applicability":["相関式前処理"],"assumptions":["代表物性を使用"],"cautions":["非常に大きい・小さい値では相関式適用範囲に注意"],"references":["物質移動無次元数の基礎"],"function_name":"schmidt_number","keywords":["Sc","Schmidt"],"interpretation_hint":"液相では大きめ、気相では小さめになることが多い無次元数です。"},
-  {"formula_id":"mass_henry_law","name_ja":"Henryの法則","category":"物質移動","summary":"液相組成から気相分圧を概算します。","description":"希薄溶液中の気体溶解でよく使う近似式です。ヘンリー定数は温度依存に注意してください。","equation_latex":"p = H x","inputs":[{"key":"henry_constant","label_ja":"Henry定数","description":"対象系のHenry定数","standard_unit":"Pa","allowed_units":["Pa","kPa","bar"],"positive_only":true,"nonzero":true},{"key":"mole_fraction","label_ja":"液相モル分率","description":"溶質の液相モル分率","standard_unit":"fraction","allowed_units":["fraction","mol%"],"positive_only":true}],"outputs":[{"key":"partial_pressure","label_ja":"分圧","description":"気相分圧","standard_unit":"Pa","allowed_units":["Pa","kPa","bar"],"required":false,"output_preferred_unit":"kPa"}],"variable_definitions":{"henry_constant":"Henry定数 H","mole_fraction":"液相モル分率 x","partial_pressure":"分圧 p"},"applicability":["希薄溶液の概算"],"assumptions":["Henry定数一定"],"cautions":["高濃度では精度低下"],"references":["気液平衡の基礎近似"],"function_name":"henry_law","keywords":["Henry","分圧"],"interpretation_hint":"ヘンリー定数は定義流儀が複数あるため、採用した定義を必ず確認してください。"},
-  {"formula_id":"mass_raoult_law_simple","name_ja":"Raoultの法則（簡易）","category":"物質移動","summary":"液相組成と飽和蒸気圧から分圧を求めます。","description":"理想溶液近似に基づく基礎式です。蒸留やフラッシュの入口確認に使えます。","equation_latex":"p_i = x_i P_i^sat","inputs":[{"key":"liquid_mole_fraction","label_ja":"液相モル分率","description":"成分 i の液相モル分率","standard_unit":"fraction","allowed_units":["fraction","mol%"],"positive_only":true},{"key":"saturation_pressure","label_ja":"飽和蒸気圧","description":"成分 i の飽和蒸気圧","standard_unit":"Pa","allowed_units":["Pa","kPa","bar","mmHg"],"positive_only":true,"nonzero":true}],"outputs":[{"key":"partial_pressure","label_ja":"分圧","description":"理想溶液近似での分圧","standard_unit":"Pa","allowed_units":["Pa","kPa","bar"],"required":false,"output_preferred_unit":"kPa"}],"variable_definitions":{"liquid_mole_fraction":"液相モル分率 x_i","saturation_pressure":"飽和蒸気圧 P_i^sat","partial_pressure":"分圧 p_i"},"applicability":["理想溶液の概算"],"assumptions":["活量係数を1とみなす"],"cautions":["非理想系では大きくずれる場合あり"],"references":["Raoultの法則"],"function_name":"raoult_law_simple","keywords":["Raoult","蒸気圧"],"interpretation_hint":"非理想性が強い系では活量係数モデルへの拡張が必要です。"},
-  {"formula_id":"mass_molar_flux_basic","name_ja":"モル流束の基礎式","category":"物質移動","summary":"モル流量を面積で割って流束を求めます。","description":"塔内負荷や膜面負荷の粗い比較に使える基本式です。","equation_latex":"N = n / A","inputs":[{"key":"molar_flow_rate","label_ja":"モル流量","description":"全モル流量","standard_unit":"mol/s","allowed_units":["mol/s","kmol/h"],"positive_only":true,"nonzero":true},{"key":"area","label_ja":"面積","description":"基準面積","standard_unit":"m^2","allowed_units":["m^2","cm^2"],"positive_only":true,"nonzero":true}],"outputs":[{"key":"molar_flux","label_ja":"モル流束","description":"面積基準のモル流束","standard_unit":"mol/(m^2*s)","allowed_units":["mol/(m^2*s)"],"required":false}],"variable_definitions":{"molar_flow_rate":"モル流量 n","area":"面積 A","molar_flux":"モル流束 N"},"applicability":["負荷比較","簡易設計"],"assumptions":["平均面積を使用"],"cautions":["実際の局所流束分布は非一様です"],"references":["物質移動の基本量"],"function_name":"molar_flux_basic","keywords":["流束","モル流量"],"interpretation_hint":"同じ総流量でも面積が変わると負荷が大きく変わる点を確認できます。"}
+  {
+    "formula_id": "mass_fick_law",
+    "name_ja": "Fickの法則",
+    "category": "物質移動",
+    "summary": "濃度勾配から拡散モル流束を求めます。",
+    "description": "一次元定常拡散の基本式です。符号は高濃度側から低濃度側への移動を表します。",
+    "equation_latex": "N = -D dC/dz",
+    "inputs": [
+      {
+        "key": "diffusivity",
+        "label_ja": "拡散係数",
+        "description": "分子拡散係数",
+        "standard_unit": "m^2/s",
+        "allowed_units": [
+          "m^2/s"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "concentration_gradient",
+        "label_ja": "濃度勾配",
+        "description": "濃度の空間勾配",
+        "standard_unit": "mol/m^4",
+        "allowed_units": [
+          "mol/m^4"
+        ],
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "molar_flux",
+        "label_ja": "モル流束",
+        "description": "拡散によるモル流束",
+        "standard_unit": "mol/(m^2*s)",
+        "allowed_units": [
+          "mol/(m^2*s)"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "diffusivity": "拡散係数 D",
+      "concentration_gradient": "濃度勾配 dC/dz",
+      "molar_flux": "モル流束 N"
+    },
+    "applicability": [
+      "一次元拡散の概算"
+    ],
+    "assumptions": [
+      "定常・等温近似"
+    ],
+    "cautions": [
+      "対流成分は含みません"
+    ],
+    "references": [
+      "物質移動の基礎式"
+    ],
+    "function_name": "fick_law",
+    "keywords": [
+      "Fick",
+      "拡散"
+    ],
+    "interpretation_hint": "負号は濃度降下方向への移動を表すので、絶対値で量を評価する運用もよく行われます。"
+  },
+  {
+    "formula_id": "mass_mass_transfer_rate",
+    "name_ja": "物質移動速度",
+    "category": "物質移動",
+    "summary": "物質移動係数と駆動力から移動速度を求めます。",
+    "description": "境膜モデルでよく使う基礎式です。面積を掛けて全体移動速度を概算します。",
+    "equation_latex": "N = k A Delta C",
+    "inputs": [
+      {
+        "key": "mass_transfer_coefficient",
+        "label_ja": "物質移動係数",
+        "description": "境膜基準の物質移動係数",
+        "standard_unit": "m/s",
+        "allowed_units": [
+          "m/s"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "area",
+        "label_ja": "面積",
+        "description": "移動面積",
+        "standard_unit": "m^2",
+        "allowed_units": [
+          "m^2",
+          "cm^2"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "concentration_difference",
+        "label_ja": "濃度差",
+        "description": "物質移動の駆動力",
+        "standard_unit": "mol/m^3",
+        "allowed_units": [
+          "mol/m^3",
+          "mol/L",
+          "kmol/m^3"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "mass_transfer_rate",
+        "label_ja": "物質移動速度",
+        "description": "全体のモル移動速度",
+        "standard_unit": "mol/s",
+        "allowed_units": [
+          "mol/s",
+          "kmol/h"
+        ],
+        "required": false,
+        "output_preferred_unit": "kmol/h"
+      }
+    ],
+    "variable_definitions": {
+      "mass_transfer_coefficient": "物質移動係数 k",
+      "area": "面積 A",
+      "concentration_difference": "濃度差 Delta C",
+      "mass_transfer_rate": "移動速度 N"
+    },
+    "applicability": [
+      "境膜支配の概算"
+    ],
+    "assumptions": [
+      "平均物質移動係数を使用"
+    ],
+    "cautions": [
+      "反応や相変化があるときは解釈に注意"
+    ],
+    "references": [
+      "境膜モデルの基本式"
+    ],
+    "function_name": "mass_transfer_rate",
+    "keywords": [
+      "物質移動係数"
+    ],
+    "interpretation_hint": "実務では k と K の取り違えが起きやすいので、相基準を明確にしてください。"
+  },
+  {
+    "formula_id": "mass_sherwood_number",
+    "name_ja": "Sherwood数",
+    "category": "物質移動",
+    "summary": "無次元の物質移動係数を求めます。",
+    "description": "伝熱でいうNusselt数に対応する無次元数です。相関式整理に使います。",
+    "equation_latex": "Sh = k L / D",
+    "inputs": [
+      {
+        "key": "mass_transfer_coefficient",
+        "label_ja": "物質移動係数",
+        "description": "代表物質移動係数",
+        "standard_unit": "m/s",
+        "allowed_units": [
+          "m/s"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "characteristic_length",
+        "label_ja": "代表長さ",
+        "description": "代表寸法",
+        "standard_unit": "m",
+        "allowed_units": [
+          "m",
+          "mm",
+          "cm"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "diffusivity",
+        "label_ja": "拡散係数",
+        "description": "分子拡散係数",
+        "standard_unit": "m^2/s",
+        "allowed_units": [
+          "m^2/s"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "sherwood_number",
+        "label_ja": "Sherwood数",
+        "description": "無次元のSh",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "mass_transfer_coefficient": "物質移動係数 k",
+      "characteristic_length": "代表長さ L",
+      "diffusivity": "拡散係数 D",
+      "sherwood_number": "Sherwood数 Sh"
+    },
+    "applicability": [
+      "相関式整理"
+    ],
+    "assumptions": [
+      "代表長さで近似"
+    ],
+    "cautions": [
+      "k の基準相を揃えること"
+    ],
+    "references": [
+      "無次元相関の基礎"
+    ],
+    "function_name": "sherwood_number",
+    "keywords": [
+      "Sh",
+      "無次元数"
+    ],
+    "interpretation_hint": "Sh は移動速度の強さを示すので、Re や Sc と合わせて扱うのが一般的です。"
+  },
+  {
+    "formula_id": "mass_schmidt_number",
+    "name_ja": "Schmidt数",
+    "category": "物質移動",
+    "summary": "運動量拡散と分子拡散の比を求めます。",
+    "description": "流体物性から計算する無次元数です。Sherwood相関の前処理としてよく使います。",
+    "equation_latex": "Sc = mu / (rho D)",
+    "inputs": [
+      {
+        "key": "viscosity",
+        "label_ja": "粘度",
+        "description": "流体粘度",
+        "standard_unit": "Pas",
+        "allowed_units": [
+          "Pas",
+          "mPas",
+          "cP"
+        ],
+        "positive_only": true,
+        "nonzero": true,
+        "suggested_property_key": "viscosity"
+      },
+      {
+        "key": "density",
+        "label_ja": "密度",
+        "description": "流体密度",
+        "standard_unit": "kg/m^3",
+        "allowed_units": [
+          "kg/m^3",
+          "g/cm^3"
+        ],
+        "positive_only": true,
+        "nonzero": true,
+        "suggested_property_key": "density"
+      },
+      {
+        "key": "diffusivity",
+        "label_ja": "拡散係数",
+        "description": "拡散係数",
+        "standard_unit": "m^2/s",
+        "allowed_units": [
+          "m^2/s"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "schmidt_number",
+        "label_ja": "Schmidt数",
+        "description": "無次元のSc",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "viscosity": "粘度 mu",
+      "density": "密度 rho",
+      "diffusivity": "拡散係数 D",
+      "schmidt_number": "Schmidt数 Sc"
+    },
+    "applicability": [
+      "相関式前処理"
+    ],
+    "assumptions": [
+      "代表物性を使用"
+    ],
+    "cautions": [
+      "非常に大きい・小さい値では相関式適用範囲に注意"
+    ],
+    "references": [
+      "物質移動無次元数の基礎"
+    ],
+    "function_name": "schmidt_number",
+    "keywords": [
+      "Sc",
+      "Schmidt"
+    ],
+    "interpretation_hint": "液相では大きめ、気相では小さめになることが多い無次元数です。"
+  },
+  {
+    "formula_id": "mass_henry_law",
+    "name_ja": "Henryの法則",
+    "category": "物質移動",
+    "summary": "液相組成から気相分圧を概算します。",
+    "description": "希薄溶液中の気体溶解でよく使う近似式です。ヘンリー定数は温度依存に注意してください。",
+    "equation_latex": "p = H x",
+    "inputs": [
+      {
+        "key": "henry_constant",
+        "label_ja": "Henry定数",
+        "description": "対象系のHenry定数",
+        "standard_unit": "Pa",
+        "allowed_units": [
+          "Pa",
+          "kPa",
+          "bar"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "mole_fraction",
+        "label_ja": "液相モル分率",
+        "description": "溶質の液相モル分率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction",
+          "mol%"
+        ],
+        "positive_only": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "partial_pressure",
+        "label_ja": "分圧",
+        "description": "気相分圧",
+        "standard_unit": "Pa",
+        "allowed_units": [
+          "Pa",
+          "kPa",
+          "bar"
+        ],
+        "required": false,
+        "output_preferred_unit": "kPa"
+      }
+    ],
+    "variable_definitions": {
+      "henry_constant": "Henry定数 H",
+      "mole_fraction": "液相モル分率 x",
+      "partial_pressure": "分圧 p"
+    },
+    "applicability": [
+      "希薄溶液の概算"
+    ],
+    "assumptions": [
+      "Henry定数一定"
+    ],
+    "cautions": [
+      "高濃度では精度低下"
+    ],
+    "references": [
+      "気液平衡の基礎近似"
+    ],
+    "function_name": "henry_law",
+    "keywords": [
+      "Henry",
+      "分圧"
+    ],
+    "interpretation_hint": "ヘンリー定数は定義流儀が複数あるため、採用した定義を必ず確認してください。"
+  },
+  {
+    "formula_id": "mass_raoult_law_simple",
+    "name_ja": "Raoultの法則（簡易）",
+    "category": "物質移動",
+    "summary": "液相組成と飽和蒸気圧から分圧を求めます。",
+    "description": "理想溶液近似に基づく基礎式です。蒸留やフラッシュの入口確認に使えます。",
+    "equation_latex": "p_i = x_i P_i^sat",
+    "inputs": [
+      {
+        "key": "liquid_mole_fraction",
+        "label_ja": "液相モル分率",
+        "description": "成分 i の液相モル分率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction",
+          "mol%"
+        ],
+        "positive_only": true
+      },
+      {
+        "key": "saturation_pressure",
+        "label_ja": "飽和蒸気圧",
+        "description": "成分 i の飽和蒸気圧",
+        "standard_unit": "Pa",
+        "allowed_units": [
+          "Pa",
+          "kPa",
+          "bar",
+          "mmHg"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "partial_pressure",
+        "label_ja": "分圧",
+        "description": "理想溶液近似での分圧",
+        "standard_unit": "Pa",
+        "allowed_units": [
+          "Pa",
+          "kPa",
+          "bar"
+        ],
+        "required": false,
+        "output_preferred_unit": "kPa"
+      }
+    ],
+    "variable_definitions": {
+      "liquid_mole_fraction": "液相モル分率 x_i",
+      "saturation_pressure": "飽和蒸気圧 P_i^sat",
+      "partial_pressure": "分圧 p_i"
+    },
+    "applicability": [
+      "理想溶液の概算"
+    ],
+    "assumptions": [
+      "活量係数を1とみなす"
+    ],
+    "cautions": [
+      "非理想系では大きくずれる場合あり"
+    ],
+    "references": [
+      "Raoultの法則"
+    ],
+    "function_name": "raoult_law_simple",
+    "keywords": [
+      "Raoult",
+      "蒸気圧"
+    ],
+    "interpretation_hint": "非理想性が強い系では活量係数モデルへの拡張が必要です。"
+  },
+  {
+    "formula_id": "mass_molar_flux_basic",
+    "name_ja": "モル流束の基礎式",
+    "category": "物質移動",
+    "summary": "モル流量を面積で割って流束を求めます。",
+    "description": "塔内負荷や膜面負荷の粗い比較に使える基本式です。",
+    "equation_latex": "N = n / A",
+    "inputs": [
+      {
+        "key": "molar_flow_rate",
+        "label_ja": "モル流量",
+        "description": "全モル流量",
+        "standard_unit": "mol/s",
+        "allowed_units": [
+          "mol/s",
+          "kmol/h"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "area",
+        "label_ja": "面積",
+        "description": "基準面積",
+        "standard_unit": "m^2",
+        "allowed_units": [
+          "m^2",
+          "cm^2"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "molar_flux",
+        "label_ja": "モル流束",
+        "description": "面積基準のモル流束",
+        "standard_unit": "mol/(m^2*s)",
+        "allowed_units": [
+          "mol/(m^2*s)"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "molar_flow_rate": "モル流量 n",
+      "area": "面積 A",
+      "molar_flux": "モル流束 N"
+    },
+    "applicability": [
+      "負荷比較",
+      "簡易設計"
+    ],
+    "assumptions": [
+      "平均面積を使用"
+    ],
+    "cautions": [
+      "実際の局所流束分布は非一様です"
+    ],
+    "references": [
+      "物質移動の基本量"
+    ],
+    "function_name": "molar_flux_basic",
+    "keywords": [
+      "流束",
+      "モル流量"
+    ],
+    "interpretation_hint": "同じ総流量でも面積が変わると負荷が大きく変わる点を確認できます。"
+  },
+  {
+    "formula_id": "mass_lewis_number",
+    "name_ja": "Lewis数",
+    "category": "物質移動",
+    "summary": "熱拡散と物質拡散の比を求めます。",
+    "description": "熱・物質移動の相似則でよく使う無次元数です。",
+    "equation_latex": "Le = alpha / D",
+    "inputs": [
+      {
+        "key": "thermal_diffusivity",
+        "label_ja": "熱拡散率",
+        "description": "熱拡散率",
+        "standard_unit": "m^2/s",
+        "allowed_units": [
+          "m^2/s"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "diffusivity",
+        "label_ja": "拡散係数",
+        "description": "分子拡散係数",
+        "standard_unit": "m^2/s",
+        "allowed_units": [
+          "m^2/s"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "lewis_number",
+        "label_ja": "Lewis数",
+        "description": "無次元のLe",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "thermal_diffusivity": "熱拡散率 alpha",
+      "diffusivity": "拡散係数 D",
+      "lewis_number": "Lewis数 Le"
+    },
+    "applicability": [
+      "熱・物質移動の相似則"
+    ],
+    "assumptions": [
+      "代表物性一定"
+    ],
+    "cautions": [
+      "相変化系では解釈に注意"
+    ],
+    "references": [
+      "無次元数の基礎"
+    ],
+    "function_name": "lewis_number",
+    "keywords": [
+      "Lewis"
+    ],
+    "interpretation_hint": "Le が 1 に近いと熱移動と物質移動の相似性を扱いやすくなります。"
+  },
+  {
+    "formula_id": "mass_overall_mass_transfer_rate",
+    "name_ja": "総括物質移動速度",
+    "category": "物質移動",
+    "summary": "総括係数と駆動力から移動速度を求めます。",
+    "description": "総括物質移動係数を使った全体移動量の概算式です。",
+    "equation_latex": "N = K A Delta C",
+    "inputs": [
+      {
+        "key": "overall_mass_transfer_coefficient",
+        "label_ja": "総括物質移動係数",
+        "description": "総括物質移動係数 K",
+        "standard_unit": "m/s",
+        "allowed_units": [
+          "m/s"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "area",
+        "label_ja": "面積",
+        "description": "接触面積",
+        "standard_unit": "m^2",
+        "allowed_units": [
+          "m^2",
+          "cm^2"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "concentration_difference",
+        "label_ja": "濃度差",
+        "description": "総括基準の駆動力",
+        "standard_unit": "mol/m^3",
+        "allowed_units": [
+          "mol/m^3",
+          "mol/L",
+          "kmol/m^3"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "mass_transfer_rate",
+        "label_ja": "総括物質移動速度",
+        "description": "全体移動量",
+        "standard_unit": "mol/s",
+        "allowed_units": [
+          "mol/s",
+          "kmol/h"
+        ],
+        "required": false,
+        "output_preferred_unit": "kmol/h"
+      }
+    ],
+    "variable_definitions": {
+      "overall_mass_transfer_coefficient": "総括係数 K",
+      "area": "面積 A",
+      "concentration_difference": "濃度差 Delta C",
+      "mass_transfer_rate": "移動速度 N"
+    },
+    "applicability": [
+      "吸収・抽出・膜分離の概算"
+    ],
+    "assumptions": [
+      "総括係数一定"
+    ],
+    "cautions": [
+      "基準相と駆動力の定義を揃える"
+    ],
+    "references": [
+      "総括物質移動の基礎式"
+    ],
+    "function_name": "overall_mass_transfer_rate",
+    "keywords": [
+      "総括物質移動"
+    ],
+    "interpretation_hint": "個別係数をまとめた見積りなので、詳細検討では相別に分けて再評価します。"
+  }
 ]
