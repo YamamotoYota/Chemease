@@ -8,7 +8,7 @@ from pathlib import Path
 from PyInstaller.utils.hooks import collect_all
 
 
-project_root = Path.cwd()
+project_root = Path(SPECPATH).resolve()
 
 datas: list[tuple[str, str]] = [
     (str(project_root / "app.py"), "."),
@@ -27,7 +27,7 @@ for package_name in ["streamlit", "altair", "pydeck", "pandas", "pydantic", "pin
     hiddenimports += collected_hiddenimports
 
 a = Analysis(
-    ["launcher.py"],
+    [str(project_root / "launcher.py")],
     pathex=[str(project_root)],
     binaries=binaries,
     datas=datas,

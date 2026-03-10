@@ -22,7 +22,7 @@
 - 粉体・機械操作: 7 式
 - 物性・基礎化工計算: 11 式
 
-物性 DB は 21 物質を初期搭載し、代表値に加えて沸点、融点、臨界物性、表面張力、蒸気圧、Prandtl 数などを保持できます。
+物性 DB は 471 物質を収録し、代表値に加えて沸点、融点、臨界物性、蒸発潜熱、粘度などを保持できます。主要物質は既存の代表値を維持しつつ、`Property.xlsx` 由来の値で更新しています。
 
 ## 主な機能
 
@@ -87,6 +87,8 @@ Chemease/
 ├─ LICENSE
 ├─ Chemease.spec
 ├─ build_exe.ps1
+├─ scripts/
+│  └─ import_property_excel.py
 ├─ ui/
 │  ├─ home.py
 │  ├─ calculator_page.py
@@ -146,6 +148,7 @@ Chemease/
    ├─ test_units.py
    ├─ test_registry.py
    ├─ test_properties.py
+   ├─ test_packaging_files.py
    ├─ test_project_storage.py
    ├─ test_formulas_fluid.py
    ├─ test_formulas_heat.py
@@ -160,22 +163,17 @@ Chemease/
 
 ### 前提
 
-- Python 3.11 以上
-- Windows / macOS / Linux
+- Windows
+- Miniforge
+- `chemease` という conda 仮想環境
 
 ### インストール
 
-```bash
-python -m venv .venv
-.venv\Scripts\activate
-python -m pip install --upgrade pip
-python -m pip install -r requirements.txt
-```
+Miniforge で仮想環境を作る前提です。
 
-macOS / Linux の場合:
-
-```bash
-source .venv/bin/activate
+```powershell
+conda create -n chemease python=3.11
+conda activate chemease
 python -m pip install --upgrade pip
 python -m pip install -r requirements.txt
 ```
@@ -184,14 +182,15 @@ python -m pip install -r requirements.txt
 
 ### 開発時
 
-```bash
+```powershell
+conda activate chemease
 streamlit run app.py
 ```
 
 初回起動時に以下が利用可能です。
 
 - 68 の計算式
-- 21 物質の代表物性 DB
+- 471 物質の物性 DB
 - SQLite ベースの案件保存先
 - GUI 編集可能なカスタム物性 DB
 
@@ -204,21 +203,25 @@ streamlit run app.py
 実行ファイルを再生成する場合:
 
 ```powershell
+conda activate chemease
 ./build_exe.ps1
 ```
 
 または手動で:
 
-```bash
+```powershell
+conda activate chemease
+python -m pip install -r requirements.txt
 python -m pip install -r requirements-build.txt
-pyinstaller --noconfirm --clean Chemease.spec
+python -m PyInstaller --noconfirm --clean Chemease.spec
 ```
 
-`launcher.py` が Streamlit サーバを起動し、ブラウザで `http://127.0.0.1:8501` を開きます。
+`build_exe.ps1` はスクリプト自身の配置場所を起点に動作するため、PowerShell の現在ディレクトリがリポジトリ直下でなくても実行できます。`launcher.py` が Streamlit サーバを起動し、ブラウザで `http://127.0.0.1:8501` を開きます。
 
 ## テスト方法
 
-```bash
+```powershell
+conda activate chemease
 python -m pytest -q
 ```
 
@@ -236,6 +239,8 @@ python -m pytest -q
 
 - 同梱 DB: `data/properties/substances.json`
 - ユーザー編集 DB: `projects/custom_properties.json`
+
+同梱 DB の大部分は、`Property.xlsx` をもとに整形しています。
 
 ### GUI から追加、編集、削除する
 
@@ -255,6 +260,20 @@ python -m pytest -q
 3. 必要な物性項目を `value` と `unit` で追加する
 4. 必要に応じて `note`、`temperature_range`、`source`、`phase_reference` を記載する
 5. 反映後にテストを実行する
+
+### Excel から再生成する
+
+`Property.xlsx` のような便覧 Excel から同梱 DB を再生成する場合:
+
+```powershell
+conda activate chemease
+python scripts/import_property_excel.py --excel "C:\path\to\Property.xlsx"
+```
+
+- 入力 Excel: `--excel`
+- 出力 JSON: 省略時は `data/properties/substances.json`
+- 既存の代表物性は保持しつつ、分子量、融点、沸点、臨界物性、粘度、蒸発潜熱などを上書き、補完します
+- 同分子式の異性体は別レコードとして保持します
 
 ### 物性 JSON 例
 
@@ -361,6 +380,7 @@ python -m pytest -q
 - 式定義: `data/formulas/*.json`
 - 物性 DB: `data/properties/substances.json`
 - ユーザー物性 DB: `projects/custom_properties.json`
+- Excel 取込スクリプト: `scripts/import_property_excel.py`
 - サンプルケース: `data/sample_cases.json`
 
 ## 今後の拡張案

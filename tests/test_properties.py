@@ -7,6 +7,8 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import pytest
+
 from property_database.property_loader import load_property_records
 from property_database.property_models import PropertyRecord, PropertyValue
 from property_database.property_repository import PropertyRepository
@@ -46,4 +48,19 @@ def test_custom_property_record_persistence(tmp_path: Path) -> None:
     assert saved.name_ja == "カスタム溶媒"
     assert saved.density is not None
     assert saved.density.value == 950.0
+
+
+def test_property_database_contains_excel_imported_records() -> None:
+    records = load_property_records()
+    service = PropertyService(records)
+
+    assert len(records) >= 400
+
+    argon = service.get("argon")
+    assert argon.boiling_point is not None
+    assert argon.boiling_point.value == pytest.approx(87.3, rel=1e-6)
+    assert "Property.xlsx" in argon.source
+
+    imported = service.search("酪酸")
+    assert imported
 
