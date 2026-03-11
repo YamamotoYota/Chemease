@@ -1,0 +1,1563 @@
+[
+  {
+    "formula_id": "sep_k_value",
+    "name_ja": "K値",
+    "category": "蒸留・分離",
+    "summary": "気液平衡データから K 値を求めます。",
+    "description": "気液平衡データから K 値を求めます。 改訂六版 化学工学便覧の蒸留・抽出・膜分離関連節をもとにした便覧レベルの概算式です。",
+    "equation_latex": "K = y/x",
+    "inputs": [
+      {
+        "key": "vapor_composition",
+        "label_ja": "気相組成",
+        "description": "気相中のモル分率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "liquid_composition",
+        "label_ja": "液相組成",
+        "description": "液相中のモル分率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "k_value",
+        "label_ja": "K値",
+        "description": "気液平衡の分配係数",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "vapor_composition": "気相組成",
+      "liquid_composition": "液相組成",
+      "k_value": "K値"
+    },
+    "applicability": [
+      "蒸留・抽出・膜分離の初期検討",
+      "平衡段モデルの概算"
+    ],
+    "assumptions": [
+      "二成分または簡略化した平衡関係を使う",
+      "代表流量・代表組成で整理する"
+    ],
+    "cautions": [
+      "非理想系では活量係数や EOS を別途考慮する",
+      "詳細設計では厳密計算法を併用する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 分離操作関連節",
+      "改訂六版 化学工学便覧 気液平衡・液液平衡関連節"
+    ],
+    "function_name": "sep_k_value",
+    "keywords": [
+      "K値",
+      "平衡"
+    ],
+    "interpretation_hint": "フラッシュ計算や蒸留計算の入口に使えます。"
+  },
+  {
+    "formula_id": "sep_vapor_composition_from_k",
+    "name_ja": "K値から気相組成",
+    "category": "蒸留・分離",
+    "summary": "K 値と液相組成から気相組成を求めます。",
+    "description": "K 値と液相組成から気相組成を求めます。 改訂六版 化学工学便覧の蒸留・抽出・膜分離関連節をもとにした便覧レベルの概算式です。",
+    "equation_latex": "y = K x",
+    "inputs": [
+      {
+        "key": "k_value",
+        "label_ja": "K値",
+        "description": "気液平衡の分配係数",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "liquid_composition",
+        "label_ja": "液相組成",
+        "description": "液相モル分率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "positive_only": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "vapor_composition",
+        "label_ja": "気相組成",
+        "description": "気相モル分率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "k_value": "K値",
+      "liquid_composition": "液相組成",
+      "vapor_composition": "気相組成"
+    },
+    "applicability": [
+      "蒸留・抽出・膜分離の初期検討",
+      "平衡段モデルの概算"
+    ],
+    "assumptions": [
+      "二成分または簡略化した平衡関係を使う",
+      "代表流量・代表組成で整理する"
+    ],
+    "cautions": [
+      "非理想系では活量係数や EOS を別途考慮する",
+      "詳細設計では厳密計算法を併用する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 分離操作関連節",
+      "改訂六版 化学工学便覧 気液平衡・液液平衡関連節"
+    ],
+    "function_name": "sep_vapor_composition_from_k",
+    "keywords": [
+      "K値",
+      "気相組成"
+    ],
+    "interpretation_hint": "平衡線の簡易作図に使えます。"
+  },
+  {
+    "formula_id": "sep_liquid_composition_from_k",
+    "name_ja": "K値から液相組成",
+    "category": "蒸留・分離",
+    "summary": "K 値と気相組成から液相組成を求めます。",
+    "description": "K 値と気相組成から液相組成を求めます。 改訂六版 化学工学便覧の蒸留・抽出・膜分離関連節をもとにした便覧レベルの概算式です。",
+    "equation_latex": "x = y/K",
+    "inputs": [
+      {
+        "key": "vapor_composition",
+        "label_ja": "気相組成",
+        "description": "気相モル分率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "positive_only": true
+      },
+      {
+        "key": "k_value",
+        "label_ja": "K値",
+        "description": "気液平衡の分配係数",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "liquid_composition",
+        "label_ja": "液相組成",
+        "description": "液相モル分率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "vapor_composition": "気相組成",
+      "k_value": "K値",
+      "liquid_composition": "液相組成"
+    },
+    "applicability": [
+      "蒸留・抽出・膜分離の初期検討",
+      "平衡段モデルの概算"
+    ],
+    "assumptions": [
+      "二成分または簡略化した平衡関係を使う",
+      "代表流量・代表組成で整理する"
+    ],
+    "cautions": [
+      "非理想系では活量係数や EOS を別途考慮する",
+      "詳細設計では厳密計算法を併用する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 分離操作関連節",
+      "改訂六版 化学工学便覧 気液平衡・液液平衡関連節"
+    ],
+    "function_name": "sep_liquid_composition_from_k",
+    "keywords": [
+      "K値",
+      "液相組成"
+    ],
+    "interpretation_hint": "既知の平衡比から液相側を戻すときに使えます。"
+  },
+  {
+    "formula_id": "sep_binary_equilibrium_from_alpha",
+    "name_ja": "相対揮発度から気相組成",
+    "category": "蒸留・分離",
+    "summary": "相対揮発度と液相組成から気相組成を求めます。",
+    "description": "相対揮発度と液相組成から気相組成を求めます。 改訂六版 化学工学便覧の蒸留・抽出・膜分離関連節をもとにした便覧レベルの概算式です。",
+    "equation_latex": "y = \\\\alpha x / [1 + (\\\\alpha - 1)x]",
+    "inputs": [
+      {
+        "key": "relative_volatility",
+        "label_ja": "相対揮発度",
+        "description": "二成分系の相対揮発度",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "liquid_composition",
+        "label_ja": "液相組成",
+        "description": "軽キー成分の液相モル分率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "positive_only": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "vapor_composition",
+        "label_ja": "気相組成",
+        "description": "軽キー成分の気相モル分率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "relative_volatility": "相対揮発度",
+      "liquid_composition": "液相組成",
+      "vapor_composition": "気相組成"
+    },
+    "applicability": [
+      "蒸留・抽出・膜分離の初期検討",
+      "平衡段モデルの概算"
+    ],
+    "assumptions": [
+      "二成分または簡略化した平衡関係を使う",
+      "代表流量・代表組成で整理する"
+    ],
+    "cautions": [
+      "非理想系では活量係数や EOS を別途考慮する",
+      "詳細設計では厳密計算法を併用する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 分離操作関連節",
+      "改訂六版 化学工学便覧 気液平衡・液液平衡関連節"
+    ],
+    "function_name": "sep_binary_equilibrium_from_alpha",
+    "keywords": [
+      "相対揮発度",
+      "平衡線"
+    ],
+    "interpretation_hint": "二成分蒸留の平衡線概算に使えます。"
+  },
+  {
+    "formula_id": "sep_liquid_composition_from_alpha",
+    "name_ja": "相対揮発度から液相組成",
+    "category": "蒸留・分離",
+    "summary": "相対揮発度と気相組成から液相組成を求めます。",
+    "description": "相対揮発度と気相組成から液相組成を求めます。 改訂六版 化学工学便覧の蒸留・抽出・膜分離関連節をもとにした便覧レベルの概算式です。",
+    "equation_latex": "x = y / [\\\\alpha - y(\\\\alpha - 1)]",
+    "inputs": [
+      {
+        "key": "vapor_composition",
+        "label_ja": "気相組成",
+        "description": "軽キー成分の気相モル分率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "positive_only": true
+      },
+      {
+        "key": "relative_volatility",
+        "label_ja": "相対揮発度",
+        "description": "二成分系の相対揮発度",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "liquid_composition",
+        "label_ja": "液相組成",
+        "description": "軽キー成分の液相モル分率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "vapor_composition": "気相組成",
+      "relative_volatility": "相対揮発度",
+      "liquid_composition": "液相組成"
+    },
+    "applicability": [
+      "蒸留・抽出・膜分離の初期検討",
+      "平衡段モデルの概算"
+    ],
+    "assumptions": [
+      "二成分または簡略化した平衡関係を使う",
+      "代表流量・代表組成で整理する"
+    ],
+    "cautions": [
+      "非理想系では活量係数や EOS を別途考慮する",
+      "詳細設計では厳密計算法を併用する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 分離操作関連節",
+      "改訂六版 化学工学便覧 気液平衡・液液平衡関連節"
+    ],
+    "function_name": "sep_liquid_composition_from_alpha",
+    "keywords": [
+      "相対揮発度",
+      "液相組成"
+    ],
+    "interpretation_hint": "平衡線逆算に使えます。"
+  },
+  {
+    "formula_id": "sep_flash_liquid_fraction",
+    "name_ja": "フラッシュ液率",
+    "category": "蒸留・分離",
+    "summary": "気化率から液率を求めます。",
+    "description": "気化率から液率を求めます。 改訂六版 化学工学便覧の蒸留・抽出・膜分離関連節をもとにした便覧レベルの概算式です。",
+    "equation_latex": "L/F = 1 - V/F",
+    "inputs": [
+      {
+        "key": "vapor_fraction",
+        "label_ja": "気化率",
+        "description": "フラッシュ後の気化率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "positive_only": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "liquid_fraction",
+        "label_ja": "液率",
+        "description": "フラッシュ後の液率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "vapor_fraction": "気化率",
+      "liquid_fraction": "液率"
+    },
+    "applicability": [
+      "蒸留・抽出・膜分離の初期検討",
+      "平衡段モデルの概算"
+    ],
+    "assumptions": [
+      "二成分または簡略化した平衡関係を使う",
+      "代表流量・代表組成で整理する"
+    ],
+    "cautions": [
+      "非理想系では活量係数や EOS を別途考慮する",
+      "詳細設計では厳密計算法を併用する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 分離操作関連節",
+      "改訂六版 化学工学便覧 気液平衡・液液平衡関連節"
+    ],
+    "function_name": "sep_flash_liquid_fraction",
+    "keywords": [
+      "フラッシュ",
+      "液率"
+    ],
+    "interpretation_hint": "フラッシュ物質収支の補助量です。"
+  },
+  {
+    "formula_id": "sep_flash_vapor_fraction_from_flows",
+    "name_ja": "流量から気化率",
+    "category": "蒸留・分離",
+    "summary": "蒸気流量と供給流量から気化率を求めます。",
+    "description": "蒸気流量と供給流量から気化率を求めます。 改訂六版 化学工学便覧の蒸留・抽出・膜分離関連節をもとにした便覧レベルの概算式です。",
+    "equation_latex": "V/F = V / F",
+    "inputs": [
+      {
+        "key": "vapor_flow",
+        "label_ja": "蒸気流量",
+        "description": "フラッシュ後の蒸気流量",
+        "standard_unit": "mol/s",
+        "allowed_units": [
+          "mol/s",
+          "kmol/h"
+        ],
+        "positive_only": true
+      },
+      {
+        "key": "feed_flow",
+        "label_ja": "供給流量",
+        "description": "供給流量",
+        "standard_unit": "mol/s",
+        "allowed_units": [
+          "mol/s",
+          "kmol/h"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "vapor_fraction",
+        "label_ja": "気化率",
+        "description": "フラッシュ後の気化率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "vapor_flow": "蒸気流量",
+      "feed_flow": "供給流量",
+      "vapor_fraction": "気化率"
+    },
+    "applicability": [
+      "蒸留・抽出・膜分離の初期検討",
+      "平衡段モデルの概算"
+    ],
+    "assumptions": [
+      "二成分または簡略化した平衡関係を使う",
+      "代表流量・代表組成で整理する"
+    ],
+    "cautions": [
+      "非理想系では活量係数や EOS を別途考慮する",
+      "詳細設計では厳密計算法を併用する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 分離操作関連節",
+      "改訂六版 化学工学便覧 気液平衡・液液平衡関連節"
+    ],
+    "function_name": "sep_flash_vapor_fraction_from_flows",
+    "keywords": [
+      "フラッシュ",
+      "気化率"
+    ],
+    "interpretation_hint": "既知流量からフラッシュ分率を整理できます。"
+  },
+  {
+    "formula_id": "sep_rectifying_operating_line",
+    "name_ja": "精留部操作線",
+    "category": "蒸留・分離",
+    "summary": "還流比と留出組成から精留部操作線を求めます。",
+    "description": "還流比と留出組成から精留部操作線を求めます。 改訂六版 化学工学便覧の蒸留・抽出・膜分離関連節をもとにした便覧レベルの概算式です。",
+    "equation_latex": "y = \\\\frac{R}{R+1} x + \\\\frac{x_D}{R+1}",
+    "inputs": [
+      {
+        "key": "reflux_ratio",
+        "label_ja": "還流比",
+        "description": "外部還流比",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "liquid_composition",
+        "label_ja": "液相組成",
+        "description": "段上液組成",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "positive_only": true
+      },
+      {
+        "key": "distillate_composition",
+        "label_ja": "留出組成",
+        "description": "留出液組成",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "positive_only": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "vapor_composition",
+        "label_ja": "気相組成",
+        "description": "精留部操作線上の気相組成",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "reflux_ratio": "還流比",
+      "liquid_composition": "液相組成",
+      "distillate_composition": "留出組成",
+      "vapor_composition": "気相組成"
+    },
+    "applicability": [
+      "蒸留・抽出・膜分離の初期検討",
+      "平衡段モデルの概算"
+    ],
+    "assumptions": [
+      "二成分または簡略化した平衡関係を使う",
+      "代表流量・代表組成で整理する"
+    ],
+    "cautions": [
+      "非理想系では活量係数や EOS を別途考慮する",
+      "詳細設計では厳密計算法を併用する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 分離操作関連節",
+      "改訂六版 化学工学便覧 気液平衡・液液平衡関連節"
+    ],
+    "function_name": "sep_rectifying_operating_line",
+    "keywords": [
+      "操作線",
+      "精留部"
+    ],
+    "interpretation_hint": "McCabe-Thiele 作図の精留部線です。"
+  },
+  {
+    "formula_id": "sep_stripping_operating_line",
+    "name_ja": "回収部操作線",
+    "category": "蒸留・分離",
+    "summary": "液相/気相流量比から回収部操作線を求めます。",
+    "description": "液相/気相流量比から回収部操作線を求めます。 改訂六版 化学工学便覧の蒸留・抽出・膜分離関連節をもとにした便覧レベルの概算式です。",
+    "equation_latex": "y = (L/V)x - (B/V)x_B",
+    "inputs": [
+      {
+        "key": "liquid_to_vapor_ratio",
+        "label_ja": "L/V比",
+        "description": "回収部の液相/気相流量比",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "liquid_composition",
+        "label_ja": "液相組成",
+        "description": "段上液組成",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "positive_only": true
+      },
+      {
+        "key": "bottoms_to_vapor_ratio",
+        "label_ja": "B/V比",
+        "description": "缶出液/気相流量比",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "positive_only": true
+      },
+      {
+        "key": "bottoms_composition",
+        "label_ja": "缶出組成",
+        "description": "缶出液組成",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "positive_only": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "vapor_composition",
+        "label_ja": "気相組成",
+        "description": "回収部操作線上の気相組成",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "liquid_to_vapor_ratio": "L/V比",
+      "liquid_composition": "液相組成",
+      "bottoms_to_vapor_ratio": "B/V比",
+      "bottoms_composition": "缶出組成",
+      "vapor_composition": "気相組成"
+    },
+    "applicability": [
+      "蒸留・抽出・膜分離の初期検討",
+      "平衡段モデルの概算"
+    ],
+    "assumptions": [
+      "二成分または簡略化した平衡関係を使う",
+      "代表流量・代表組成で整理する"
+    ],
+    "cautions": [
+      "非理想系では活量係数や EOS を別途考慮する",
+      "詳細設計では厳密計算法を併用する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 分離操作関連節",
+      "改訂六版 化学工学便覧 気液平衡・液液平衡関連節"
+    ],
+    "function_name": "sep_stripping_operating_line",
+    "keywords": [
+      "操作線",
+      "回収部"
+    ],
+    "interpretation_hint": "McCabe-Thiele 作図の回収部線です。"
+  },
+  {
+    "formula_id": "sep_q_line",
+    "name_ja": "q線",
+    "category": "蒸留・分離",
+    "summary": "供給熱状態から q 線上の気相組成を求めます。",
+    "description": "供給熱状態から q 線上の気相組成を求めます。 改訂六版 化学工学便覧の蒸留・抽出・膜分離関連節をもとにした便覧レベルの概算式です。",
+    "equation_latex": "y = \\\\frac{q}{q-1}x - \\\\frac{z_F}{q-1}",
+    "inputs": [
+      {
+        "key": "q_value",
+        "label_ja": "q値",
+        "description": "供給の熱状態を表す q 値",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "liquid_composition",
+        "label_ja": "液相組成",
+        "description": "q 線上の液相組成",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "positive_only": true
+      },
+      {
+        "key": "feed_composition",
+        "label_ja": "供給組成",
+        "description": "供給組成 zF",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "positive_only": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "vapor_composition",
+        "label_ja": "気相組成",
+        "description": "q 線上の気相組成",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "q_value": "q値",
+      "liquid_composition": "液相組成",
+      "feed_composition": "供給組成",
+      "vapor_composition": "気相組成"
+    },
+    "applicability": [
+      "蒸留・抽出・膜分離の初期検討",
+      "平衡段モデルの概算"
+    ],
+    "assumptions": [
+      "二成分または簡略化した平衡関係を使う",
+      "代表流量・代表組成で整理する"
+    ],
+    "cautions": [
+      "非理想系では活量係数や EOS を別途考慮する",
+      "詳細設計では厳密計算法を併用する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 分離操作関連節",
+      "改訂六版 化学工学便覧 気液平衡・液液平衡関連節"
+    ],
+    "function_name": "sep_q_line",
+    "keywords": [
+      "q線",
+      "McCabe-Thiele"
+    ],
+    "interpretation_hint": "供給段位置の概算に使えます。"
+  },
+  {
+    "formula_id": "sep_fenske_minimum_stages",
+    "name_ja": "Fenske最小理論段数",
+    "category": "蒸留・分離",
+    "summary": "相対揮発度と端組成から最小理論段数を求めます。",
+    "description": "相対揮発度と端組成から最小理論段数を求めます。 改訂六版 化学工学便覧の蒸留・抽出・膜分離関連節をもとにした便覧レベルの概算式です。",
+    "equation_latex": "N_{min} = \\\\ln[(x_D/(1-x_D))((1-x_B)/x_B)]/\\\\ln \\\\alpha",
+    "inputs": [
+      {
+        "key": "distillate_composition",
+        "label_ja": "留出組成",
+        "description": "軽キー成分の留出モル分率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "bottoms_composition",
+        "label_ja": "缶出組成",
+        "description": "軽キー成分の缶出モル分率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "relative_volatility",
+        "label_ja": "相対揮発度",
+        "description": "代表相対揮発度",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "minimum_stages",
+        "label_ja": "最小理論段数",
+        "description": "全還流時の最小理論段数",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "distillate_composition": "留出組成",
+      "bottoms_composition": "缶出組成",
+      "relative_volatility": "相対揮発度",
+      "minimum_stages": "最小理論段数"
+    },
+    "applicability": [
+      "蒸留・抽出・膜分離の初期検討",
+      "平衡段モデルの概算"
+    ],
+    "assumptions": [
+      "二成分または簡略化した平衡関係を使う",
+      "代表流量・代表組成で整理する"
+    ],
+    "cautions": [
+      "非理想系では活量係数や EOS を別途考慮する",
+      "詳細設計では厳密計算法を併用する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 分離操作関連節",
+      "改訂六版 化学工学便覧 気液平衡・液液平衡関連節"
+    ],
+    "function_name": "sep_fenske_minimum_stages",
+    "keywords": [
+      "Fenske",
+      "理論段数"
+    ],
+    "interpretation_hint": "理論段数の下限評価です。"
+  },
+  {
+    "formula_id": "sep_actual_stages",
+    "name_ja": "実段数",
+    "category": "蒸留・分離",
+    "summary": "理論段数と総合効率から実段数を求めます。",
+    "description": "理論段数と総合効率から実段数を求めます。 改訂六版 化学工学便覧の蒸留・抽出・膜分離関連節をもとにした便覧レベルの概算式です。",
+    "equation_latex": "N_{act} = N_{th}/E_o",
+    "inputs": [
+      {
+        "key": "theoretical_stages",
+        "label_ja": "理論段数",
+        "description": "理論段数",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "overall_efficiency",
+        "label_ja": "総合効率",
+        "description": "段効率または総合効率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "actual_stages",
+        "label_ja": "実段数",
+        "description": "実装置で必要な段数",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "theoretical_stages": "理論段数",
+      "overall_efficiency": "総合効率",
+      "actual_stages": "実段数"
+    },
+    "applicability": [
+      "蒸留・抽出・膜分離の初期検討",
+      "平衡段モデルの概算"
+    ],
+    "assumptions": [
+      "二成分または簡略化した平衡関係を使う",
+      "代表流量・代表組成で整理する"
+    ],
+    "cautions": [
+      "非理想系では活量係数や EOS を別途考慮する",
+      "詳細設計では厳密計算法を併用する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 分離操作関連節",
+      "改訂六版 化学工学便覧 気液平衡・液液平衡関連節"
+    ],
+    "function_name": "sep_actual_stages",
+    "keywords": [
+      "実段数",
+      "効率"
+    ],
+    "interpretation_hint": "理論段数から実装置段数へ換算できます。"
+  },
+  {
+    "formula_id": "sep_murphree_efficiency",
+    "name_ja": "Murphree段効率",
+    "category": "蒸留・分離",
+    "summary": "実際の気相組成変化から Murphree 段効率を求めます。",
+    "description": "実際の気相組成変化から Murphree 段効率を求めます。 改訂六版 化学工学便覧の蒸留・抽出・膜分離関連節をもとにした便覧レベルの概算式です。",
+    "equation_latex": "E_M = (y_n - y_{n+1})/(y_n^* - y_{n+1})",
+    "inputs": [
+      {
+        "key": "actual_vapor_composition",
+        "label_ja": "実際の段出口気相組成",
+        "description": "実測または推算気相組成",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "positive_only": true
+      },
+      {
+        "key": "inlet_vapor_composition",
+        "label_ja": "段入口気相組成",
+        "description": "段入口気相組成",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "positive_only": true
+      },
+      {
+        "key": "equilibrium_vapor_composition",
+        "label_ja": "平衡気相組成",
+        "description": "段出口液と平衡な気相組成",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "murphree_efficiency",
+        "label_ja": "Murphree効率",
+        "description": "段単位の Murphree 効率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "actual_vapor_composition": "実際の段出口気相組成",
+      "inlet_vapor_composition": "段入口気相組成",
+      "equilibrium_vapor_composition": "平衡気相組成",
+      "murphree_efficiency": "Murphree効率"
+    },
+    "applicability": [
+      "蒸留・抽出・膜分離の初期検討",
+      "平衡段モデルの概算"
+    ],
+    "assumptions": [
+      "二成分または簡略化した平衡関係を使う",
+      "代表流量・代表組成で整理する"
+    ],
+    "cautions": [
+      "非理想系では活量係数や EOS を別途考慮する",
+      "詳細設計では厳密計算法を併用する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 分離操作関連節",
+      "改訂六版 化学工学便覧 気液平衡・液液平衡関連節"
+    ],
+    "function_name": "sep_murphree_efficiency",
+    "keywords": [
+      "Murphree効率",
+      "段効率"
+    ],
+    "interpretation_hint": "段効率評価の基本式です。"
+  },
+  {
+    "formula_id": "sep_overall_efficiency",
+    "name_ja": "総合効率",
+    "category": "蒸留・分離",
+    "summary": "理論段数と実段数から総合効率を求めます。",
+    "description": "理論段数と実段数から総合効率を求めます。 改訂六版 化学工学便覧の蒸留・抽出・膜分離関連節をもとにした便覧レベルの概算式です。",
+    "equation_latex": "E_o = N_{th}/N_{act}",
+    "inputs": [
+      {
+        "key": "theoretical_stages",
+        "label_ja": "理論段数",
+        "description": "理論段数",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "positive_only": true
+      },
+      {
+        "key": "actual_stages",
+        "label_ja": "実段数",
+        "description": "実装置段数",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "overall_efficiency",
+        "label_ja": "総合効率",
+        "description": "塔全体の総合効率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "theoretical_stages": "理論段数",
+      "actual_stages": "実段数",
+      "overall_efficiency": "総合効率"
+    },
+    "applicability": [
+      "蒸留・抽出・膜分離の初期検討",
+      "平衡段モデルの概算"
+    ],
+    "assumptions": [
+      "二成分または簡略化した平衡関係を使う",
+      "代表流量・代表組成で整理する"
+    ],
+    "cautions": [
+      "非理想系では活量係数や EOS を別途考慮する",
+      "詳細設計では厳密計算法を併用する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 分離操作関連節",
+      "改訂六版 化学工学便覧 気液平衡・液液平衡関連節"
+    ],
+    "function_name": "sep_overall_efficiency",
+    "keywords": [
+      "総合効率",
+      "段効率"
+    ],
+    "interpretation_hint": "実段数見積りの代表効率です。"
+  },
+  {
+    "formula_id": "sep_reflux_ratio",
+    "name_ja": "還流比",
+    "category": "蒸留・分離",
+    "summary": "還流流量と留出流量から還流比を求めます。",
+    "description": "還流流量と留出流量から還流比を求めます。 改訂六版 化学工学便覧の蒸留・抽出・膜分離関連節をもとにした便覧レベルの概算式です。",
+    "equation_latex": "R = L/D",
+    "inputs": [
+      {
+        "key": "reflux_flow",
+        "label_ja": "還流流量",
+        "description": "還流流量",
+        "standard_unit": "mol/s",
+        "allowed_units": [
+          "mol/s",
+          "kmol/h"
+        ],
+        "positive_only": true
+      },
+      {
+        "key": "distillate_flow",
+        "label_ja": "留出流量",
+        "description": "留出流量",
+        "standard_unit": "mol/s",
+        "allowed_units": [
+          "mol/s",
+          "kmol/h"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "reflux_ratio",
+        "label_ja": "還流比",
+        "description": "外部還流比",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "reflux_flow": "還流流量",
+      "distillate_flow": "留出流量",
+      "reflux_ratio": "還流比"
+    },
+    "applicability": [
+      "蒸留・抽出・膜分離の初期検討",
+      "平衡段モデルの概算"
+    ],
+    "assumptions": [
+      "二成分または簡略化した平衡関係を使う",
+      "代表流量・代表組成で整理する"
+    ],
+    "cautions": [
+      "非理想系では活量係数や EOS を別途考慮する",
+      "詳細設計では厳密計算法を併用する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 分離操作関連節",
+      "改訂六版 化学工学便覧 気液平衡・液液平衡関連節"
+    ],
+    "function_name": "sep_reflux_ratio",
+    "keywords": [
+      "還流比",
+      "蒸留"
+    ],
+    "interpretation_hint": "蒸留塔操作条件の代表値です。"
+  },
+  {
+    "formula_id": "sep_boilup_ratio",
+    "name_ja": "沸騰比",
+    "category": "蒸留・分離",
+    "summary": "塔底上昇蒸気流量と缶出流量から沸騰比を求めます。",
+    "description": "塔底上昇蒸気流量と缶出流量から沸騰比を求めます。 改訂六版 化学工学便覧の蒸留・抽出・膜分離関連節をもとにした便覧レベルの概算式です。",
+    "equation_latex": "V/B = V / B",
+    "inputs": [
+      {
+        "key": "vapor_flow",
+        "label_ja": "上昇蒸気流量",
+        "description": "塔底からの蒸気流量",
+        "standard_unit": "mol/s",
+        "allowed_units": [
+          "mol/s",
+          "kmol/h"
+        ],
+        "positive_only": true
+      },
+      {
+        "key": "bottoms_flow",
+        "label_ja": "缶出流量",
+        "description": "缶出液流量",
+        "standard_unit": "mol/s",
+        "allowed_units": [
+          "mol/s",
+          "kmol/h"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "boilup_ratio",
+        "label_ja": "沸騰比",
+        "description": "再沸器側の流量比",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "vapor_flow": "上昇蒸気流量",
+      "bottoms_flow": "缶出流量",
+      "boilup_ratio": "沸騰比"
+    },
+    "applicability": [
+      "蒸留・抽出・膜分離の初期検討",
+      "平衡段モデルの概算"
+    ],
+    "assumptions": [
+      "二成分または簡略化した平衡関係を使う",
+      "代表流量・代表組成で整理する"
+    ],
+    "cautions": [
+      "非理想系では活量係数や EOS を別途考慮する",
+      "詳細設計では厳密計算法を併用する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 分離操作関連節",
+      "改訂六版 化学工学便覧 気液平衡・液液平衡関連節"
+    ],
+    "function_name": "sep_boilup_ratio",
+    "keywords": [
+      "沸騰比",
+      "再沸器"
+    ],
+    "interpretation_hint": "回収部の運転強度整理に使えます。"
+  },
+  {
+    "formula_id": "sep_solvent_to_feed_ratio",
+    "name_ja": "溶媒比",
+    "category": "蒸留・分離",
+    "summary": "溶媒流量と供給流量から溶媒比を求めます。",
+    "description": "溶媒流量と供給流量から溶媒比を求めます。 改訂六版 化学工学便覧の蒸留・抽出・膜分離関連節をもとにした便覧レベルの概算式です。",
+    "equation_latex": "S/F = S / F",
+    "inputs": [
+      {
+        "key": "solvent_flow",
+        "label_ja": "溶媒流量",
+        "description": "抽出・吸収用溶媒流量",
+        "standard_unit": "mol/s",
+        "allowed_units": [
+          "mol/s",
+          "kmol/h"
+        ],
+        "positive_only": true
+      },
+      {
+        "key": "feed_flow",
+        "label_ja": "供給流量",
+        "description": "供給流量",
+        "standard_unit": "mol/s",
+        "allowed_units": [
+          "mol/s",
+          "kmol/h"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "solvent_to_feed_ratio",
+        "label_ja": "溶媒比",
+        "description": "溶媒/供給流量比",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "solvent_flow": "溶媒流量",
+      "feed_flow": "供給流量",
+      "solvent_to_feed_ratio": "溶媒比"
+    },
+    "applicability": [
+      "蒸留・抽出・膜分離の初期検討",
+      "平衡段モデルの概算"
+    ],
+    "assumptions": [
+      "二成分または簡略化した平衡関係を使う",
+      "代表流量・代表組成で整理する"
+    ],
+    "cautions": [
+      "非理想系では活量係数や EOS を別途考慮する",
+      "詳細設計では厳密計算法を併用する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 分離操作関連節",
+      "改訂六版 化学工学便覧 気液平衡・液液平衡関連節"
+    ],
+    "function_name": "sep_solvent_to_feed_ratio",
+    "keywords": [
+      "溶媒比",
+      "抽出"
+    ],
+    "interpretation_hint": "抽出や吸収の初期条件比較に使えます。"
+  },
+  {
+    "formula_id": "sep_extraction_factor",
+    "name_ja": "抽出因子",
+    "category": "蒸留・分離",
+    "summary": "分配係数と溶媒比から抽出因子を求めます。",
+    "description": "分配係数と溶媒比から抽出因子を求めます。 改訂六版 化学工学便覧の蒸留・抽出・膜分離関連節をもとにした便覧レベルの概算式です。",
+    "equation_latex": "E = K_D S / F",
+    "inputs": [
+      {
+        "key": "distribution_coefficient",
+        "label_ja": "分配係数",
+        "description": "抽出平衡の分配係数",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "positive_only": true
+      },
+      {
+        "key": "solvent_flow",
+        "label_ja": "溶媒流量",
+        "description": "溶媒流量",
+        "standard_unit": "mol/s",
+        "allowed_units": [
+          "mol/s",
+          "kmol/h"
+        ],
+        "positive_only": true
+      },
+      {
+        "key": "feed_flow",
+        "label_ja": "供給流量",
+        "description": "供給流量",
+        "standard_unit": "mol/s",
+        "allowed_units": [
+          "mol/s",
+          "kmol/h"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "extraction_factor",
+        "label_ja": "抽出因子",
+        "description": "抽出のしやすさを表す指標",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "distribution_coefficient": "分配係数",
+      "solvent_flow": "溶媒流量",
+      "feed_flow": "供給流量",
+      "extraction_factor": "抽出因子"
+    },
+    "applicability": [
+      "蒸留・抽出・膜分離の初期検討",
+      "平衡段モデルの概算"
+    ],
+    "assumptions": [
+      "二成分または簡略化した平衡関係を使う",
+      "代表流量・代表組成で整理する"
+    ],
+    "cautions": [
+      "非理想系では活量係数や EOS を別途考慮する",
+      "詳細設計では厳密計算法を併用する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 分離操作関連節",
+      "改訂六版 化学工学便覧 気液平衡・液液平衡関連節"
+    ],
+    "function_name": "sep_extraction_factor",
+    "keywords": [
+      "抽出因子",
+      "抽出"
+    ],
+    "interpretation_hint": "抽出の分離しやすさの目安です。"
+  },
+  {
+    "formula_id": "sep_membrane_rejection",
+    "name_ja": "膜分離の阻止率",
+    "category": "蒸留・分離",
+    "summary": "供給濃度と透過液濃度から阻止率を求めます。",
+    "description": "供給濃度と透過液濃度から阻止率を求めます。 改訂六版 化学工学便覧の蒸留・抽出・膜分離関連節をもとにした便覧レベルの概算式です。",
+    "equation_latex": "R = 1 - C_p/C_f",
+    "inputs": [
+      {
+        "key": "permeate_concentration",
+        "label_ja": "透過液濃度",
+        "description": "透過液側の濃度",
+        "standard_unit": "mol/m^3",
+        "allowed_units": [
+          "mol/m^3",
+          "mol/L",
+          "kmol/m^3"
+        ],
+        "positive_only": true
+      },
+      {
+        "key": "feed_concentration",
+        "label_ja": "供給濃度",
+        "description": "供給液濃度",
+        "standard_unit": "mol/m^3",
+        "allowed_units": [
+          "mol/m^3",
+          "mol/L",
+          "kmol/m^3"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "rejection",
+        "label_ja": "阻止率",
+        "description": "膜の溶質阻止率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "permeate_concentration": "透過液濃度",
+      "feed_concentration": "供給濃度",
+      "rejection": "阻止率"
+    },
+    "applicability": [
+      "蒸留・抽出・膜分離の初期検討",
+      "平衡段モデルの概算"
+    ],
+    "assumptions": [
+      "二成分または簡略化した平衡関係を使う",
+      "代表流量・代表組成で整理する"
+    ],
+    "cautions": [
+      "非理想系では活量係数や EOS を別途考慮する",
+      "詳細設計では厳密計算法を併用する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 分離操作関連節",
+      "改訂六版 化学工学便覧 気液平衡・液液平衡関連節"
+    ],
+    "function_name": "sep_membrane_rejection",
+    "keywords": [
+      "阻止率",
+      "膜分離"
+    ],
+    "interpretation_hint": "膜の分離性能比較に使えます。"
+  },
+  {
+    "formula_id": "sep_membrane_sieving_coefficient",
+    "name_ja": "ふるい係数",
+    "category": "蒸留・分離",
+    "summary": "透過液濃度と供給濃度からふるい係数を求めます。",
+    "description": "透過液濃度と供給濃度からふるい係数を求めます。 改訂六版 化学工学便覧の蒸留・抽出・膜分離関連節をもとにした便覧レベルの概算式です。",
+    "equation_latex": "S = C_p/C_f",
+    "inputs": [
+      {
+        "key": "permeate_concentration",
+        "label_ja": "透過液濃度",
+        "description": "透過液側の濃度",
+        "standard_unit": "mol/m^3",
+        "allowed_units": [
+          "mol/m^3",
+          "mol/L",
+          "kmol/m^3"
+        ],
+        "positive_only": true
+      },
+      {
+        "key": "feed_concentration",
+        "label_ja": "供給濃度",
+        "description": "供給液濃度",
+        "standard_unit": "mol/m^3",
+        "allowed_units": [
+          "mol/m^3",
+          "mol/L",
+          "kmol/m^3"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "sieving_coefficient",
+        "label_ja": "ふるい係数",
+        "description": "膜透過のしやすさを表す係数",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "permeate_concentration": "透過液濃度",
+      "feed_concentration": "供給濃度",
+      "sieving_coefficient": "ふるい係数"
+    },
+    "applicability": [
+      "蒸留・抽出・膜分離の初期検討",
+      "平衡段モデルの概算"
+    ],
+    "assumptions": [
+      "二成分または簡略化した平衡関係を使う",
+      "代表流量・代表組成で整理する"
+    ],
+    "cautions": [
+      "非理想系では活量係数や EOS を別途考慮する",
+      "詳細設計では厳密計算法を併用する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 分離操作関連節",
+      "改訂六版 化学工学便覧 気液平衡・液液平衡関連節"
+    ],
+    "function_name": "sep_membrane_sieving_coefficient",
+    "keywords": [
+      "ふるい係数",
+      "膜分離"
+    ],
+    "interpretation_hint": "阻止率と対になる膜性能指標です。"
+  },
+  {
+    "formula_id": "sep_concentration_factor",
+    "name_ja": "濃縮倍率",
+    "category": "蒸留・分離",
+    "summary": "濃縮液濃度と供給濃度から濃縮倍率を求めます。",
+    "description": "濃縮液濃度と供給濃度から濃縮倍率を求めます。 改訂六版 化学工学便覧の蒸留・抽出・膜分離関連節をもとにした便覧レベルの概算式です。",
+    "equation_latex": "CF = C_r/C_f",
+    "inputs": [
+      {
+        "key": "retentate_concentration",
+        "label_ja": "濃縮液濃度",
+        "description": "保持液または濃縮液の濃度",
+        "standard_unit": "mol/m^3",
+        "allowed_units": [
+          "mol/m^3",
+          "mol/L",
+          "kmol/m^3"
+        ],
+        "positive_only": true
+      },
+      {
+        "key": "feed_concentration",
+        "label_ja": "供給濃度",
+        "description": "供給液濃度",
+        "standard_unit": "mol/m^3",
+        "allowed_units": [
+          "mol/m^3",
+          "mol/L",
+          "kmol/m^3"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "concentration_factor",
+        "label_ja": "濃縮倍率",
+        "description": "濃縮の進み具合を示す倍率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "retentate_concentration": "濃縮液濃度",
+      "feed_concentration": "供給濃度",
+      "concentration_factor": "濃縮倍率"
+    },
+    "applicability": [
+      "蒸留・抽出・膜分離の初期検討",
+      "平衡段モデルの概算"
+    ],
+    "assumptions": [
+      "二成分または簡略化した平衡関係を使う",
+      "代表流量・代表組成で整理する"
+    ],
+    "cautions": [
+      "非理想系では活量係数や EOS を別途考慮する",
+      "詳細設計では厳密計算法を併用する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 分離操作関連節",
+      "改訂六版 化学工学便覧 気液平衡・液液平衡関連節"
+    ],
+    "function_name": "sep_concentration_factor",
+    "keywords": [
+      "濃縮倍率",
+      "膜分離"
+    ],
+    "interpretation_hint": "濃縮操作の進行度を簡便に確認できます。"
+  }
+]

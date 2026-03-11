@@ -49,6 +49,8 @@ class ProjectService:
             "warnings": warnings,
             "selected_properties": result.selected_properties,
             "overridden_properties": result.overridden_properties,
+            "calculation_mode": result.calculation_mode,
+            "solve_metadata": result.solve_metadata,
         }
         return self.repository.save_case(project_id, payload)
 

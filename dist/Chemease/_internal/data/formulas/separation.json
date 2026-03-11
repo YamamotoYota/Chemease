@@ -1,0 +1,556 @@
+[
+  {
+    "formula_id": "sep_relative_volatility",
+    "name_ja": "相対揮発度",
+    "category": "蒸留・分離",
+    "summary": "軽キーと重キーの揮発しやすさの比を求めます。",
+    "description": "二成分蒸留のしやすさを示す代表指標です。値が大きいほど分離しやすい傾向です。",
+    "equation_latex": "alpha = K_L / K_H",
+    "inputs": [
+      {
+        "key": "k_light",
+        "label_ja": "軽キーK値",
+        "description": "軽キー成分のK値",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "k_heavy",
+        "label_ja": "重キーK値",
+        "description": "重キー成分のK値",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "relative_volatility",
+        "label_ja": "相対揮発度",
+        "description": "軽キー/重キーの比",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "k_light": "軽キーK値",
+      "k_heavy": "重キーK値",
+      "relative_volatility": "相対揮発度 alpha"
+    },
+    "applicability": [
+      "二成分分離の概算"
+    ],
+    "assumptions": [
+      "代表K値で近似"
+    ],
+    "cautions": [
+      "組成・温度で変化します"
+    ],
+    "references": [
+      "蒸留計算の基本指標"
+    ],
+    "function_name": "relative_volatility",
+    "keywords": [
+      "相対揮発度",
+      "蒸留"
+    ],
+    "interpretation_hint": "alpha が 1 に近いと必要段数や還流比が急に大きくなりやすくなります。"
+  },
+  {
+    "formula_id": "sep_simple_flash",
+    "name_ja": "簡易フラッシュ計算",
+    "category": "蒸留・分離",
+    "summary": "与えた組成から蒸発率を推算します。",
+    "description": "単一段フラッシュのレバー則的な簡易計算です。相平衡が既知のときの概算に向きます。",
+    "equation_latex": "V/F = (z - x) / (y - x)",
+    "inputs": [
+      {
+        "key": "feed_mole_fraction",
+        "label_ja": "供給組成",
+        "description": "供給の対象成分モル分率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction",
+          "mol%"
+        ],
+        "positive_only": true
+      },
+      {
+        "key": "liquid_mole_fraction",
+        "label_ja": "液相組成",
+        "description": "フラッシュ液の対象成分モル分率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction",
+          "mol%"
+        ],
+        "positive_only": true
+      },
+      {
+        "key": "vapor_mole_fraction",
+        "label_ja": "気相組成",
+        "description": "フラッシュ蒸気の対象成分モル分率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction",
+          "mol%"
+        ],
+        "positive_only": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "vapor_fraction",
+        "label_ja": "蒸発率",
+        "description": "供給に対する蒸気割合",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction",
+          "mol%"
+        ],
+        "required": false
+      },
+      {
+        "key": "liquid_fraction",
+        "label_ja": "液相率",
+        "description": "供給に対する液相割合",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction",
+          "mol%"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "feed_mole_fraction": "供給組成 z",
+      "liquid_mole_fraction": "液相組成 x",
+      "vapor_mole_fraction": "気相組成 y",
+      "vapor_fraction": "蒸発率 V/F",
+      "liquid_fraction": "液相率 L/F"
+    },
+    "applicability": [
+      "相平衡既知の概算"
+    ],
+    "assumptions": [
+      "二相平衡が成立"
+    ],
+    "cautions": [
+      "入力整合が悪いと 0～1 を外れます"
+    ],
+    "references": [
+      "フラッシュ計算の基本式"
+    ],
+    "function_name": "simple_flash",
+    "keywords": [
+      "フラッシュ",
+      "蒸発率"
+    ],
+    "interpretation_hint": "0～1 を外れる場合は組成か平衡値の整合が取れていない可能性があります。"
+  },
+  {
+    "formula_id": "sep_theoretical_stages_simple",
+    "name_ja": "理論段数の簡易推算",
+    "category": "蒸留・分離",
+    "summary": "Fenske型の簡易式で最小理論段数を概算します。",
+    "description": "全還流に近い条件の目安として使う便覧レベルの簡易推算です。",
+    "equation_latex": "N = ln[(xD/(1-xD))((1-xB)/xB)] / ln(alpha)",
+    "inputs": [
+      {
+        "key": "x_distillate",
+        "label_ja": "留出液組成",
+        "description": "軽キーの留出液モル分率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction",
+          "mol%"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "x_bottom",
+        "label_ja": "缶出液組成",
+        "description": "軽キーの缶出液モル分率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction",
+          "mol%"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "relative_volatility",
+        "label_ja": "相対揮発度",
+        "description": "代表相対揮発度",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "theoretical_stages",
+        "label_ja": "理論段数",
+        "description": "最小理論段数の概算",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "x_distillate": "留出液組成 xD",
+      "x_bottom": "缶出液組成 xB",
+      "relative_volatility": "相対揮発度 alpha",
+      "theoretical_stages": "理論段数 N"
+    },
+    "applicability": [
+      "二成分蒸留の概算"
+    ],
+    "assumptions": [
+      "相対揮発度一定",
+      "全還流に近い指標"
+    ],
+    "cautions": [
+      "実運転段数ではありません"
+    ],
+    "references": [
+      "Fenske型の簡易推算"
+    ],
+    "function_name": "theoretical_stages_simple",
+    "keywords": [
+      "理論段数",
+      "Fenske"
+    ],
+    "interpretation_hint": "実機段数は効率や還流条件を考慮すると、この値より大きくなるのが一般的です。"
+  },
+  {
+    "formula_id": "sep_minimum_reflux_ratio_simple",
+    "name_ja": "最小還流比の簡易推算",
+    "category": "蒸留・分離",
+    "summary": "二成分の簡易式で最小還流比を見積もります。",
+    "description": "入口組成と相対揮発度から最小還流比の目安を出す簡易推算です。",
+    "equation_latex": "Rmin = (xD - yF*) / (yF* - xF)",
+    "inputs": [
+      {
+        "key": "x_distillate",
+        "label_ja": "留出液組成",
+        "description": "軽キーの留出液モル分率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction",
+          "mol%"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "x_feed",
+        "label_ja": "供給組成",
+        "description": "軽キーの供給モル分率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction",
+          "mol%"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "relative_volatility",
+        "label_ja": "相対揮発度",
+        "description": "代表相対揮発度",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "minimum_reflux_ratio",
+        "label_ja": "最小還流比",
+        "description": "最小還流比の概算",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "x_distillate": "留出液組成 xD",
+      "x_feed": "供給組成 xF",
+      "relative_volatility": "相対揮発度 alpha",
+      "minimum_reflux_ratio": "最小還流比 Rmin"
+    },
+    "applicability": [
+      "二成分蒸留の粗い見積り"
+    ],
+    "assumptions": [
+      "飽和液供給の簡易近似"
+    ],
+    "cautions": [
+      "Underwood厳密解ではありません"
+    ],
+    "references": [
+      "便覧レベルの簡易推算"
+    ],
+    "function_name": "minimum_reflux_ratio_simple",
+    "keywords": [
+      "還流比",
+      "簡易推算"
+    ],
+    "interpretation_hint": "実運転では最小還流比より十分大きい値を採るのが一般的です。"
+  },
+  {
+    "formula_id": "sep_separation_factor_basic",
+    "name_ja": "分離係数の基本式",
+    "category": "蒸留・分離",
+    "summary": "前後の組成から分離係数を求めます。",
+    "description": "抽出や膜分離でも使える基本的な分離の強さの指標です。",
+    "equation_latex": "beta = (y/(1-y)) / (x/(1-x))",
+    "inputs": [
+      {
+        "key": "y_light",
+        "label_ja": "後段の軽成分分率",
+        "description": "分離後側の軽成分分率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction",
+          "mol%"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "x_light",
+        "label_ja": "前段の軽成分分率",
+        "description": "分離前または基準側の軽成分分率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction",
+          "mol%"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "separation_factor",
+        "label_ja": "分離係数",
+        "description": "分離の強さを示す無次元数",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "y_light": "後段分率 y",
+      "x_light": "前段分率 x",
+      "separation_factor": "分離係数 beta"
+    },
+    "applicability": [
+      "蒸留・抽出・膜分離の比較"
+    ],
+    "assumptions": [
+      "二成分の代表化"
+    ],
+    "cautions": [
+      "極端な高純度域では感度が高くなります"
+    ],
+    "references": [
+      "分離性能評価の基本式"
+    ],
+    "function_name": "separation_factor_basic",
+    "keywords": [
+      "分離係数"
+    ],
+    "interpretation_hint": "1 より大きいほど軽成分が後段で濃縮されていることを示します。"
+  },
+  {
+    "formula_id": "sep_stage_cut",
+    "name_ja": "ステージカット",
+    "category": "蒸留・分離",
+    "summary": "供給に対する留出割合を求めます。",
+    "description": "膜分離やフラッシュの物量整理で便利な比率です。",
+    "equation_latex": "theta = D / F",
+    "inputs": [
+      {
+        "key": "distillate_flow",
+        "label_ja": "留出流量",
+        "description": "留出または透過流量",
+        "standard_unit": "mol/s",
+        "allowed_units": [
+          "mol/s",
+          "kmol/h"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "feed_flow",
+        "label_ja": "供給流量",
+        "description": "供給流量",
+        "standard_unit": "mol/s",
+        "allowed_units": [
+          "mol/s",
+          "kmol/h"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "stage_cut",
+        "label_ja": "ステージカット",
+        "description": "留出/供給の比率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction",
+          "mol%"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "distillate_flow": "留出流量 D",
+      "feed_flow": "供給流量 F",
+      "stage_cut": "ステージカット theta"
+    },
+    "applicability": [
+      "膜分離・フラッシュ・蒸留"
+    ],
+    "assumptions": [
+      "流量基準の簡易整理"
+    ],
+    "cautions": [
+      "純度情報は別です"
+    ],
+    "references": [
+      "分離操作の基本指標"
+    ],
+    "function_name": "stage_cut",
+    "keywords": [
+      "ステージカット"
+    ],
+    "interpretation_hint": "ステージカットと純度はトレードオフになりやすい点に注意してください。"
+  },
+  {
+    "formula_id": "sep_component_recovery",
+    "name_ja": "成分回収率",
+    "category": "蒸留・分離",
+    "summary": "対象成分がどれだけ回収されたかを求めます。",
+    "description": "流量と組成から対象成分の回収率を計算します。",
+    "equation_latex": "Recovery = D x_D / (F z_F)",
+    "inputs": [
+      {
+        "key": "distillate_flow",
+        "label_ja": "回収側流量",
+        "description": "回収側流量",
+        "standard_unit": "mol/s",
+        "allowed_units": [
+          "mol/s",
+          "kmol/h"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "distillate_composition",
+        "label_ja": "回収側組成",
+        "description": "回収側の対象成分分率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction",
+          "mol%"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "feed_flow",
+        "label_ja": "供給流量",
+        "description": "供給流量",
+        "standard_unit": "mol/s",
+        "allowed_units": [
+          "mol/s",
+          "kmol/h"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "feed_composition",
+        "label_ja": "供給組成",
+        "description": "供給の対象成分分率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction",
+          "mol%"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "recovery",
+        "label_ja": "成分回収率",
+        "description": "対象成分の回収率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction",
+          "mol%"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "distillate_flow": "回収側流量 D",
+      "distillate_composition": "回収側組成 xD",
+      "feed_flow": "供給流量 F",
+      "feed_composition": "供給組成 zF",
+      "recovery": "回収率"
+    },
+    "applicability": [
+      "蒸留・膜・抽出の収率整理"
+    ],
+    "assumptions": [
+      "対象成分1成分に着目"
+    ],
+    "cautions": [
+      "物量・組成の基準をそろえる"
+    ],
+    "references": [
+      "分離性能評価の基本式"
+    ],
+    "function_name": "component_recovery",
+    "keywords": [
+      "回収率"
+    ],
+    "interpretation_hint": "純度だけでなく回収率も見ると操作の全体評価がしやすくなります。"
+  }
+]

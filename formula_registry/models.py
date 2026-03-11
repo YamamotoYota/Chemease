@@ -49,6 +49,8 @@ class FormulaDefinition(BaseModel):
     cautions: list[str] = Field(default_factory=list)
     references: list[str] = Field(default_factory=list)
     function_name: str
+    expression: str | None = None
+    is_user_defined: bool = False
     keywords: list[str] = Field(default_factory=list)
     interpretation_hint: str = ""
 
@@ -91,3 +93,5 @@ class CalculationResult(BaseModel):
     overridden_properties: dict[str, dict[str, float | str]] = Field(default_factory=dict)
     equation_latex: str = ""
     interpretation: str = ""
+    calculation_mode: Literal["forward", "solve"] = "forward"
+    solve_metadata: dict[str, float | str] = Field(default_factory=dict)

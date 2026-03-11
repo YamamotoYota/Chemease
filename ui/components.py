@@ -73,6 +73,9 @@ def render_formula_information(definition: FormulaDefinition) -> None:
     st.write(definition.summary)
     st.write(definition.description)
     st.latex(definition.equation_latex)
+    if definition.is_user_defined and definition.expression:
+        st.caption("ユーザー定義 expression")
+        st.code(definition.expression, language="python")
 
     with st.expander("式の説明と前提", expanded=True):
         st.markdown("**適用条件**")

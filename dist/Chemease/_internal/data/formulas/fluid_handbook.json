@@ -1,0 +1,1668 @@
+[
+  {
+    "formula_id": "fluid_mass_flux",
+    "name_ja": "質量流束",
+    "category": "流体",
+    "summary": "質量流量と断面積から質量流束を求めます。",
+    "description": "質量流量と断面積から質量流束を求めます。 改訂六版 化学工学便覧の流動・移動現象関連節をもとにした便覧レベルの概算式です。",
+    "equation_latex": "G = \\\\dot{m} / A",
+    "inputs": [
+      {
+        "key": "mass_flow",
+        "label_ja": "質量流量",
+        "description": "流れる質量流量",
+        "standard_unit": "kg/s",
+        "allowed_units": [
+          "kg/s",
+          "kg/h",
+          "t/h"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "area",
+        "label_ja": "断面積",
+        "description": "流路断面積",
+        "standard_unit": "m^2",
+        "allowed_units": [
+          "m^2",
+          "cm^2"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "mass_flux",
+        "label_ja": "質量流束",
+        "description": "単位断面積当たりの質量流量",
+        "standard_unit": "kg/(m^2*s)",
+        "allowed_units": [
+          "kg/(m^2*s)"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "mass_flow": "質量流量",
+      "area": "断面積",
+      "mass_flux": "質量流束"
+    },
+    "applicability": [
+      "配管・ダクト・槽内流動の概算",
+      "単相流を主対象とした初期検討"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて別途詳細な損失係数や圧縮性を考慮する"
+    ],
+    "cautions": [
+      "二相流や脈動流ではそのまま適用しない",
+      "極端な条件では詳細相関式で再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第5章 流動",
+      "改訂六版 化学工学便覧 第2章 移動現象"
+    ],
+    "function_name": "fluid_mass_flux",
+    "keywords": [
+      "質量流束",
+      "G"
+    ],
+    "interpretation_hint": "装置サイズ比較や移動現象相関の前処理に使えます。"
+  },
+  {
+    "formula_id": "fluid_superficial_velocity",
+    "name_ja": "見掛け流速",
+    "category": "流体",
+    "summary": "空隙や分散相を無視した見掛け流速を求めます。",
+    "description": "空隙や分散相を無視した見掛け流速を求めます。 改訂六版 化学工学便覧の流動・移動現象関連節をもとにした便覧レベルの概算式です。",
+    "equation_latex": "u_s = Q / A_s",
+    "inputs": [
+      {
+        "key": "volumetric_flow",
+        "label_ja": "体積流量",
+        "description": "見掛け流速算出に使う体積流量",
+        "standard_unit": "m^3/s",
+        "allowed_units": [
+          "m^3/s",
+          "m^3/h",
+          "L/min"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "superficial_area",
+        "label_ja": "見掛け断面積",
+        "description": "装置の見掛け断面積",
+        "standard_unit": "m^2",
+        "allowed_units": [
+          "m^2",
+          "cm^2"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "superficial_velocity",
+        "label_ja": "見掛け流速",
+        "description": "見掛け断面積基準の流速",
+        "standard_unit": "m/s",
+        "allowed_units": [
+          "m/s"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "volumetric_flow": "体積流量",
+      "superficial_area": "見掛け断面積",
+      "superficial_velocity": "見掛け流速"
+    },
+    "applicability": [
+      "配管・ダクト・槽内流動の概算",
+      "単相流を主対象とした初期検討"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて別途詳細な損失係数や圧縮性を考慮する"
+    ],
+    "cautions": [
+      "二相流や脈動流ではそのまま適用しない",
+      "極端な条件では詳細相関式で再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第5章 流動",
+      "改訂六版 化学工学便覧 第2章 移動現象"
+    ],
+    "function_name": "fluid_superficial_velocity",
+    "keywords": [
+      "見掛け流速",
+      "superficial"
+    ],
+    "interpretation_hint": "充填塔や流動層のガス速度整理に便利です。"
+  },
+  {
+    "formula_id": "fluid_kinematic_viscosity",
+    "name_ja": "動粘度",
+    "category": "流体",
+    "summary": "粘度と密度から動粘度を求めます。",
+    "description": "粘度と密度から動粘度を求めます。 改訂六版 化学工学便覧の流動・移動現象関連節をもとにした便覧レベルの概算式です。",
+    "equation_latex": "\\\\nu = \\\\mu / \\\\rho",
+    "inputs": [
+      {
+        "key": "viscosity",
+        "label_ja": "粘度",
+        "description": "動粘度ではなく粘度",
+        "standard_unit": "Pas",
+        "allowed_units": [
+          "Pas",
+          "mPas",
+          "cP"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "density",
+        "label_ja": "密度",
+        "description": "流体密度",
+        "standard_unit": "kg/m^3",
+        "allowed_units": [
+          "kg/m^3",
+          "g/cm^3"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "kinematic_viscosity",
+        "label_ja": "動粘度",
+        "description": "密度補正後の粘性指標",
+        "standard_unit": "m^2/s",
+        "allowed_units": [
+          "m^2/s"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "viscosity": "粘度",
+      "density": "密度",
+      "kinematic_viscosity": "動粘度"
+    },
+    "applicability": [
+      "配管・ダクト・槽内流動の概算",
+      "単相流を主対象とした初期検討"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて別途詳細な損失係数や圧縮性を考慮する"
+    ],
+    "cautions": [
+      "二相流や脈動流ではそのまま適用しない",
+      "極端な条件では詳細相関式で再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第5章 流動",
+      "改訂六版 化学工学便覧 第2章 移動現象"
+    ],
+    "function_name": "fluid_kinematic_viscosity",
+    "keywords": [
+      "動粘度",
+      "nu"
+    ],
+    "interpretation_hint": "Reynolds数を動粘度基準で整理したいときに使います。"
+  },
+  {
+    "formula_id": "fluid_euler_number",
+    "name_ja": "Euler数",
+    "category": "流体",
+    "summary": "圧力差と動圧からEuler数を求めます。",
+    "description": "圧力差と動圧からEuler数を求めます。 改訂六版 化学工学便覧の流動・移動現象関連節をもとにした便覧レベルの概算式です。",
+    "equation_latex": "Eu = \\\\Delta P /(\\\\rho v^2)",
+    "inputs": [
+      {
+        "key": "pressure_difference",
+        "label_ja": "圧力差",
+        "description": "代表圧力差",
+        "standard_unit": "Pa",
+        "allowed_units": [
+          "Pa",
+          "kPa",
+          "MPa",
+          "bar"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "density",
+        "label_ja": "密度",
+        "description": "流体密度",
+        "standard_unit": "kg/m^3",
+        "allowed_units": [
+          "kg/m^3",
+          "g/cm^3"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "velocity",
+        "label_ja": "流速",
+        "description": "代表流速",
+        "standard_unit": "m/s",
+        "allowed_units": [
+          "m/s"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "euler_number",
+        "label_ja": "Euler数",
+        "description": "圧力損失を無次元化した値",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "pressure_difference": "圧力差",
+      "density": "密度",
+      "velocity": "流速",
+      "euler_number": "Euler数"
+    },
+    "applicability": [
+      "配管・ダクト・槽内流動の概算",
+      "単相流を主対象とした初期検討"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて別途詳細な損失係数や圧縮性を考慮する"
+    ],
+    "cautions": [
+      "二相流や脈動流ではそのまま適用しない",
+      "極端な条件では詳細相関式で再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第5章 流動",
+      "改訂六版 化学工学便覧 第2章 移動現象"
+    ],
+    "function_name": "fluid_euler_number",
+    "keywords": [
+      "Euler数",
+      "Eu"
+    ],
+    "interpretation_hint": "圧力損失の相似則整理に使えます。"
+  },
+  {
+    "formula_id": "fluid_weber_number",
+    "name_ja": "Weber数",
+    "category": "流体",
+    "summary": "慣性力と表面張力の比を表すWeber数を求めます。",
+    "description": "慣性力と表面張力の比を表すWeber数を求めます。 改訂六版 化学工学便覧の流動・移動現象関連節をもとにした便覧レベルの概算式です。",
+    "equation_latex": "We = \\\\rho v^2 D / \\\\sigma",
+    "inputs": [
+      {
+        "key": "density",
+        "label_ja": "密度",
+        "description": "流体密度",
+        "standard_unit": "kg/m^3",
+        "allowed_units": [
+          "kg/m^3",
+          "g/cm^3"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "velocity",
+        "label_ja": "流速",
+        "description": "代表流速",
+        "standard_unit": "m/s",
+        "allowed_units": [
+          "m/s"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "diameter",
+        "label_ja": "代表長さ",
+        "description": "液滴径や管径などの代表長さ",
+        "standard_unit": "m",
+        "allowed_units": [
+          "m",
+          "mm",
+          "cm"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "surface_tension",
+        "label_ja": "表面張力",
+        "description": "液体の表面張力",
+        "standard_unit": "N/m",
+        "allowed_units": [
+          "N/m"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "weber_number",
+        "label_ja": "Weber数",
+        "description": "液滴分裂や噴霧挙動の指標",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "density": "密度",
+      "velocity": "流速",
+      "diameter": "代表長さ",
+      "surface_tension": "表面張力",
+      "weber_number": "Weber数"
+    },
+    "applicability": [
+      "配管・ダクト・槽内流動の概算",
+      "単相流を主対象とした初期検討"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて別途詳細な損失係数や圧縮性を考慮する"
+    ],
+    "cautions": [
+      "二相流や脈動流ではそのまま適用しない",
+      "極端な条件では詳細相関式で再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第5章 流動",
+      "改訂六版 化学工学便覧 第2章 移動現象"
+    ],
+    "function_name": "fluid_weber_number",
+    "keywords": [
+      "Weber数",
+      "噴霧"
+    ],
+    "interpretation_hint": "液滴の破砕や分散のしやすさを見る目安です。"
+  },
+  {
+    "formula_id": "fluid_mach_number",
+    "name_ja": "Mach数",
+    "category": "流体",
+    "summary": "流速と音速からMach数を求めます。",
+    "description": "流速と音速からMach数を求めます。 改訂六版 化学工学便覧の流動・移動現象関連節をもとにした便覧レベルの概算式です。",
+    "equation_latex": "Ma = v / a",
+    "inputs": [
+      {
+        "key": "velocity",
+        "label_ja": "流速",
+        "description": "代表流速",
+        "standard_unit": "m/s",
+        "allowed_units": [
+          "m/s"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "sound_speed",
+        "label_ja": "音速",
+        "description": "流体中の音速",
+        "standard_unit": "m/s",
+        "allowed_units": [
+          "m/s"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "mach_number",
+        "label_ja": "Mach数",
+        "description": "圧縮性評価の無次元数",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "velocity": "流速",
+      "sound_speed": "音速",
+      "mach_number": "Mach数"
+    },
+    "applicability": [
+      "配管・ダクト・槽内流動の概算",
+      "単相流を主対象とした初期検討"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて別途詳細な損失係数や圧縮性を考慮する"
+    ],
+    "cautions": [
+      "二相流や脈動流ではそのまま適用しない",
+      "極端な条件では詳細相関式で再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第5章 流動",
+      "改訂六版 化学工学便覧 第2章 移動現象"
+    ],
+    "function_name": "fluid_mach_number",
+    "keywords": [
+      "Mach数",
+      "圧縮性"
+    ],
+    "interpretation_hint": "0.3 を超えると圧縮性の影響を再確認してください。"
+  },
+  {
+    "formula_id": "fluid_pressure_head",
+    "name_ja": "圧力水頭",
+    "category": "流体",
+    "summary": "圧力差を液柱高さに換算します。",
+    "description": "圧力差を液柱高さに換算します。 改訂六版 化学工学便覧の流動・移動現象関連節をもとにした便覧レベルの概算式です。",
+    "equation_latex": "h_p = \\\\Delta P /(\\\\rho g)",
+    "inputs": [
+      {
+        "key": "pressure_difference",
+        "label_ja": "圧力差",
+        "description": "換算したい圧力差",
+        "standard_unit": "Pa",
+        "allowed_units": [
+          "Pa",
+          "kPa",
+          "MPa",
+          "bar"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "density",
+        "label_ja": "密度",
+        "description": "流体密度",
+        "standard_unit": "kg/m^3",
+        "allowed_units": [
+          "kg/m^3",
+          "g/cm^3"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "pressure_head",
+        "label_ja": "圧力水頭",
+        "description": "圧力差に相当する水頭",
+        "standard_unit": "m",
+        "allowed_units": [
+          "m"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "pressure_difference": "圧力差",
+      "density": "密度",
+      "pressure_head": "圧力水頭"
+    },
+    "applicability": [
+      "配管・ダクト・槽内流動の概算",
+      "単相流を主対象とした初期検討"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて別途詳細な損失係数や圧縮性を考慮する"
+    ],
+    "cautions": [
+      "二相流や脈動流ではそのまま適用しない",
+      "極端な条件では詳細相関式で再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第5章 流動",
+      "改訂六版 化学工学便覧 第2章 移動現象"
+    ],
+    "function_name": "fluid_pressure_head",
+    "keywords": [
+      "圧力水頭",
+      "head"
+    ],
+    "interpretation_hint": "ポンプ全揚程やBernoulli整理に使えます。"
+  },
+  {
+    "formula_id": "fluid_velocity_head",
+    "name_ja": "速度水頭",
+    "category": "流体",
+    "summary": "流速に対応する速度水頭を求めます。",
+    "description": "流速に対応する速度水頭を求めます。 改訂六版 化学工学便覧の流動・移動現象関連節をもとにした便覧レベルの概算式です。",
+    "equation_latex": "h_v = v^2 /(2g)",
+    "inputs": [
+      {
+        "key": "velocity",
+        "label_ja": "流速",
+        "description": "代表流速",
+        "standard_unit": "m/s",
+        "allowed_units": [
+          "m/s"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "velocity_head",
+        "label_ja": "速度水頭",
+        "description": "動圧に対応する水頭",
+        "standard_unit": "m",
+        "allowed_units": [
+          "m"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "velocity": "流速",
+      "velocity_head": "速度水頭"
+    },
+    "applicability": [
+      "配管・ダクト・槽内流動の概算",
+      "単相流を主対象とした初期検討"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて別途詳細な損失係数や圧縮性を考慮する"
+    ],
+    "cautions": [
+      "二相流や脈動流ではそのまま適用しない",
+      "極端な条件では詳細相関式で再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第5章 流動",
+      "改訂六版 化学工学便覧 第2章 移動現象"
+    ],
+    "function_name": "fluid_velocity_head",
+    "keywords": [
+      "速度水頭",
+      "Bernoulli"
+    ],
+    "interpretation_hint": "Bernoulli式のエネルギー項整理に使えます。"
+  },
+  {
+    "formula_id": "fluid_total_head",
+    "name_ja": "全水頭",
+    "category": "流体",
+    "summary": "圧力水頭・速度水頭・位置水頭から全水頭を求めます。",
+    "description": "圧力水頭・速度水頭・位置水頭から全水頭を求めます。 改訂六版 化学工学便覧の流動・移動現象関連節をもとにした便覧レベルの概算式です。",
+    "equation_latex": "H = h_p + h_v + z",
+    "inputs": [
+      {
+        "key": "pressure_head",
+        "label_ja": "圧力水頭",
+        "description": "圧力差に対応する水頭",
+        "standard_unit": "m",
+        "allowed_units": [
+          "m"
+        ],
+        "positive_only": true
+      },
+      {
+        "key": "velocity_head",
+        "label_ja": "速度水頭",
+        "description": "流速に対応する水頭",
+        "standard_unit": "m",
+        "allowed_units": [
+          "m"
+        ],
+        "positive_only": true
+      },
+      {
+        "key": "elevation_head",
+        "label_ja": "位置水頭",
+        "description": "基準面からの高さ",
+        "standard_unit": "m",
+        "allowed_units": [
+          "m"
+        ]
+      }
+    ],
+    "outputs": [
+      {
+        "key": "total_head",
+        "label_ja": "全水頭",
+        "description": "流れの全エネルギー高さ",
+        "standard_unit": "m",
+        "allowed_units": [
+          "m"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "pressure_head": "圧力水頭",
+      "velocity_head": "速度水頭",
+      "elevation_head": "位置水頭",
+      "total_head": "全水頭"
+    },
+    "applicability": [
+      "配管・ダクト・槽内流動の概算",
+      "単相流を主対象とした初期検討"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて別途詳細な損失係数や圧縮性を考慮する"
+    ],
+    "cautions": [
+      "二相流や脈動流ではそのまま適用しない",
+      "極端な条件では詳細相関式で再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第5章 流動",
+      "改訂六版 化学工学便覧 第2章 移動現象"
+    ],
+    "function_name": "fluid_total_head",
+    "keywords": [
+      "全水頭",
+      "揚程"
+    ],
+    "interpretation_hint": "系内のエネルギーバランスを高さ基準で比較できます。"
+  },
+  {
+    "formula_id": "fluid_pressure_from_head",
+    "name_ja": "水頭から圧力差",
+    "category": "流体",
+    "summary": "水頭差から圧力差へ換算します。",
+    "description": "水頭差から圧力差へ換算します。 改訂六版 化学工学便覧の流動・移動現象関連節をもとにした便覧レベルの概算式です。",
+    "equation_latex": "\\\\Delta P = \\\\rho g h",
+    "inputs": [
+      {
+        "key": "density",
+        "label_ja": "密度",
+        "description": "流体密度",
+        "standard_unit": "kg/m^3",
+        "allowed_units": [
+          "kg/m^3",
+          "g/cm^3"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "head",
+        "label_ja": "水頭差",
+        "description": "液柱差や全損失水頭",
+        "standard_unit": "m",
+        "allowed_units": [
+          "m"
+        ],
+        "positive_only": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "pressure_difference",
+        "label_ja": "圧力差",
+        "description": "水頭差に相当する圧力差",
+        "standard_unit": "Pa",
+        "allowed_units": [
+          "Pa",
+          "kPa",
+          "MPa",
+          "bar"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "density": "密度",
+      "head": "水頭差",
+      "pressure_difference": "圧力差"
+    },
+    "applicability": [
+      "配管・ダクト・槽内流動の概算",
+      "単相流を主対象とした初期検討"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて別途詳細な損失係数や圧縮性を考慮する"
+    ],
+    "cautions": [
+      "二相流や脈動流ではそのまま適用しない",
+      "極端な条件では詳細相関式で再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第5章 流動",
+      "改訂六版 化学工学便覧 第2章 移動現象"
+    ],
+    "function_name": "fluid_pressure_from_head",
+    "keywords": [
+      "水頭差",
+      "圧力差"
+    ],
+    "interpretation_hint": "水頭損失を圧力差へ戻したいときに使います。"
+  },
+  {
+    "formula_id": "fluid_hagen_poiseuille_flow",
+    "name_ja": "Hagen-Poiseuille流量",
+    "category": "流体",
+    "summary": "層流円管で圧力差から体積流量を求めます。",
+    "description": "層流円管で圧力差から体積流量を求めます。 改訂六版 化学工学便覧の流動・移動現象関連節をもとにした便覧レベルの概算式です。",
+    "equation_latex": "Q = \\\\pi D^4 \\\\Delta P /(128 \\\\mu L)",
+    "inputs": [
+      {
+        "key": "diameter",
+        "label_ja": "管内径",
+        "description": "円管内径",
+        "standard_unit": "m",
+        "allowed_units": [
+          "m",
+          "mm",
+          "cm"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "pressure_difference",
+        "label_ja": "圧力差",
+        "description": "管両端の圧力差",
+        "standard_unit": "Pa",
+        "allowed_units": [
+          "Pa",
+          "kPa",
+          "MPa",
+          "bar"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "viscosity",
+        "label_ja": "粘度",
+        "description": "流体粘度",
+        "standard_unit": "Pas",
+        "allowed_units": [
+          "Pas",
+          "mPas",
+          "cP"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "pipe_length",
+        "label_ja": "管長",
+        "description": "円管長さ",
+        "standard_unit": "m",
+        "allowed_units": [
+          "m",
+          "mm",
+          "cm"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "volumetric_flow",
+        "label_ja": "体積流量",
+        "description": "層流仮定での体積流量",
+        "standard_unit": "m^3/s",
+        "allowed_units": [
+          "m^3/s",
+          "m^3/h",
+          "L/min"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "diameter": "管内径",
+      "pressure_difference": "圧力差",
+      "viscosity": "粘度",
+      "pipe_length": "管長",
+      "volumetric_flow": "体積流量"
+    },
+    "applicability": [
+      "配管・ダクト・槽内流動の概算",
+      "単相流を主対象とした初期検討"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて別途詳細な損失係数や圧縮性を考慮する"
+    ],
+    "cautions": [
+      "二相流や脈動流ではそのまま適用しない",
+      "極端な条件では詳細相関式で再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第5章 流動",
+      "改訂六版 化学工学便覧 第2章 移動現象"
+    ],
+    "function_name": "fluid_hagen_poiseuille_flow",
+    "keywords": [
+      "Hagen-Poiseuille",
+      "層流"
+    ],
+    "interpretation_hint": "Re が十分小さい円管層流の概算に使います。"
+  },
+  {
+    "formula_id": "fluid_hagen_poiseuille_pressure_drop",
+    "name_ja": "Hagen-Poiseuille圧力損失",
+    "category": "流体",
+    "summary": "層流円管で体積流量から圧力損失を求めます。",
+    "description": "層流円管で体積流量から圧力損失を求めます。 改訂六版 化学工学便覧の流動・移動現象関連節をもとにした便覧レベルの概算式です。",
+    "equation_latex": "\\\\Delta P = 128 \\\\mu L Q /(\\\\pi D^4)",
+    "inputs": [
+      {
+        "key": "viscosity",
+        "label_ja": "粘度",
+        "description": "流体粘度",
+        "standard_unit": "Pas",
+        "allowed_units": [
+          "Pas",
+          "mPas",
+          "cP"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "pipe_length",
+        "label_ja": "管長",
+        "description": "円管長さ",
+        "standard_unit": "m",
+        "allowed_units": [
+          "m",
+          "mm",
+          "cm"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "volumetric_flow",
+        "label_ja": "体積流量",
+        "description": "体積流量",
+        "standard_unit": "m^3/s",
+        "allowed_units": [
+          "m^3/s",
+          "m^3/h",
+          "L/min"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "diameter",
+        "label_ja": "管内径",
+        "description": "円管内径",
+        "standard_unit": "m",
+        "allowed_units": [
+          "m",
+          "mm",
+          "cm"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "pressure_drop",
+        "label_ja": "圧力損失",
+        "description": "層流仮定での圧力損失",
+        "standard_unit": "Pa",
+        "allowed_units": [
+          "Pa",
+          "kPa",
+          "MPa",
+          "bar"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "viscosity": "粘度",
+      "pipe_length": "管長",
+      "volumetric_flow": "体積流量",
+      "diameter": "管内径",
+      "pressure_drop": "圧力損失"
+    },
+    "applicability": [
+      "配管・ダクト・槽内流動の概算",
+      "単相流を主対象とした初期検討"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて別途詳細な損失係数や圧縮性を考慮する"
+    ],
+    "cautions": [
+      "二相流や脈動流ではそのまま適用しない",
+      "極端な条件では詳細相関式で再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第5章 流動",
+      "改訂六版 化学工学便覧 第2章 移動現象"
+    ],
+    "function_name": "fluid_hagen_poiseuille_pressure_drop",
+    "keywords": [
+      "Hagen-Poiseuille",
+      "圧力損失"
+    ],
+    "interpretation_hint": "層流域の圧損感度確認に向いています。"
+  },
+  {
+    "formula_id": "fluid_reynolds_from_kinematic",
+    "name_ja": "動粘度基準Reynolds数",
+    "category": "流体",
+    "summary": "動粘度からReynolds数を直接求めます。",
+    "description": "動粘度からReynolds数を直接求めます。 改訂六版 化学工学便覧の流動・移動現象関連節をもとにした便覧レベルの概算式です。",
+    "equation_latex": "Re = v D / \\\\nu",
+    "inputs": [
+      {
+        "key": "velocity",
+        "label_ja": "流速",
+        "description": "代表流速",
+        "standard_unit": "m/s",
+        "allowed_units": [
+          "m/s"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "diameter",
+        "label_ja": "代表長さ",
+        "description": "管内径などの代表長さ",
+        "standard_unit": "m",
+        "allowed_units": [
+          "m",
+          "mm",
+          "cm"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "kinematic_viscosity",
+        "label_ja": "動粘度",
+        "description": "動粘度",
+        "standard_unit": "m^2/s",
+        "allowed_units": [
+          "m^2/s"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "reynolds_number",
+        "label_ja": "Reynolds数",
+        "description": "動粘度基準のReynolds数",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "velocity": "流速",
+      "diameter": "代表長さ",
+      "kinematic_viscosity": "動粘度",
+      "reynolds_number": "Reynolds数"
+    },
+    "applicability": [
+      "配管・ダクト・槽内流動の概算",
+      "単相流を主対象とした初期検討"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて別途詳細な損失係数や圧縮性を考慮する"
+    ],
+    "cautions": [
+      "二相流や脈動流ではそのまま適用しない",
+      "極端な条件では詳細相関式で再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第5章 流動",
+      "改訂六版 化学工学便覧 第2章 移動現象"
+    ],
+    "function_name": "fluid_reynolds_from_kinematic",
+    "keywords": [
+      "Reynolds数",
+      "動粘度"
+    ],
+    "interpretation_hint": "動粘度データしかない場合のRe整理に使えます。"
+  },
+  {
+    "formula_id": "fluid_volumetric_flow_from_mass",
+    "name_ja": "質量流量から体積流量",
+    "category": "流体",
+    "summary": "質量流量と密度から体積流量へ換算します。",
+    "description": "質量流量と密度から体積流量へ換算します。 改訂六版 化学工学便覧の流動・移動現象関連節をもとにした便覧レベルの概算式です。",
+    "equation_latex": "Q = \\\\dot{m} / \\\\rho",
+    "inputs": [
+      {
+        "key": "mass_flow",
+        "label_ja": "質量流量",
+        "description": "流れる質量流量",
+        "standard_unit": "kg/s",
+        "allowed_units": [
+          "kg/s",
+          "kg/h",
+          "t/h"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "density",
+        "label_ja": "密度",
+        "description": "流体密度",
+        "standard_unit": "kg/m^3",
+        "allowed_units": [
+          "kg/m^3",
+          "g/cm^3"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "volumetric_flow",
+        "label_ja": "体積流量",
+        "description": "質量流量に対応する体積流量",
+        "standard_unit": "m^3/s",
+        "allowed_units": [
+          "m^3/s",
+          "m^3/h",
+          "L/min"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "mass_flow": "質量流量",
+      "density": "密度",
+      "volumetric_flow": "体積流量"
+    },
+    "applicability": [
+      "配管・ダクト・槽内流動の概算",
+      "単相流を主対象とした初期検討"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて別途詳細な損失係数や圧縮性を考慮する"
+    ],
+    "cautions": [
+      "二相流や脈動流ではそのまま適用しない",
+      "極端な条件では詳細相関式で再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第5章 流動",
+      "改訂六版 化学工学便覧 第2章 移動現象"
+    ],
+    "function_name": "fluid_volumetric_flow_from_mass",
+    "keywords": [
+      "体積流量換算",
+      "質量流量"
+    ],
+    "interpretation_hint": "ポンプや配管選定時の流量換算に使えます。"
+  },
+  {
+    "formula_id": "fluid_pipe_residence_time",
+    "name_ja": "管内滞留時間",
+    "category": "流体",
+    "summary": "配管内容積と体積流量から滞留時間を求めます。",
+    "description": "配管内容積と体積流量から滞留時間を求めます。 改訂六版 化学工学便覧の流動・移動現象関連節をもとにした便覧レベルの概算式です。",
+    "equation_latex": "t = L A / Q",
+    "inputs": [
+      {
+        "key": "pipe_length",
+        "label_ja": "管長",
+        "description": "配管長さ",
+        "standard_unit": "m",
+        "allowed_units": [
+          "m",
+          "mm",
+          "cm"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "area",
+        "label_ja": "断面積",
+        "description": "流路断面積",
+        "standard_unit": "m^2",
+        "allowed_units": [
+          "m^2",
+          "cm^2"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "volumetric_flow",
+        "label_ja": "体積流量",
+        "description": "流れる体積流量",
+        "standard_unit": "m^3/s",
+        "allowed_units": [
+          "m^3/s",
+          "m^3/h",
+          "L/min"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "residence_time",
+        "label_ja": "滞留時間",
+        "description": "配管内の代表滞留時間",
+        "standard_unit": "s",
+        "allowed_units": [
+          "s",
+          "min",
+          "h"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "pipe_length": "管長",
+      "area": "断面積",
+      "volumetric_flow": "体積流量",
+      "residence_time": "滞留時間"
+    },
+    "applicability": [
+      "配管・ダクト・槽内流動の概算",
+      "単相流を主対象とした初期検討"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて別途詳細な損失係数や圧縮性を考慮する"
+    ],
+    "cautions": [
+      "二相流や脈動流ではそのまま適用しない",
+      "極端な条件では詳細相関式で再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第5章 流動",
+      "改訂六版 化学工学便覧 第2章 移動現象"
+    ],
+    "function_name": "fluid_pipe_residence_time",
+    "keywords": [
+      "滞留時間",
+      "配管"
+    ],
+    "interpretation_hint": "ライン内のホールドアップ時間の概算に使えます。"
+  },
+  {
+    "formula_id": "fluid_capillary_number",
+    "name_ja": "Capillary数",
+    "category": "流体",
+    "summary": "粘性力と表面張力の比を表すCapillary数を求めます。",
+    "description": "粘性力と表面張力の比を表すCapillary数を求めます。 改訂六版 化学工学便覧の流動・移動現象関連節をもとにした便覧レベルの概算式です。",
+    "equation_latex": "Ca = \\\\mu v / \\\\sigma",
+    "inputs": [
+      {
+        "key": "viscosity",
+        "label_ja": "粘度",
+        "description": "流体粘度",
+        "standard_unit": "Pas",
+        "allowed_units": [
+          "Pas",
+          "mPas",
+          "cP"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "velocity",
+        "label_ja": "流速",
+        "description": "代表流速",
+        "standard_unit": "m/s",
+        "allowed_units": [
+          "m/s"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "surface_tension",
+        "label_ja": "表面張力",
+        "description": "液体表面張力",
+        "standard_unit": "N/m",
+        "allowed_units": [
+          "N/m"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "capillary_number",
+        "label_ja": "Capillary数",
+        "description": "界面変形の指標",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "viscosity": "粘度",
+      "velocity": "流速",
+      "surface_tension": "表面張力",
+      "capillary_number": "Capillary数"
+    },
+    "applicability": [
+      "配管・ダクト・槽内流動の概算",
+      "単相流を主対象とした初期検討"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて別途詳細な損失係数や圧縮性を考慮する"
+    ],
+    "cautions": [
+      "二相流や脈動流ではそのまま適用しない",
+      "極端な条件では詳細相関式で再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第5章 流動",
+      "改訂六版 化学工学便覧 第2章 移動現象"
+    ],
+    "function_name": "fluid_capillary_number",
+    "keywords": [
+      "Capillary数",
+      "界面"
+    ],
+    "interpretation_hint": "液滴や液膜の変形のしやすさを見る指標です。"
+  },
+  {
+    "formula_id": "fluid_hydrostatic_absolute_pressure",
+    "name_ja": "静水圧による絶対圧",
+    "category": "流体",
+    "summary": "基準圧と液柱高さから絶対圧を求めます。",
+    "description": "基準圧と液柱高さから絶対圧を求めます。 改訂六版 化学工学便覧の流動・移動現象関連節をもとにした便覧レベルの概算式です。",
+    "equation_latex": "P = P_0 + \\\\rho g h",
+    "inputs": [
+      {
+        "key": "reference_pressure",
+        "label_ja": "基準圧",
+        "description": "基準となる絶対圧",
+        "standard_unit": "Pa",
+        "allowed_units": [
+          "Pa",
+          "kPa",
+          "MPa",
+          "bar"
+        ],
+        "positive_only": true,
+        "nonzero": true,
+        "pressure_basis_supported": true
+      },
+      {
+        "key": "density",
+        "label_ja": "密度",
+        "description": "液体密度",
+        "standard_unit": "kg/m^3",
+        "allowed_units": [
+          "kg/m^3",
+          "g/cm^3"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "height",
+        "label_ja": "液柱高さ",
+        "description": "基準面からの高さ差",
+        "standard_unit": "m",
+        "allowed_units": [
+          "m"
+        ],
+        "positive_only": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "absolute_pressure",
+        "label_ja": "絶対圧",
+        "description": "液柱を考慮した絶対圧",
+        "standard_unit": "Pa",
+        "allowed_units": [
+          "Pa",
+          "kPa",
+          "MPa",
+          "bar"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "reference_pressure": "基準圧",
+      "density": "密度",
+      "height": "液柱高さ",
+      "absolute_pressure": "絶対圧"
+    },
+    "applicability": [
+      "配管・ダクト・槽内流動の概算",
+      "単相流を主対象とした初期検討"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて別途詳細な損失係数や圧縮性を考慮する"
+    ],
+    "cautions": [
+      "二相流や脈動流ではそのまま適用しない",
+      "極端な条件では詳細相関式で再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第5章 流動",
+      "改訂六版 化学工学便覧 第2章 移動現象"
+    ],
+    "function_name": "fluid_hydrostatic_absolute_pressure",
+    "keywords": [
+      "静水圧",
+      "絶対圧"
+    ],
+    "interpretation_hint": "タンク液面下の圧力概算に使えます。"
+  },
+  {
+    "formula_id": "fluid_manometer_pressure_difference",
+    "name_ja": "U字管差圧",
+    "category": "流体",
+    "summary": "マノメータ液柱差から差圧を求めます。",
+    "description": "マノメータ液柱差から差圧を求めます。 改訂六版 化学工学便覧の流動・移動現象関連節をもとにした便覧レベルの概算式です。",
+    "equation_latex": "\\\\Delta P = (\\\\rho_m - \\\\rho_f) g \\\\Delta h",
+    "inputs": [
+      {
+        "key": "manometer_density",
+        "label_ja": "マノメータ液密度",
+        "description": "マノメータ液の密度",
+        "standard_unit": "kg/m^3",
+        "allowed_units": [
+          "kg/m^3",
+          "g/cm^3"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "process_density",
+        "label_ja": "プロセス流体密度",
+        "description": "被測定流体の密度",
+        "standard_unit": "kg/m^3",
+        "allowed_units": [
+          "kg/m^3",
+          "g/cm^3"
+        ],
+        "positive_only": true
+      },
+      {
+        "key": "height_difference",
+        "label_ja": "液柱差",
+        "description": "U字管の液柱差",
+        "standard_unit": "m",
+        "allowed_units": [
+          "m",
+          "mm",
+          "cm"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "pressure_difference",
+        "label_ja": "差圧",
+        "description": "液柱差に対応する差圧",
+        "standard_unit": "Pa",
+        "allowed_units": [
+          "Pa",
+          "kPa",
+          "MPa",
+          "bar"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "manometer_density": "マノメータ液密度",
+      "process_density": "プロセス流体密度",
+      "height_difference": "液柱差",
+      "pressure_difference": "差圧"
+    },
+    "applicability": [
+      "配管・ダクト・槽内流動の概算",
+      "単相流を主対象とした初期検討"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて別途詳細な損失係数や圧縮性を考慮する"
+    ],
+    "cautions": [
+      "二相流や脈動流ではそのまま適用しない",
+      "極端な条件では詳細相関式で再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第5章 流動",
+      "改訂六版 化学工学便覧 第2章 移動現象"
+    ],
+    "function_name": "fluid_manometer_pressure_difference",
+    "keywords": [
+      "マノメータ",
+      "差圧"
+    ],
+    "interpretation_hint": "差圧計算や圧力計校正の概算に使えます。"
+  },
+  {
+    "formula_id": "fluid_drag_force",
+    "name_ja": "抗力",
+    "category": "流体",
+    "summary": "抗力係数から流体抗力を求めます。",
+    "description": "抗力係数から流体抗力を求めます。 改訂六版 化学工学便覧の流動・移動現象関連節をもとにした便覧レベルの概算式です。",
+    "equation_latex": "F_D = C_D A \\\\rho v^2 / 2",
+    "inputs": [
+      {
+        "key": "drag_coefficient",
+        "label_ja": "抗力係数",
+        "description": "無次元の抗力係数",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "projected_area",
+        "label_ja": "投影面積",
+        "description": "流れ方向に対する投影面積",
+        "standard_unit": "m^2",
+        "allowed_units": [
+          "m^2",
+          "cm^2"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "density",
+        "label_ja": "密度",
+        "description": "流体密度",
+        "standard_unit": "kg/m^3",
+        "allowed_units": [
+          "kg/m^3",
+          "g/cm^3"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "velocity",
+        "label_ja": "流速",
+        "description": "相対流速",
+        "standard_unit": "m/s",
+        "allowed_units": [
+          "m/s"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "drag_force",
+        "label_ja": "抗力",
+        "description": "流体から受ける抗力",
+        "standard_unit": "N",
+        "allowed_units": [
+          "N"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "drag_coefficient": "抗力係数",
+      "projected_area": "投影面積",
+      "density": "密度",
+      "velocity": "流速",
+      "drag_force": "抗力"
+    },
+    "applicability": [
+      "配管・ダクト・槽内流動の概算",
+      "単相流を主対象とした初期検討"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて別途詳細な損失係数や圧縮性を考慮する"
+    ],
+    "cautions": [
+      "二相流や脈動流ではそのまま適用しない",
+      "極端な条件では詳細相関式で再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第5章 流動",
+      "改訂六版 化学工学便覧 第2章 移動現象"
+    ],
+    "function_name": "fluid_drag_force",
+    "keywords": [
+      "抗力",
+      "Drag"
+    ],
+    "interpretation_hint": "粒子・液滴・物体の運動計算の入口になります。"
+  },
+  {
+    "formula_id": "fluid_power_from_pressure_flow",
+    "name_ja": "圧力差と流量から軸動力",
+    "category": "流体",
+    "summary": "圧力差と体積流量から理論動力を求めます。",
+    "description": "圧力差と体積流量から理論動力を求めます。 改訂六版 化学工学便覧の流動・移動現象関連節をもとにした便覧レベルの概算式です。",
+    "equation_latex": "P = \\\\Delta P Q",
+    "inputs": [
+      {
+        "key": "pressure_difference",
+        "label_ja": "圧力差",
+        "description": "機械が付与または損失する圧力差",
+        "standard_unit": "Pa",
+        "allowed_units": [
+          "Pa",
+          "kPa",
+          "MPa",
+          "bar"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "volumetric_flow",
+        "label_ja": "体積流量",
+        "description": "対象の体積流量",
+        "standard_unit": "m^3/s",
+        "allowed_units": [
+          "m^3/s",
+          "m^3/h",
+          "L/min"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "power",
+        "label_ja": "理論動力",
+        "description": "圧力差と流量に基づく理論動力",
+        "standard_unit": "W",
+        "allowed_units": [
+          "W",
+          "kW"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "pressure_difference": "圧力差",
+      "volumetric_flow": "体積流量",
+      "power": "理論動力"
+    },
+    "applicability": [
+      "配管・ダクト・槽内流動の概算",
+      "単相流を主対象とした初期検討"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて別途詳細な損失係数や圧縮性を考慮する"
+    ],
+    "cautions": [
+      "二相流や脈動流ではそのまま適用しない",
+      "極端な条件では詳細相関式で再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第5章 流動",
+      "改訂六版 化学工学便覧 第2章 移動現象"
+    ],
+    "function_name": "fluid_power_from_pressure_flow",
+    "keywords": [
+      "動力",
+      "圧送"
+    ],
+    "interpretation_hint": "ポンプやブロワの概算動力の一次評価に使えます。"
+  }
+]

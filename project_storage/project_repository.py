@@ -56,12 +56,19 @@ class ProjectRepository:
                     warnings TEXT NOT NULL,
                     selected_properties TEXT NOT NULL,
                     overridden_properties TEXT NOT NULL,
+                    calculation_mode TEXT NOT NULL DEFAULT 'forward',
+                    solve_metadata TEXT NOT NULL DEFAULT '{}',
                     created_at TEXT NOT NULL,
                     updated_at TEXT NOT NULL,
                     FOREIGN KEY(project_id) REFERENCES projects(project_id)
                 );
                 """
             )
+            columns = {row["name"] for row in connection.execute("PRAGMA table_info(calculation_cases)").fetchall()}
+            if "calculation_mode" not in columns:
+                connection.execute("ALTER TABLE calculation_cases ADD COLUMN calculation_mode TEXT NOT NULL DEFAULT 'forward'")
+            if "solve_metadata" not in columns:
+                connection.execute("ALTER TABLE calculation_cases ADD COLUMN solve_metadata TEXT NOT NULL DEFAULT '{}'")
 
     def create_project(self, name: str, description: str = "") -> Project:
         """Create and persist a new project."""
@@ -130,6 +137,8 @@ class ProjectRepository:
             warnings=list(payload.get("warnings", [])),
             selected_properties=payload.get("selected_properties", {}),
             overridden_properties=payload.get("overridden_properties", {}),
+            calculation_mode=str(payload.get("calculation_mode", "forward")),
+            solve_metadata=payload.get("solve_metadata", {}),
             created_at=now,
             updated_at=now,
         )
@@ -140,9 +149,9 @@ class ProjectRepository:
                     case_id, project_id, formula_id, formula_name,
                     input_values, input_units, pressure_bases, normalized_inputs,
                     output_values, output_units, warnings,
-                    selected_properties, overridden_properties,
+                    selected_properties, overridden_properties, calculation_mode, solve_metadata,
                     created_at, updated_at
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """,
                 (
                     case.case_id,
@@ -158,6 +167,8 @@ class ProjectRepository:
                     json.dumps(case.warnings, ensure_ascii=False),
                     json.dumps(case.selected_properties, ensure_ascii=False),
                     json.dumps(case.overridden_properties, ensure_ascii=False),
+                    case.calculation_mode,
+                    json.dumps(case.solve_metadata, ensure_ascii=False),
                     case.created_at.isoformat(),
                     case.updated_at.isoformat(),
                 ),
@@ -214,6 +225,8 @@ class ProjectRepository:
             warnings=json.loads(row["warnings"]),
             selected_properties=json.loads(row["selected_properties"]),
             overridden_properties=json.loads(row["overridden_properties"]),
+            calculation_mode=row["calculation_mode"],
+            solve_metadata=json.loads(row["solve_metadata"]),
             created_at=datetime.fromisoformat(row["created_at"]),
             updated_at=datetime.fromisoformat(row["updated_at"]),
         )

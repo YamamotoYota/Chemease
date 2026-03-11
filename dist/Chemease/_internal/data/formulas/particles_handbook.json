@@ -1,0 +1,1558 @@
+[
+  {
+    "formula_id": "pt_particle_reynolds_number",
+    "name_ja": "粒子Reynolds数",
+    "category": "粉体・機械操作",
+    "summary": "粒子Reynolds数を計算します。",
+    "description": "粒子Reynolds数を計算します。改訂六版 化学工学便覧をもとに整理した便覧レベルの設計・概算式です。",
+    "equation_latex": "Re_p = rho u d_p / mu",
+    "inputs": [
+      {
+        "key": "fluid_density",
+        "label_ja": "流体密度",
+        "description": "流体密度",
+        "standard_unit": "kg/m^3",
+        "allowed_units": [
+          "kg/m^3",
+          "g/cm^3"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "relative_velocity",
+        "label_ja": "相対速度",
+        "description": "相対速度",
+        "standard_unit": "m/s",
+        "allowed_units": [
+          "m/s"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "particle_diameter",
+        "label_ja": "粒径",
+        "description": "粒径",
+        "standard_unit": "m",
+        "allowed_units": [
+          "m",
+          "mm",
+          "cm"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "viscosity",
+        "label_ja": "粘度",
+        "description": "粘度",
+        "standard_unit": "Pas",
+        "allowed_units": [
+          "Pas",
+          "mPas",
+          "cP"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "particle_reynolds_number",
+        "label_ja": "粒子Reynolds数",
+        "description": "粒子Reynolds数",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "fluid_density": "流体密度",
+      "relative_velocity": "相対速度",
+      "particle_diameter": "粒径",
+      "viscosity": "粘度",
+      "particle_reynolds_number": "粒子Reynolds数"
+    },
+    "applicability": [
+      "初期設計・概算評価",
+      "詳細設計前の目安計算"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて詳細相関式で再確認する"
+    ],
+    "cautions": [
+      "極端条件や多相系では適用性を再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第4章 粉粒体の特性",
+      "改訂六版 化学工学便覧 第5章 流動"
+    ],
+    "function_name": "pt_particle_reynolds_number",
+    "keywords": [
+      "粒子Reynolds数"
+    ],
+    "interpretation_hint": "抗力係数相関の選定に使えます。"
+  },
+  {
+    "formula_id": "pt_archimedes_number",
+    "name_ja": "Archimedes数",
+    "category": "粉体・機械操作",
+    "summary": "Archimedes数を計算します。",
+    "description": "Archimedes数を計算します。改訂六版 化学工学便覧をもとに整理した便覧レベルの設計・概算式です。",
+    "equation_latex": "Ar = g d_p^3 rho_f (rho_p - rho_f) / mu^2",
+    "inputs": [
+      {
+        "key": "particle_diameter",
+        "label_ja": "粒径",
+        "description": "粒径",
+        "standard_unit": "m",
+        "allowed_units": [
+          "m",
+          "mm",
+          "cm"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "fluid_density",
+        "label_ja": "流体密度",
+        "description": "流体密度",
+        "standard_unit": "kg/m^3",
+        "allowed_units": [
+          "kg/m^3",
+          "g/cm^3"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "particle_density",
+        "label_ja": "粒子密度",
+        "description": "粒子密度",
+        "standard_unit": "kg/m^3",
+        "allowed_units": [
+          "kg/m^3",
+          "g/cm^3"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "viscosity",
+        "label_ja": "粘度",
+        "description": "粘度",
+        "standard_unit": "Pas",
+        "allowed_units": [
+          "Pas",
+          "mPas",
+          "cP"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "archimedes_number",
+        "label_ja": "Archimedes数",
+        "description": "Archimedes数",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "particle_diameter": "粒径",
+      "fluid_density": "流体密度",
+      "particle_density": "粒子密度",
+      "viscosity": "粘度",
+      "archimedes_number": "Archimedes数"
+    },
+    "applicability": [
+      "初期設計・概算評価",
+      "詳細設計前の目安計算"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて詳細相関式で再確認する"
+    ],
+    "cautions": [
+      "極端条件や多相系では適用性を再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第4章 粉粒体の特性",
+      "改訂六版 化学工学便覧 第5章 流動"
+    ],
+    "function_name": "pt_archimedes_number",
+    "keywords": [
+      "Archimedes数"
+    ],
+    "interpretation_hint": "流動化相関の前処理に使えます。"
+  },
+  {
+    "formula_id": "pt_drag_coefficient_stokes",
+    "name_ja": "抗力係数（Stokes域）",
+    "category": "粉体・機械操作",
+    "summary": "抗力係数（Stokes域）を計算します。",
+    "description": "抗力係数（Stokes域）を計算します。改訂六版 化学工学便覧をもとに整理した便覧レベルの設計・概算式です。",
+    "equation_latex": "C_D = 24 / Re_p",
+    "inputs": [
+      {
+        "key": "particle_reynolds_number",
+        "label_ja": "粒子Reynolds数",
+        "description": "粒子Reynolds数",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "drag_coefficient",
+        "label_ja": "抗力係数",
+        "description": "抗力係数",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "particle_reynolds_number": "粒子Reynolds数",
+      "drag_coefficient": "抗力係数"
+    },
+    "applicability": [
+      "初期設計・概算評価",
+      "詳細設計前の目安計算"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて詳細相関式で再確認する"
+    ],
+    "cautions": [
+      "極端条件や多相系では適用性を再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第4章 粉粒体の特性",
+      "改訂六版 化学工学便覧 第5章 流動"
+    ],
+    "function_name": "pt_drag_coefficient_stokes",
+    "keywords": [
+      "抗力係数（Stokes域）"
+    ],
+    "interpretation_hint": "Rep が小さい場合の近似です。"
+  },
+  {
+    "formula_id": "pt_particle_surface_area_sphere",
+    "name_ja": "球形粒子表面積",
+    "category": "粉体・機械操作",
+    "summary": "球形粒子表面積を計算します。",
+    "description": "球形粒子表面積を計算します。改訂六版 化学工学便覧をもとに整理した便覧レベルの設計・概算式です。",
+    "equation_latex": "A = pi d_p^2",
+    "inputs": [
+      {
+        "key": "particle_diameter",
+        "label_ja": "粒径",
+        "description": "粒径",
+        "standard_unit": "m",
+        "allowed_units": [
+          "m",
+          "mm",
+          "cm"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "surface_area",
+        "label_ja": "表面積",
+        "description": "表面積",
+        "standard_unit": "m^2",
+        "allowed_units": [
+          "m^2",
+          "cm^2"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "particle_diameter": "粒径",
+      "surface_area": "表面積"
+    },
+    "applicability": [
+      "初期設計・概算評価",
+      "詳細設計前の目安計算"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて詳細相関式で再確認する"
+    ],
+    "cautions": [
+      "極端条件や多相系では適用性を再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第4章 粉粒体の特性",
+      "改訂六版 化学工学便覧 第5章 流動"
+    ],
+    "function_name": "pt_particle_surface_area_sphere",
+    "keywords": [
+      "球形粒子表面積"
+    ],
+    "interpretation_hint": "反応や乾燥の面積基準計算に使えます。"
+  },
+  {
+    "formula_id": "pt_particle_volume_sphere",
+    "name_ja": "球形粒子体積",
+    "category": "粉体・機械操作",
+    "summary": "球形粒子体積を計算します。",
+    "description": "球形粒子体積を計算します。改訂六版 化学工学便覧をもとに整理した便覧レベルの設計・概算式です。",
+    "equation_latex": "V_p = pi d_p^3 / 6",
+    "inputs": [
+      {
+        "key": "particle_diameter",
+        "label_ja": "粒径",
+        "description": "粒径",
+        "standard_unit": "m",
+        "allowed_units": [
+          "m",
+          "mm",
+          "cm"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "particle_volume",
+        "label_ja": "粒子体積",
+        "description": "粒子体積",
+        "standard_unit": "m^3",
+        "allowed_units": [
+          "m^3",
+          "L",
+          "mL"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "particle_diameter": "粒径",
+      "particle_volume": "粒子体積"
+    },
+    "applicability": [
+      "初期設計・概算評価",
+      "詳細設計前の目安計算"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて詳細相関式で再確認する"
+    ],
+    "cautions": [
+      "極端条件や多相系では適用性を再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第4章 粉粒体の特性",
+      "改訂六版 化学工学便覧 第5章 流動"
+    ],
+    "function_name": "pt_particle_volume_sphere",
+    "keywords": [
+      "球形粒子体積"
+    ],
+    "interpretation_hint": "個数推算の前処理に使えます。"
+  },
+  {
+    "formula_id": "pt_specific_surface_area",
+    "name_ja": "比表面積",
+    "category": "粉体・機械操作",
+    "summary": "比表面積を計算します。",
+    "description": "比表面積を計算します。改訂六版 化学工学便覧をもとに整理した便覧レベルの設計・概算式です。",
+    "equation_latex": "a = 6 / (rho_p d_p)",
+    "inputs": [
+      {
+        "key": "particle_density",
+        "label_ja": "粒子密度",
+        "description": "粒子密度",
+        "standard_unit": "kg/m^3",
+        "allowed_units": [
+          "kg/m^3",
+          "g/cm^3"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "particle_diameter",
+        "label_ja": "粒径",
+        "description": "粒径",
+        "standard_unit": "m",
+        "allowed_units": [
+          "m",
+          "mm",
+          "cm"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "specific_surface_area",
+        "label_ja": "比表面積",
+        "description": "比表面積",
+        "standard_unit": "m^2/kg",
+        "allowed_units": [
+          "m^2/kg"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "particle_density": "粒子密度",
+      "particle_diameter": "粒径",
+      "specific_surface_area": "比表面積"
+    },
+    "applicability": [
+      "初期設計・概算評価",
+      "詳細設計前の目安計算"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて詳細相関式で再確認する"
+    ],
+    "cautions": [
+      "極端条件や多相系では適用性を再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第4章 粉粒体の特性",
+      "改訂六版 化学工学便覧 第5章 流動"
+    ],
+    "function_name": "pt_specific_surface_area",
+    "keywords": [
+      "比表面積"
+    ],
+    "interpretation_hint": "粉砕・反応速度の比較に使えます。"
+  },
+  {
+    "formula_id": "pt_porosity",
+    "name_ja": "空隙率",
+    "category": "粉体・機械操作",
+    "summary": "空隙率を計算します。",
+    "description": "空隙率を計算します。改訂六版 化学工学便覧をもとに整理した便覧レベルの設計・概算式です。",
+    "equation_latex": "epsilon = 1 - rho_b / rho_p",
+    "inputs": [
+      {
+        "key": "bulk_density",
+        "label_ja": "嵩密度",
+        "description": "嵩密度",
+        "standard_unit": "kg/m^3",
+        "allowed_units": [
+          "kg/m^3",
+          "g/cm^3"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "particle_density",
+        "label_ja": "粒子密度",
+        "description": "粒子密度",
+        "standard_unit": "kg/m^3",
+        "allowed_units": [
+          "kg/m^3",
+          "g/cm^3"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "porosity",
+        "label_ja": "空隙率",
+        "description": "空隙率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction",
+          "vol%"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "bulk_density": "嵩密度",
+      "particle_density": "粒子密度",
+      "porosity": "空隙率"
+    },
+    "applicability": [
+      "初期設計・概算評価",
+      "詳細設計前の目安計算"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて詳細相関式で再確認する"
+    ],
+    "cautions": [
+      "極端条件や多相系では適用性を再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第4章 粉粒体の特性",
+      "改訂六版 化学工学便覧 第5章 流動"
+    ],
+    "function_name": "pt_porosity",
+    "keywords": [
+      "空隙率"
+    ],
+    "interpretation_hint": "充填層圧損や滞留量の前処理です。"
+  },
+  {
+    "formula_id": "pt_bulk_density_from_porosity",
+    "name_ja": "空隙率から嵩密度",
+    "category": "粉体・機械操作",
+    "summary": "空隙率から嵩密度を計算します。",
+    "description": "空隙率から嵩密度を計算します。改訂六版 化学工学便覧をもとに整理した便覧レベルの設計・概算式です。",
+    "equation_latex": "rho_b = rho_p (1 - epsilon)",
+    "inputs": [
+      {
+        "key": "particle_density",
+        "label_ja": "粒子密度",
+        "description": "粒子密度",
+        "standard_unit": "kg/m^3",
+        "allowed_units": [
+          "kg/m^3",
+          "g/cm^3"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "porosity",
+        "label_ja": "空隙率",
+        "description": "空隙率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction",
+          "vol%"
+        ],
+        "positive_only": true,
+        "nonzero": false
+      }
+    ],
+    "outputs": [
+      {
+        "key": "bulk_density",
+        "label_ja": "嵩密度",
+        "description": "嵩密度",
+        "standard_unit": "kg/m^3",
+        "allowed_units": [
+          "kg/m^3",
+          "g/cm^3"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "particle_density": "粒子密度",
+      "porosity": "空隙率",
+      "bulk_density": "嵩密度"
+    },
+    "applicability": [
+      "初期設計・概算評価",
+      "詳細設計前の目安計算"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて詳細相関式で再確認する"
+    ],
+    "cautions": [
+      "極端条件や多相系では適用性を再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第4章 粉粒体の特性",
+      "改訂六版 化学工学便覧 第5章 流動"
+    ],
+    "function_name": "pt_bulk_density_from_porosity",
+    "keywords": [
+      "空隙率から嵩密度"
+    ],
+    "interpretation_hint": "充填状態の見積りに使えます。"
+  },
+  {
+    "formula_id": "pt_wet_basis_moisture",
+    "name_ja": "湿量基準含水率",
+    "category": "粉体・機械操作",
+    "summary": "湿量基準含水率を計算します。",
+    "description": "湿量基準含水率を計算します。改訂六版 化学工学便覧をもとに整理した便覧レベルの設計・概算式です。",
+    "equation_latex": "X_w = m_w / m_{wet}",
+    "inputs": [
+      {
+        "key": "water_mass",
+        "label_ja": "水分質量",
+        "description": "水分質量",
+        "standard_unit": "kg",
+        "allowed_units": [
+          "kg",
+          "g"
+        ],
+        "positive_only": true,
+        "nonzero": false
+      },
+      {
+        "key": "wet_mass",
+        "label_ja": "湿重量",
+        "description": "湿重量",
+        "standard_unit": "kg",
+        "allowed_units": [
+          "kg",
+          "g"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "wet_basis_moisture",
+        "label_ja": "湿量基準含水率",
+        "description": "湿量基準含水率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction",
+          "wt%"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "water_mass": "水分質量",
+      "wet_mass": "湿重量",
+      "wet_basis_moisture": "湿量基準含水率"
+    },
+    "applicability": [
+      "初期設計・概算評価",
+      "詳細設計前の目安計算"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて詳細相関式で再確認する"
+    ],
+    "cautions": [
+      "極端条件や多相系では適用性を再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第4章 粉粒体の特性",
+      "改訂六版 化学工学便覧 第5章 流動"
+    ],
+    "function_name": "pt_wet_basis_moisture",
+    "keywords": [
+      "湿量基準含水率"
+    ],
+    "interpretation_hint": "乾燥工程の品質管理に使えます。"
+  },
+  {
+    "formula_id": "pt_dry_basis_moisture",
+    "name_ja": "乾量基準含水率",
+    "category": "粉体・機械操作",
+    "summary": "乾量基準含水率を計算します。",
+    "description": "乾量基準含水率を計算します。改訂六版 化学工学便覧をもとに整理した便覧レベルの設計・概算式です。",
+    "equation_latex": "X_d = m_w / m_d",
+    "inputs": [
+      {
+        "key": "water_mass",
+        "label_ja": "水分質量",
+        "description": "水分質量",
+        "standard_unit": "kg",
+        "allowed_units": [
+          "kg",
+          "g"
+        ],
+        "positive_only": true,
+        "nonzero": false
+      },
+      {
+        "key": "dry_solid_mass",
+        "label_ja": "乾燥固形分質量",
+        "description": "乾燥固形分質量",
+        "standard_unit": "kg",
+        "allowed_units": [
+          "kg",
+          "g"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "dry_basis_moisture",
+        "label_ja": "乾量基準含水率",
+        "description": "乾量基準含水率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction",
+          "wt%"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "water_mass": "水分質量",
+      "dry_solid_mass": "乾燥固形分質量",
+      "dry_basis_moisture": "乾量基準含水率"
+    },
+    "applicability": [
+      "初期設計・概算評価",
+      "詳細設計前の目安計算"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて詳細相関式で再確認する"
+    ],
+    "cautions": [
+      "極端条件や多相系では適用性を再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第4章 粉粒体の特性",
+      "改訂六版 化学工学便覧 第5章 流動"
+    ],
+    "function_name": "pt_dry_basis_moisture",
+    "keywords": [
+      "乾量基準含水率"
+    ],
+    "interpretation_hint": "乾燥速度式の整理に使えます。"
+  },
+  {
+    "formula_id": "pt_wet_to_dry_moisture",
+    "name_ja": "湿量基準→乾量基準含水率",
+    "category": "粉体・機械操作",
+    "summary": "湿量基準→乾量基準含水率を計算します。",
+    "description": "湿量基準→乾量基準含水率を計算します。改訂六版 化学工学便覧をもとに整理した便覧レベルの設計・概算式です。",
+    "equation_latex": "X_d = X_w / (1 - X_w)",
+    "inputs": [
+      {
+        "key": "wet_basis_moisture",
+        "label_ja": "湿量基準含水率",
+        "description": "湿量基準含水率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction",
+          "wt%"
+        ],
+        "positive_only": true,
+        "nonzero": false
+      }
+    ],
+    "outputs": [
+      {
+        "key": "dry_basis_moisture",
+        "label_ja": "乾量基準含水率",
+        "description": "乾量基準含水率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction",
+          "wt%"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "wet_basis_moisture": "湿量基準含水率",
+      "dry_basis_moisture": "乾量基準含水率"
+    },
+    "applicability": [
+      "初期設計・概算評価",
+      "詳細設計前の目安計算"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて詳細相関式で再確認する"
+    ],
+    "cautions": [
+      "極端条件や多相系では適用性を再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第4章 粉粒体の特性",
+      "改訂六版 化学工学便覧 第5章 流動"
+    ],
+    "function_name": "pt_wet_to_dry_moisture",
+    "keywords": [
+      "湿量基準→乾量基準含水率"
+    ],
+    "interpretation_hint": "基準違いの換算に使えます。"
+  },
+  {
+    "formula_id": "pt_dry_to_wet_moisture",
+    "name_ja": "乾量基準→湿量基準含水率",
+    "category": "粉体・機械操作",
+    "summary": "乾量基準→湿量基準含水率を計算します。",
+    "description": "乾量基準→湿量基準含水率を計算します。改訂六版 化学工学便覧をもとに整理した便覧レベルの設計・概算式です。",
+    "equation_latex": "X_w = X_d / (1 + X_d)",
+    "inputs": [
+      {
+        "key": "dry_basis_moisture",
+        "label_ja": "乾量基準含水率",
+        "description": "乾量基準含水率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction",
+          "wt%"
+        ],
+        "positive_only": true,
+        "nonzero": false
+      }
+    ],
+    "outputs": [
+      {
+        "key": "wet_basis_moisture",
+        "label_ja": "湿量基準含水率",
+        "description": "湿量基準含水率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction",
+          "wt%"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "dry_basis_moisture": "乾量基準含水率",
+      "wet_basis_moisture": "湿量基準含水率"
+    },
+    "applicability": [
+      "初期設計・概算評価",
+      "詳細設計前の目安計算"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて詳細相関式で再確認する"
+    ],
+    "cautions": [
+      "極端条件や多相系では適用性を再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第4章 粉粒体の特性",
+      "改訂六版 化学工学便覧 第5章 流動"
+    ],
+    "function_name": "pt_dry_to_wet_moisture",
+    "keywords": [
+      "乾量基準→湿量基準含水率"
+    ],
+    "interpretation_hint": "分析値の基準合わせに使えます。"
+  },
+  {
+    "formula_id": "pt_cake_mass_from_filtrate",
+    "name_ja": "ろ液量からケーク質量",
+    "category": "粉体・機械操作",
+    "summary": "ろ液量からケーク質量を計算します。",
+    "description": "ろ液量からケーク質量を計算します。改訂六版 化学工学便覧をもとに整理した便覧レベルの設計・概算式です。",
+    "equation_latex": "m_c = C_s V",
+    "inputs": [
+      {
+        "key": "solids_concentration",
+        "label_ja": "固形分濃度",
+        "description": "固形分濃度",
+        "standard_unit": "kg/m^3",
+        "allowed_units": [
+          "kg/m^3"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "filtrate_volume",
+        "label_ja": "ろ液量",
+        "description": "ろ液量",
+        "standard_unit": "m^3",
+        "allowed_units": [
+          "m^3",
+          "L"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "cake_mass",
+        "label_ja": "ケーク質量",
+        "description": "ケーク質量",
+        "standard_unit": "kg",
+        "allowed_units": [
+          "kg",
+          "g"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "solids_concentration": "固形分濃度",
+      "filtrate_volume": "ろ液量",
+      "cake_mass": "ケーク質量"
+    },
+    "applicability": [
+      "初期設計・概算評価",
+      "詳細設計前の目安計算"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて詳細相関式で再確認する"
+    ],
+    "cautions": [
+      "極端条件や多相系では適用性を再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第4章 粉粒体の特性",
+      "改訂六版 化学工学便覧 第5章 流動"
+    ],
+    "function_name": "pt_cake_mass_from_filtrate",
+    "keywords": [
+      "ろ液量からケーク質量"
+    ],
+    "interpretation_hint": "ろ過設備の回収量見積りに使えます。"
+  },
+  {
+    "formula_id": "pt_filtration_area",
+    "name_ja": "定圧ろ過必要面積",
+    "category": "粉体・機械操作",
+    "summary": "定圧ろ過必要面積を計算します。",
+    "description": "定圧ろ過必要面積を計算します。改訂六版 化学工学便覧をもとに整理した便覧レベルの設計・概算式です。",
+    "equation_latex": "A = sqrt(mu alpha C V^2 /(2 Delta P t))",
+    "inputs": [
+      {
+        "key": "viscosity",
+        "label_ja": "粘度",
+        "description": "粘度",
+        "standard_unit": "Pas",
+        "allowed_units": [
+          "Pas",
+          "mPas",
+          "cP"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "specific_cake_resistance",
+        "label_ja": "比ケーク抵抗",
+        "description": "比ケーク抵抗",
+        "standard_unit": "m/kg",
+        "allowed_units": [
+          "m/kg"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "solids_concentration",
+        "label_ja": "固形分濃度",
+        "description": "固形分濃度",
+        "standard_unit": "kg/m^3",
+        "allowed_units": [
+          "kg/m^3"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "filtrate_volume",
+        "label_ja": "ろ液量",
+        "description": "ろ液量",
+        "standard_unit": "m^3",
+        "allowed_units": [
+          "m^3",
+          "L"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "pressure_difference",
+        "label_ja": "圧力差",
+        "description": "圧力差",
+        "standard_unit": "Pa",
+        "allowed_units": [
+          "Pa",
+          "kPa",
+          "bar"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "filtration_time",
+        "label_ja": "ろ過時間",
+        "description": "ろ過時間",
+        "standard_unit": "s",
+        "allowed_units": [
+          "s",
+          "min",
+          "h"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "filtration_area",
+        "label_ja": "必要ろ過面積",
+        "description": "必要ろ過面積",
+        "standard_unit": "m^2",
+        "allowed_units": [
+          "m^2",
+          "cm^2"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "viscosity": "粘度",
+      "specific_cake_resistance": "比ケーク抵抗",
+      "solids_concentration": "固形分濃度",
+      "filtrate_volume": "ろ液量",
+      "pressure_difference": "圧力差",
+      "filtration_time": "ろ過時間",
+      "filtration_area": "必要ろ過面積"
+    },
+    "applicability": [
+      "初期設計・概算評価",
+      "詳細設計前の目安計算"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて詳細相関式で再確認する"
+    ],
+    "cautions": [
+      "極端条件や多相系では適用性を再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第4章 粉粒体の特性",
+      "改訂六版 化学工学便覧 第5章 流動"
+    ],
+    "function_name": "pt_filtration_area",
+    "keywords": [
+      "定圧ろ過必要面積"
+    ],
+    "interpretation_hint": "設備スケールの当たり付けに使えます。"
+  },
+  {
+    "formula_id": "pt_specific_cake_resistance",
+    "name_ja": "比ケーク抵抗推算",
+    "category": "粉体・機械操作",
+    "summary": "比ケーク抵抗推算を計算します。",
+    "description": "比ケーク抵抗推算を計算します。改訂六版 化学工学便覧をもとに整理した便覧レベルの設計・概算式です。",
+    "equation_latex": "alpha = 2 Delta P A^2 t /(mu C V^2)",
+    "inputs": [
+      {
+        "key": "pressure_difference",
+        "label_ja": "圧力差",
+        "description": "圧力差",
+        "standard_unit": "Pa",
+        "allowed_units": [
+          "Pa",
+          "kPa",
+          "bar"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "filter_area",
+        "label_ja": "ろ過面積",
+        "description": "ろ過面積",
+        "standard_unit": "m^2",
+        "allowed_units": [
+          "m^2",
+          "cm^2"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "filtration_time",
+        "label_ja": "ろ過時間",
+        "description": "ろ過時間",
+        "standard_unit": "s",
+        "allowed_units": [
+          "s",
+          "min",
+          "h"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "viscosity",
+        "label_ja": "粘度",
+        "description": "粘度",
+        "standard_unit": "Pas",
+        "allowed_units": [
+          "Pas",
+          "mPas",
+          "cP"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "solids_concentration",
+        "label_ja": "固形分濃度",
+        "description": "固形分濃度",
+        "standard_unit": "kg/m^3",
+        "allowed_units": [
+          "kg/m^3"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "filtrate_volume",
+        "label_ja": "ろ液量",
+        "description": "ろ液量",
+        "standard_unit": "m^3",
+        "allowed_units": [
+          "m^3",
+          "L"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "specific_cake_resistance",
+        "label_ja": "比ケーク抵抗",
+        "description": "比ケーク抵抗",
+        "standard_unit": "m/kg",
+        "allowed_units": [
+          "m/kg"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "pressure_difference": "圧力差",
+      "filter_area": "ろ過面積",
+      "filtration_time": "ろ過時間",
+      "viscosity": "粘度",
+      "solids_concentration": "固形分濃度",
+      "filtrate_volume": "ろ液量",
+      "specific_cake_resistance": "比ケーク抵抗"
+    },
+    "applicability": [
+      "初期設計・概算評価",
+      "詳細設計前の目安計算"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて詳細相関式で再確認する"
+    ],
+    "cautions": [
+      "極端条件や多相系では適用性を再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第4章 粉粒体の特性",
+      "改訂六版 化学工学便覧 第5章 流動"
+    ],
+    "function_name": "pt_specific_cake_resistance",
+    "keywords": [
+      "比ケーク抵抗推算"
+    ],
+    "interpretation_hint": "ろ過試験データ整理に使えます。"
+  },
+  {
+    "formula_id": "pt_hindered_settling_velocity",
+    "name_ja": "干渉沈降速度",
+    "category": "粉体・機械操作",
+    "summary": "干渉沈降速度を計算します。",
+    "description": "干渉沈降速度を計算します。改訂六版 化学工学便覧をもとに整理した便覧レベルの設計・概算式です。",
+    "equation_latex": "u_h = u_t epsilon^n",
+    "inputs": [
+      {
+        "key": "single_particle_velocity",
+        "label_ja": "単粒子沈降速度",
+        "description": "単粒子沈降速度",
+        "standard_unit": "m/s",
+        "allowed_units": [
+          "m/s"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "voidage",
+        "label_ja": "空隙率",
+        "description": "空隙率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction",
+          "vol%"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "richardson_zaki_exponent",
+        "label_ja": "指数n",
+        "description": "指数n",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "hindered_settling_velocity",
+        "label_ja": "干渉沈降速度",
+        "description": "干渉沈降速度",
+        "standard_unit": "m/s",
+        "allowed_units": [
+          "m/s"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "single_particle_velocity": "単粒子沈降速度",
+      "voidage": "空隙率",
+      "richardson_zaki_exponent": "指数n",
+      "hindered_settling_velocity": "干渉沈降速度"
+    },
+    "applicability": [
+      "初期設計・概算評価",
+      "詳細設計前の目安計算"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて詳細相関式で再確認する"
+    ],
+    "cautions": [
+      "極端条件や多相系では適用性を再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第4章 粉粒体の特性",
+      "改訂六版 化学工学便覧 第5章 流動"
+    ],
+    "function_name": "pt_hindered_settling_velocity",
+    "keywords": [
+      "干渉沈降速度"
+    ],
+    "interpretation_hint": "濃厚懸濁での沈降低下評価に使えます。"
+  },
+  {
+    "formula_id": "pt_centrifugal_acceleration",
+    "name_ja": "遠心加速度",
+    "category": "粉体・機械操作",
+    "summary": "遠心加速度を計算します。",
+    "description": "遠心加速度を計算します。改訂六版 化学工学便覧をもとに整理した便覧レベルの設計・概算式です。",
+    "equation_latex": "a_c = omega^2 r",
+    "inputs": [
+      {
+        "key": "angular_velocity",
+        "label_ja": "角速度",
+        "description": "角速度",
+        "standard_unit": "rad/s",
+        "allowed_units": [
+          "rad/s"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "radius",
+        "label_ja": "半径",
+        "description": "半径",
+        "standard_unit": "m",
+        "allowed_units": [
+          "m",
+          "mm",
+          "cm"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "centrifugal_acceleration",
+        "label_ja": "遠心加速度",
+        "description": "遠心加速度",
+        "standard_unit": "m/s^2",
+        "allowed_units": [
+          "m/s^2"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "angular_velocity": "角速度",
+      "radius": "半径",
+      "centrifugal_acceleration": "遠心加速度"
+    },
+    "applicability": [
+      "初期設計・概算評価",
+      "詳細設計前の目安計算"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて詳細相関式で再確認する"
+    ],
+    "cautions": [
+      "極端条件や多相系では適用性を再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第4章 粉粒体の特性",
+      "改訂六版 化学工学便覧 第5章 流動"
+    ],
+    "function_name": "pt_centrifugal_acceleration",
+    "keywords": [
+      "遠心加速度"
+    ],
+    "interpretation_hint": "遠心分離性能の概算に使えます。"
+  },
+  {
+    "formula_id": "pt_minimum_fluidization_reynolds",
+    "name_ja": "最小流動化Reynolds数",
+    "category": "粉体・機械操作",
+    "summary": "最小流動化Reynolds数を計算します。",
+    "description": "最小流動化Reynolds数を計算します。改訂六版 化学工学便覧をもとに整理した便覧レベルの設計・概算式です。",
+    "equation_latex": "Re_{mf} = sqrt(33.7^2 + 0.0408 Ar) - 33.7",
+    "inputs": [
+      {
+        "key": "archimedes_number",
+        "label_ja": "Archimedes数",
+        "description": "Archimedes数",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "minimum_fluidization_reynolds",
+        "label_ja": "最小流動化Reynolds数",
+        "description": "最小流動化Reynolds数",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "archimedes_number": "Archimedes数",
+      "minimum_fluidization_reynolds": "最小流動化Reynolds数"
+    },
+    "applicability": [
+      "初期設計・概算評価",
+      "詳細設計前の目安計算"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて詳細相関式で再確認する"
+    ],
+    "cautions": [
+      "極端条件や多相系では適用性を再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第4章 粉粒体の特性",
+      "改訂六版 化学工学便覧 第5章 流動"
+    ],
+    "function_name": "pt_minimum_fluidization_reynolds",
+    "keywords": [
+      "最小流動化Reynolds数"
+    ],
+    "interpretation_hint": "流動化速度計算の中間量です。"
+  },
+  {
+    "formula_id": "pt_minimum_fluidization_velocity",
+    "name_ja": "最小流動化速度",
+    "category": "粉体・機械操作",
+    "summary": "最小流動化速度を計算します。",
+    "description": "最小流動化速度を計算します。改訂六版 化学工学便覧をもとに整理した便覧レベルの設計・概算式です。",
+    "equation_latex": "u_{mf} = Re_{mf} mu /(rho_f d_p)",
+    "inputs": [
+      {
+        "key": "minimum_fluidization_reynolds",
+        "label_ja": "最小流動化Reynolds数",
+        "description": "最小流動化Reynolds数",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "viscosity",
+        "label_ja": "粘度",
+        "description": "粘度",
+        "standard_unit": "Pas",
+        "allowed_units": [
+          "Pas",
+          "mPas",
+          "cP"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "fluid_density",
+        "label_ja": "流体密度",
+        "description": "流体密度",
+        "standard_unit": "kg/m^3",
+        "allowed_units": [
+          "kg/m^3",
+          "g/cm^3"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "particle_diameter",
+        "label_ja": "粒径",
+        "description": "粒径",
+        "standard_unit": "m",
+        "allowed_units": [
+          "m",
+          "mm",
+          "cm"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "minimum_fluidization_velocity",
+        "label_ja": "最小流動化速度",
+        "description": "最小流動化速度",
+        "standard_unit": "m/s",
+        "allowed_units": [
+          "m/s"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "minimum_fluidization_reynolds": "最小流動化Reynolds数",
+      "viscosity": "粘度",
+      "fluid_density": "流体密度",
+      "particle_diameter": "粒径",
+      "minimum_fluidization_velocity": "最小流動化速度"
+    },
+    "applicability": [
+      "初期設計・概算評価",
+      "詳細設計前の目安計算"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて詳細相関式で再確認する"
+    ],
+    "cautions": [
+      "極端条件や多相系では適用性を再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第4章 粉粒体の特性",
+      "改訂六版 化学工学便覧 第5章 流動"
+    ],
+    "function_name": "pt_minimum_fluidization_velocity",
+    "keywords": [
+      "最小流動化速度"
+    ],
+    "interpretation_hint": "送風量の初期設定に使えます。"
+  },
+  {
+    "formula_id": "pt_angle_of_repose",
+    "name_ja": "安息角",
+    "category": "粉体・機械操作",
+    "summary": "安息角を計算します。",
+    "description": "安息角を計算します。改訂六版 化学工学便覧をもとに整理した便覧レベルの設計・概算式です。",
+    "equation_latex": "theta = atan(h/r)",
+    "inputs": [
+      {
+        "key": "pile_height",
+        "label_ja": "堆積高さ",
+        "description": "堆積高さ",
+        "standard_unit": "m",
+        "allowed_units": [
+          "m",
+          "mm",
+          "cm"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "pile_radius",
+        "label_ja": "堆積半径",
+        "description": "堆積半径",
+        "standard_unit": "m",
+        "allowed_units": [
+          "m",
+          "mm",
+          "cm"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "angle_of_repose",
+        "label_ja": "安息角",
+        "description": "安息角",
+        "standard_unit": "rad",
+        "allowed_units": [
+          "rad",
+          "degree"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "pile_height": "堆積高さ",
+      "pile_radius": "堆積半径",
+      "angle_of_repose": "安息角"
+    },
+    "applicability": [
+      "初期設計・概算評価",
+      "詳細設計前の目安計算"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて詳細相関式で再確認する"
+    ],
+    "cautions": [
+      "極端条件や多相系では適用性を再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第4章 粉粒体の特性",
+      "改訂六版 化学工学便覧 第5章 流動"
+    ],
+    "function_name": "pt_angle_of_repose",
+    "keywords": [
+      "安息角"
+    ],
+    "interpretation_hint": "値が大きいほど流動性が低い傾向を示します。"
+  }
+]

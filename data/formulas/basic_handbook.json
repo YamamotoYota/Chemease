@@ -1,0 +1,1485 @@
+[
+  {
+    "formula_id": "basic_compressibility_factor",
+    "name_ja": "圧縮係数",
+    "category": "物性・基礎化工計算",
+    "summary": "圧縮係数を計算します。",
+    "description": "圧縮係数を計算します。改訂六版 化学工学便覧をもとに整理した便覧レベルの設計・概算式です。",
+    "equation_latex": "Z = P V /(n R T)",
+    "inputs": [
+      {
+        "key": "pressure",
+        "label_ja": "圧力",
+        "description": "圧力",
+        "standard_unit": "Pa",
+        "allowed_units": [
+          "Pa",
+          "kPa",
+          "MPa",
+          "bar",
+          "atm",
+          "mmHg",
+          "kgf/cm^2G",
+          "kgf/cm^2A"
+        ],
+        "positive_only": true,
+        "nonzero": true,
+        "pressure_basis_supported": true
+      },
+      {
+        "key": "volume",
+        "label_ja": "体積",
+        "description": "体積",
+        "standard_unit": "m^3",
+        "allowed_units": [
+          "m^3",
+          "L",
+          "mL"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "moles",
+        "label_ja": "物質量",
+        "description": "物質量",
+        "standard_unit": "mol",
+        "allowed_units": [
+          "mol",
+          "kmol"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "temperature",
+        "label_ja": "温度",
+        "description": "温度",
+        "standard_unit": "K",
+        "allowed_units": [
+          "K",
+          "degC"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "compressibility_factor",
+        "label_ja": "圧縮係数",
+        "description": "圧縮係数",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "pressure": "圧力",
+      "volume": "体積",
+      "moles": "物質量",
+      "temperature": "温度",
+      "compressibility_factor": "圧縮係数"
+    },
+    "applicability": [
+      "初期設計・概算評価",
+      "詳細設計前の目安計算"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて詳細相関式で再確認する"
+    ],
+    "cautions": [
+      "極端条件や適用範囲外では妥当性を再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第1章 物性および熱力学"
+    ],
+    "function_name": "basic_compressibility_factor",
+    "keywords": [
+      "圧縮係数"
+    ],
+    "interpretation_hint": "Zが1からずれるほど理想気体から外れます。"
+  },
+  {
+    "formula_id": "basic_specific_gas_constant",
+    "name_ja": "比気体定数",
+    "category": "物性・基礎化工計算",
+    "summary": "比気体定数を計算します。",
+    "description": "比気体定数を計算します。改訂六版 化学工学便覧をもとに整理した便覧レベルの設計・概算式です。",
+    "equation_latex": "R_s = R / MW",
+    "inputs": [
+      {
+        "key": "molecular_weight",
+        "label_ja": "分子量",
+        "description": "分子量",
+        "standard_unit": "kg/mol",
+        "allowed_units": [
+          "kg/mol",
+          "g/mol"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "specific_gas_constant",
+        "label_ja": "比気体定数",
+        "description": "比気体定数",
+        "standard_unit": "J/(kg*K)",
+        "allowed_units": [
+          "J/(kg*K)"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "molecular_weight": "分子量",
+      "specific_gas_constant": "比気体定数"
+    },
+    "applicability": [
+      "初期設計・概算評価",
+      "詳細設計前の目安計算"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて詳細相関式で再確認する"
+    ],
+    "cautions": [
+      "極端条件や適用範囲外では妥当性を再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第1章 物性および熱力学"
+    ],
+    "function_name": "basic_specific_gas_constant",
+    "keywords": [
+      "比気体定数"
+    ],
+    "interpretation_hint": "理想気体式の質量基準換算に使えます。"
+  },
+  {
+    "formula_id": "basic_specific_gravity",
+    "name_ja": "比重",
+    "category": "物性・基礎化工計算",
+    "summary": "比重を計算します。",
+    "description": "比重を計算します。改訂六版 化学工学便覧をもとに整理した便覧レベルの設計・概算式です。",
+    "equation_latex": "SG = rho / rho_ref",
+    "inputs": [
+      {
+        "key": "density",
+        "label_ja": "対象密度",
+        "description": "対象密度",
+        "standard_unit": "kg/m^3",
+        "allowed_units": [
+          "kg/m^3",
+          "g/cm^3"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "reference_density",
+        "label_ja": "基準密度",
+        "description": "基準密度",
+        "standard_unit": "kg/m^3",
+        "allowed_units": [
+          "kg/m^3",
+          "g/cm^3"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "specific_gravity",
+        "label_ja": "比重",
+        "description": "比重",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "density": "対象密度",
+      "reference_density": "基準密度",
+      "specific_gravity": "比重"
+    },
+    "applicability": [
+      "初期設計・概算評価",
+      "詳細設計前の目安計算"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて詳細相関式で再確認する"
+    ],
+    "cautions": [
+      "極端条件や適用範囲外では妥当性を再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第1章 物性および熱力学"
+    ],
+    "function_name": "basic_specific_gravity",
+    "keywords": [
+      "比重"
+    ],
+    "interpretation_hint": "液体の簡易品質指標に使えます。"
+  },
+  {
+    "formula_id": "basic_api_gravity",
+    "name_ja": "API度",
+    "category": "物性・基礎化工計算",
+    "summary": "API度を計算します。",
+    "description": "API度を計算します。改訂六版 化学工学便覧をもとに整理した便覧レベルの設計・概算式です。",
+    "equation_latex": "API = 141.5 / SG - 131.5",
+    "inputs": [
+      {
+        "key": "specific_gravity",
+        "label_ja": "比重",
+        "description": "比重",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "api_gravity",
+        "label_ja": "API度",
+        "description": "API度",
+        "standard_unit": "API",
+        "allowed_units": [
+          "API"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "specific_gravity": "比重",
+      "api_gravity": "API度"
+    },
+    "applicability": [
+      "初期設計・概算評価",
+      "詳細設計前の目安計算"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて詳細相関式で再確認する"
+    ],
+    "cautions": [
+      "極端条件や適用範囲外では妥当性を再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第1章 物性および熱力学"
+    ],
+    "function_name": "basic_api_gravity",
+    "keywords": [
+      "API度"
+    ],
+    "interpretation_hint": "石油留分の軽重把握に使えます。"
+  },
+  {
+    "formula_id": "basic_specific_volume",
+    "name_ja": "比体積",
+    "category": "物性・基礎化工計算",
+    "summary": "比体積を計算します。",
+    "description": "比体積を計算します。改訂六版 化学工学便覧をもとに整理した便覧レベルの設計・概算式です。",
+    "equation_latex": "v = 1 / rho",
+    "inputs": [
+      {
+        "key": "density",
+        "label_ja": "密度",
+        "description": "密度",
+        "standard_unit": "kg/m^3",
+        "allowed_units": [
+          "kg/m^3",
+          "g/cm^3"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "specific_volume",
+        "label_ja": "比体積",
+        "description": "比体積",
+        "standard_unit": "m^3/kg",
+        "allowed_units": [
+          "m^3/kg"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "density": "密度",
+      "specific_volume": "比体積"
+    },
+    "applicability": [
+      "初期設計・概算評価",
+      "詳細設計前の目安計算"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて詳細相関式で再確認する"
+    ],
+    "cautions": [
+      "極端条件や適用範囲外では妥当性を再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第1章 物性および熱力学"
+    ],
+    "function_name": "basic_specific_volume",
+    "keywords": [
+      "比体積"
+    ],
+    "interpretation_hint": "密度の逆数換算に使えます。"
+  },
+  {
+    "formula_id": "basic_density_from_specific_volume",
+    "name_ja": "比体積から密度",
+    "category": "物性・基礎化工計算",
+    "summary": "比体積から密度を計算します。",
+    "description": "比体積から密度を計算します。改訂六版 化学工学便覧をもとに整理した便覧レベルの設計・概算式です。",
+    "equation_latex": "rho = 1 / v",
+    "inputs": [
+      {
+        "key": "specific_volume",
+        "label_ja": "比体積",
+        "description": "比体積",
+        "standard_unit": "m^3/kg",
+        "allowed_units": [
+          "m^3/kg"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "density",
+        "label_ja": "密度",
+        "description": "密度",
+        "standard_unit": "kg/m^3",
+        "allowed_units": [
+          "kg/m^3",
+          "g/cm^3"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "specific_volume": "比体積",
+      "density": "密度"
+    },
+    "applicability": [
+      "初期設計・概算評価",
+      "詳細設計前の目安計算"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて詳細相関式で再確認する"
+    ],
+    "cautions": [
+      "極端条件や適用範囲外では妥当性を再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第1章 物性および熱力学"
+    ],
+    "function_name": "basic_density_from_specific_volume",
+    "keywords": [
+      "比体積から密度"
+    ],
+    "interpretation_hint": "比体積基準データを密度へ戻します。"
+  },
+  {
+    "formula_id": "basic_ppm_to_mass_fraction",
+    "name_ja": "mass ppm→質量分率",
+    "category": "物性・基礎化工計算",
+    "summary": "mass ppm→質量分率を計算します。",
+    "description": "mass ppm→質量分率を計算します。改訂六版 化学工学便覧をもとに整理した便覧レベルの設計・概算式です。",
+    "equation_latex": "w = ppm / 10^6",
+    "inputs": [
+      {
+        "key": "mass_ppm",
+        "label_ja": "mass ppm",
+        "description": "mass ppm",
+        "standard_unit": "mass_ppm",
+        "allowed_units": [
+          "mass_ppm"
+        ],
+        "positive_only": true,
+        "nonzero": false
+      }
+    ],
+    "outputs": [
+      {
+        "key": "mass_fraction",
+        "label_ja": "質量分率",
+        "description": "質量分率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction",
+          "wt%"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "mass_ppm": "mass ppm",
+      "mass_fraction": "質量分率"
+    },
+    "applicability": [
+      "初期設計・概算評価",
+      "詳細設計前の目安計算"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて詳細相関式で再確認する"
+    ],
+    "cautions": [
+      "極端条件や適用範囲外では妥当性を再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第1章 物性および熱力学"
+    ],
+    "function_name": "basic_ppm_to_mass_fraction",
+    "keywords": [
+      "mass ppm→質量分率"
+    ],
+    "interpretation_hint": "微量不純物の単位統一に使えます。"
+  },
+  {
+    "formula_id": "basic_mass_fraction_to_ppm",
+    "name_ja": "質量分率→mass ppm",
+    "category": "物性・基礎化工計算",
+    "summary": "質量分率→mass ppmを計算します。",
+    "description": "質量分率→mass ppmを計算します。改訂六版 化学工学便覧をもとに整理した便覧レベルの設計・概算式です。",
+    "equation_latex": "ppm = w x 10^6",
+    "inputs": [
+      {
+        "key": "mass_fraction",
+        "label_ja": "質量分率",
+        "description": "質量分率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction",
+          "wt%"
+        ],
+        "positive_only": true,
+        "nonzero": false
+      }
+    ],
+    "outputs": [
+      {
+        "key": "mass_ppm",
+        "label_ja": "mass ppm",
+        "description": "mass ppm",
+        "standard_unit": "mass_ppm",
+        "allowed_units": [
+          "mass_ppm"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "mass_fraction": "質量分率",
+      "mass_ppm": "mass ppm"
+    },
+    "applicability": [
+      "初期設計・概算評価",
+      "詳細設計前の目安計算"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて詳細相関式で再確認する"
+    ],
+    "cautions": [
+      "極端条件や適用範囲外では妥当性を再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第1章 物性および熱力学"
+    ],
+    "function_name": "basic_mass_fraction_to_ppm",
+    "keywords": [
+      "質量分率→mass ppm"
+    ],
+    "interpretation_hint": "分析報告単位の換算に使えます。"
+  },
+  {
+    "formula_id": "basic_partial_pressure",
+    "name_ja": "分圧",
+    "category": "物性・基礎化工計算",
+    "summary": "分圧を計算します。",
+    "description": "分圧を計算します。改訂六版 化学工学便覧をもとに整理した便覧レベルの設計・概算式です。",
+    "equation_latex": "p_i = y_i P",
+    "inputs": [
+      {
+        "key": "mole_fraction",
+        "label_ja": "モル分率",
+        "description": "モル分率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction",
+          "mol%"
+        ],
+        "positive_only": true,
+        "nonzero": false
+      },
+      {
+        "key": "total_pressure",
+        "label_ja": "全圧",
+        "description": "全圧",
+        "standard_unit": "Pa",
+        "allowed_units": [
+          "Pa",
+          "kPa",
+          "MPa",
+          "bar",
+          "atm",
+          "mmHg",
+          "kgf/cm^2G",
+          "kgf/cm^2A"
+        ],
+        "positive_only": true,
+        "nonzero": true,
+        "pressure_basis_supported": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "partial_pressure",
+        "label_ja": "分圧",
+        "description": "分圧",
+        "standard_unit": "Pa",
+        "allowed_units": [
+          "Pa",
+          "kPa",
+          "MPa",
+          "bar",
+          "atm",
+          "mmHg"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "mole_fraction": "モル分率",
+      "total_pressure": "全圧",
+      "partial_pressure": "分圧"
+    },
+    "applicability": [
+      "初期設計・概算評価",
+      "詳細設計前の目安計算"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて詳細相関式で再確認する"
+    ],
+    "cautions": [
+      "極端条件や適用範囲外では妥当性を再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第1章 物性および熱力学"
+    ],
+    "function_name": "basic_partial_pressure",
+    "keywords": [
+      "分圧"
+    ],
+    "interpretation_hint": "吸収・平衡計算の前処理です。"
+  },
+  {
+    "formula_id": "basic_total_pressure_from_partials",
+    "name_ja": "分圧和から全圧",
+    "category": "物性・基礎化工計算",
+    "summary": "分圧和から全圧を計算します。",
+    "description": "分圧和から全圧を計算します。改訂六版 化学工学便覧をもとに整理した便覧レベルの設計・概算式です。",
+    "equation_latex": "P = p_1 + p_2 + p_3",
+    "inputs": [
+      {
+        "key": "partial_pressure_1",
+        "label_ja": "成分1分圧",
+        "description": "成分1分圧",
+        "standard_unit": "Pa",
+        "allowed_units": [
+          "Pa",
+          "kPa",
+          "MPa",
+          "bar",
+          "atm",
+          "mmHg"
+        ],
+        "positive_only": true,
+        "nonzero": false
+      },
+      {
+        "key": "partial_pressure_2",
+        "label_ja": "成分2分圧",
+        "description": "成分2分圧",
+        "standard_unit": "Pa",
+        "allowed_units": [
+          "Pa",
+          "kPa",
+          "MPa",
+          "bar",
+          "atm",
+          "mmHg"
+        ],
+        "positive_only": true,
+        "nonzero": false
+      },
+      {
+        "key": "partial_pressure_3",
+        "label_ja": "成分3分圧",
+        "description": "成分3分圧",
+        "standard_unit": "Pa",
+        "allowed_units": [
+          "Pa",
+          "kPa",
+          "MPa",
+          "bar",
+          "atm",
+          "mmHg"
+        ],
+        "positive_only": true,
+        "nonzero": false
+      }
+    ],
+    "outputs": [
+      {
+        "key": "total_pressure",
+        "label_ja": "全圧",
+        "description": "全圧",
+        "standard_unit": "Pa",
+        "allowed_units": [
+          "Pa",
+          "kPa",
+          "MPa",
+          "bar",
+          "atm",
+          "mmHg"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "partial_pressure_1": "成分1分圧",
+      "partial_pressure_2": "成分2分圧",
+      "partial_pressure_3": "成分3分圧",
+      "total_pressure": "全圧"
+    },
+    "applicability": [
+      "初期設計・概算評価",
+      "詳細設計前の目安計算"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて詳細相関式で再確認する"
+    ],
+    "cautions": [
+      "極端条件や適用範囲外では妥当性を再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第1章 物性および熱力学"
+    ],
+    "function_name": "basic_total_pressure_from_partials",
+    "keywords": [
+      "分圧和から全圧"
+    ],
+    "interpretation_hint": "簡易組成整理に使えます。"
+  },
+  {
+    "formula_id": "basic_mole_percent_to_fraction",
+    "name_ja": "mol%→モル分率",
+    "category": "物性・基礎化工計算",
+    "summary": "mol%→モル分率を計算します。",
+    "description": "mol%→モル分率を計算します。改訂六版 化学工学便覧をもとに整理した便覧レベルの設計・概算式です。",
+    "equation_latex": "x = mol% / 100",
+    "inputs": [
+      {
+        "key": "mole_percent",
+        "label_ja": "mol%",
+        "description": "mol%",
+        "standard_unit": "mol%",
+        "allowed_units": [
+          "mol%"
+        ],
+        "positive_only": true,
+        "nonzero": false
+      }
+    ],
+    "outputs": [
+      {
+        "key": "mole_fraction",
+        "label_ja": "モル分率",
+        "description": "モル分率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction",
+          "mol%"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "mole_percent": "mol%",
+      "mole_fraction": "モル分率"
+    },
+    "applicability": [
+      "初期設計・概算評価",
+      "詳細設計前の目安計算"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて詳細相関式で再確認する"
+    ],
+    "cautions": [
+      "極端条件や適用範囲外では妥当性を再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第1章 物性および熱力学"
+    ],
+    "function_name": "basic_mole_percent_to_fraction",
+    "keywords": [
+      "mol%→モル分率"
+    ],
+    "interpretation_hint": "組成入力の標準化に使えます。"
+  },
+  {
+    "formula_id": "basic_weight_percent_to_fraction",
+    "name_ja": "wt%→質量分率",
+    "category": "物性・基礎化工計算",
+    "summary": "wt%→質量分率を計算します。",
+    "description": "wt%→質量分率を計算します。改訂六版 化学工学便覧をもとに整理した便覧レベルの設計・概算式です。",
+    "equation_latex": "w = wt% / 100",
+    "inputs": [
+      {
+        "key": "weight_percent",
+        "label_ja": "wt%",
+        "description": "wt%",
+        "standard_unit": "wt%",
+        "allowed_units": [
+          "wt%"
+        ],
+        "positive_only": true,
+        "nonzero": false
+      }
+    ],
+    "outputs": [
+      {
+        "key": "mass_fraction",
+        "label_ja": "質量分率",
+        "description": "質量分率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction",
+          "wt%"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "weight_percent": "wt%",
+      "mass_fraction": "質量分率"
+    },
+    "applicability": [
+      "初期設計・概算評価",
+      "詳細設計前の目安計算"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて詳細相関式で再確認する"
+    ],
+    "cautions": [
+      "極端条件や適用範囲外では妥当性を再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第1章 物性および熱力学"
+    ],
+    "function_name": "basic_weight_percent_to_fraction",
+    "keywords": [
+      "wt%→質量分率"
+    ],
+    "interpretation_hint": "濃度記載の統一に使えます。"
+  },
+  {
+    "formula_id": "basic_fraction_to_weight_percent",
+    "name_ja": "質量分率→wt%",
+    "category": "物性・基礎化工計算",
+    "summary": "質量分率→wt%を計算します。",
+    "description": "質量分率→wt%を計算します。改訂六版 化学工学便覧をもとに整理した便覧レベルの設計・概算式です。",
+    "equation_latex": "wt% = w x 100",
+    "inputs": [
+      {
+        "key": "mass_fraction",
+        "label_ja": "質量分率",
+        "description": "質量分率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction",
+          "wt%"
+        ],
+        "positive_only": true,
+        "nonzero": false
+      }
+    ],
+    "outputs": [
+      {
+        "key": "weight_percent",
+        "label_ja": "wt%",
+        "description": "wt%",
+        "standard_unit": "wt%",
+        "allowed_units": [
+          "wt%"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "mass_fraction": "質量分率",
+      "weight_percent": "wt%"
+    },
+    "applicability": [
+      "初期設計・概算評価",
+      "詳細設計前の目安計算"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて詳細相関式で再確認する"
+    ],
+    "cautions": [
+      "極端条件や適用範囲外では妥当性を再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第1章 物性および熱力学"
+    ],
+    "function_name": "basic_fraction_to_weight_percent",
+    "keywords": [
+      "質量分率→wt%"
+    ],
+    "interpretation_hint": "報告書表記への換算です。"
+  },
+  {
+    "formula_id": "basic_molar_concentration_from_mass",
+    "name_ja": "質量濃度からモル濃度",
+    "category": "物性・基礎化工計算",
+    "summary": "質量濃度からモル濃度を計算します。",
+    "description": "質量濃度からモル濃度を計算します。改訂六版 化学工学便覧をもとに整理した便覧レベルの設計・概算式です。",
+    "equation_latex": "C = rho_m / MW",
+    "inputs": [
+      {
+        "key": "mass_concentration",
+        "label_ja": "質量濃度",
+        "description": "質量濃度",
+        "standard_unit": "kg/m^3",
+        "allowed_units": [
+          "kg/m^3",
+          "g/L"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "molecular_weight",
+        "label_ja": "分子量",
+        "description": "分子量",
+        "standard_unit": "kg/mol",
+        "allowed_units": [
+          "kg/mol",
+          "g/mol"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "molar_concentration",
+        "label_ja": "モル濃度",
+        "description": "モル濃度",
+        "standard_unit": "mol/m^3",
+        "allowed_units": [
+          "mol/m^3",
+          "mol/L",
+          "kmol/m^3"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "mass_concentration": "質量濃度",
+      "molecular_weight": "分子量",
+      "molar_concentration": "モル濃度"
+    },
+    "applicability": [
+      "初期設計・概算評価",
+      "詳細設計前の目安計算"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて詳細相関式で再確認する"
+    ],
+    "cautions": [
+      "極端条件や適用範囲外では妥当性を再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第1章 物性および熱力学"
+    ],
+    "function_name": "basic_molar_concentration_from_mass",
+    "keywords": [
+      "質量濃度からモル濃度"
+    ],
+    "interpretation_hint": "分析値と反応計算の橋渡しに使えます。"
+  },
+  {
+    "formula_id": "basic_mass_concentration_from_density_fraction",
+    "name_ja": "密度と質量分率から質量濃度",
+    "category": "物性・基礎化工計算",
+    "summary": "密度と質量分率から質量濃度を計算します。",
+    "description": "密度と質量分率から質量濃度を計算します。改訂六版 化学工学便覧をもとに整理した便覧レベルの設計・概算式です。",
+    "equation_latex": "rho_m = rho w",
+    "inputs": [
+      {
+        "key": "density",
+        "label_ja": "密度",
+        "description": "密度",
+        "standard_unit": "kg/m^3",
+        "allowed_units": [
+          "kg/m^3",
+          "g/cm^3"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "mass_fraction",
+        "label_ja": "質量分率",
+        "description": "質量分率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction",
+          "wt%"
+        ],
+        "positive_only": true,
+        "nonzero": false
+      }
+    ],
+    "outputs": [
+      {
+        "key": "mass_concentration",
+        "label_ja": "質量濃度",
+        "description": "質量濃度",
+        "standard_unit": "kg/m^3",
+        "allowed_units": [
+          "kg/m^3",
+          "g/L"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "density": "密度",
+      "mass_fraction": "質量分率",
+      "mass_concentration": "質量濃度"
+    },
+    "applicability": [
+      "初期設計・概算評価",
+      "詳細設計前の目安計算"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて詳細相関式で再確認する"
+    ],
+    "cautions": [
+      "極端条件や適用範囲外では妥当性を再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第1章 物性および熱力学"
+    ],
+    "function_name": "basic_mass_concentration_from_density_fraction",
+    "keywords": [
+      "密度と質量分率から質量濃度"
+    ],
+    "interpretation_hint": "溶液組成から質量濃度を作れます。"
+  },
+  {
+    "formula_id": "basic_mixture_density",
+    "name_ja": "混合物密度",
+    "category": "物性・基礎化工計算",
+    "summary": "混合物密度を計算します。",
+    "description": "混合物密度を計算します。改訂六版 化学工学便覧をもとに整理した便覧レベルの設計・概算式です。",
+    "equation_latex": "rho = m / V",
+    "inputs": [
+      {
+        "key": "total_mass",
+        "label_ja": "総質量",
+        "description": "総質量",
+        "standard_unit": "kg",
+        "allowed_units": [
+          "kg",
+          "g",
+          "t"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "total_volume",
+        "label_ja": "総体積",
+        "description": "総体積",
+        "standard_unit": "m^3",
+        "allowed_units": [
+          "m^3",
+          "L",
+          "mL"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "mixture_density",
+        "label_ja": "混合物密度",
+        "description": "混合物密度",
+        "standard_unit": "kg/m^3",
+        "allowed_units": [
+          "kg/m^3",
+          "g/cm^3"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "total_mass": "総質量",
+      "total_volume": "総体積",
+      "mixture_density": "混合物密度"
+    },
+    "applicability": [
+      "初期設計・概算評価",
+      "詳細設計前の目安計算"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて詳細相関式で再確認する"
+    ],
+    "cautions": [
+      "極端条件や適用範囲外では妥当性を再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第1章 物性および熱力学"
+    ],
+    "function_name": "basic_mixture_density",
+    "keywords": [
+      "混合物密度"
+    ],
+    "interpretation_hint": "仕込み量整理やホールドアップ計算に使えます。"
+  },
+  {
+    "formula_id": "basic_clausius_clapeyron_pressure",
+    "name_ja": "Clausius-Clapeyron式で蒸気圧推算",
+    "category": "物性・基礎化工計算",
+    "summary": "Clausius-Clapeyron式で蒸気圧推算を計算します。",
+    "description": "Clausius-Clapeyron式で蒸気圧推算を計算します。改訂六版 化学工学便覧をもとに整理した便覧レベルの設計・概算式です。",
+    "equation_latex": "ln(P_2/P_1) = -Delta H_vap/R (1/T_2 - 1/T_1)",
+    "inputs": [
+      {
+        "key": "pressure_1",
+        "label_ja": "蒸気圧1",
+        "description": "蒸気圧1",
+        "standard_unit": "Pa",
+        "allowed_units": [
+          "Pa",
+          "kPa",
+          "bar",
+          "atm",
+          "mmHg"
+        ],
+        "positive_only": true,
+        "nonzero": true,
+        "pressure_basis_supported": true
+      },
+      {
+        "key": "latent_heat_molar",
+        "label_ja": "モル蒸発潜熱",
+        "description": "モル蒸発潜熱",
+        "standard_unit": "J/mol",
+        "allowed_units": [
+          "J/mol",
+          "kJ/mol"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "temperature_1",
+        "label_ja": "温度1",
+        "description": "温度1",
+        "standard_unit": "K",
+        "allowed_units": [
+          "K",
+          "degC"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "temperature_2",
+        "label_ja": "温度2",
+        "description": "温度2",
+        "standard_unit": "K",
+        "allowed_units": [
+          "K",
+          "degC"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "pressure_2",
+        "label_ja": "蒸気圧2",
+        "description": "蒸気圧2",
+        "standard_unit": "Pa",
+        "allowed_units": [
+          "Pa",
+          "kPa",
+          "bar",
+          "atm",
+          "mmHg"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "pressure_1": "蒸気圧1",
+      "latent_heat_molar": "モル蒸発潜熱",
+      "temperature_1": "温度1",
+      "temperature_2": "温度2",
+      "pressure_2": "蒸気圧2"
+    },
+    "applicability": [
+      "初期設計・概算評価",
+      "詳細設計前の目安計算"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて詳細相関式で再確認する"
+    ],
+    "cautions": [
+      "極端条件や適用範囲外では妥当性を再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第1章 物性および熱力学"
+    ],
+    "function_name": "basic_clausius_clapeyron_pressure",
+    "keywords": [
+      "Clausius-Clapeyron式で蒸気圧推算"
+    ],
+    "interpretation_hint": "温度変更時の蒸気圧感度を把握できます。"
+  },
+  {
+    "formula_id": "basic_clausius_clapeyron_latent_heat",
+    "name_ja": "Clausius-Clapeyron式で蒸発潜熱推算",
+    "category": "物性・基礎化工計算",
+    "summary": "Clausius-Clapeyron式で蒸発潜熱推算を計算します。",
+    "description": "Clausius-Clapeyron式で蒸発潜熱推算を計算します。改訂六版 化学工学便覧をもとに整理した便覧レベルの設計・概算式です。",
+    "equation_latex": "Delta H_vap = -R ln(P_2/P_1) /(1/T_2 - 1/T_1)",
+    "inputs": [
+      {
+        "key": "pressure_1",
+        "label_ja": "蒸気圧1",
+        "description": "蒸気圧1",
+        "standard_unit": "Pa",
+        "allowed_units": [
+          "Pa",
+          "kPa",
+          "bar",
+          "atm",
+          "mmHg"
+        ],
+        "positive_only": true,
+        "nonzero": true,
+        "pressure_basis_supported": true
+      },
+      {
+        "key": "pressure_2",
+        "label_ja": "蒸気圧2",
+        "description": "蒸気圧2",
+        "standard_unit": "Pa",
+        "allowed_units": [
+          "Pa",
+          "kPa",
+          "bar",
+          "atm",
+          "mmHg"
+        ],
+        "positive_only": true,
+        "nonzero": true,
+        "pressure_basis_supported": true
+      },
+      {
+        "key": "temperature_1",
+        "label_ja": "温度1",
+        "description": "温度1",
+        "standard_unit": "K",
+        "allowed_units": [
+          "K",
+          "degC"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "temperature_2",
+        "label_ja": "温度2",
+        "description": "温度2",
+        "standard_unit": "K",
+        "allowed_units": [
+          "K",
+          "degC"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "latent_heat_molar",
+        "label_ja": "モル蒸発潜熱",
+        "description": "モル蒸発潜熱",
+        "standard_unit": "J/mol",
+        "allowed_units": [
+          "J/mol",
+          "kJ/mol"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "pressure_1": "蒸気圧1",
+      "pressure_2": "蒸気圧2",
+      "temperature_1": "温度1",
+      "temperature_2": "温度2",
+      "latent_heat_molar": "モル蒸発潜熱"
+    },
+    "applicability": [
+      "初期設計・概算評価",
+      "詳細設計前の目安計算"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて詳細相関式で再確認する"
+    ],
+    "cautions": [
+      "極端条件や適用範囲外では妥当性を再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第1章 物性および熱力学"
+    ],
+    "function_name": "basic_clausius_clapeyron_latent_heat",
+    "keywords": [
+      "Clausius-Clapeyron式で蒸発潜熱推算"
+    ],
+    "interpretation_hint": "物性表2点データから当たり付けできます。"
+  },
+  {
+    "formula_id": "basic_antoine_vapor_pressure",
+    "name_ja": "Antoine式で蒸気圧",
+    "category": "物性・基礎化工計算",
+    "summary": "Antoine式で蒸気圧を計算します。",
+    "description": "Antoine式で蒸気圧を計算します。改訂六版 化学工学便覧をもとに整理した便覧レベルの設計・概算式です。",
+    "equation_latex": "log10 P = A - B /(T + C)",
+    "inputs": [
+      {
+        "key": "antoine_a",
+        "label_ja": "Antoine A",
+        "description": "Antoine A",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "positive_only": false,
+        "nonzero": false
+      },
+      {
+        "key": "antoine_b",
+        "label_ja": "Antoine B",
+        "description": "Antoine B",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "positive_only": false,
+        "nonzero": false
+      },
+      {
+        "key": "antoine_c",
+        "label_ja": "Antoine C",
+        "description": "Antoine C",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "positive_only": false,
+        "nonzero": false
+      },
+      {
+        "key": "temperature",
+        "label_ja": "温度",
+        "description": "温度",
+        "standard_unit": "degC",
+        "allowed_units": [
+          "degC",
+          "K"
+        ],
+        "positive_only": false,
+        "nonzero": false
+      }
+    ],
+    "outputs": [
+      {
+        "key": "vapor_pressure",
+        "label_ja": "蒸気圧",
+        "description": "蒸気圧",
+        "standard_unit": "mmHg",
+        "allowed_units": [
+          "mmHg",
+          "kPa",
+          "Pa"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "antoine_a": "Antoine A",
+      "antoine_b": "Antoine B",
+      "antoine_c": "Antoine C",
+      "temperature": "温度",
+      "vapor_pressure": "蒸気圧"
+    },
+    "applicability": [
+      "初期設計・概算評価",
+      "詳細設計前の目安計算"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて詳細相関式で再確認する"
+    ],
+    "cautions": [
+      "極端条件や適用範囲外では妥当性を再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第1章 物性および熱力学"
+    ],
+    "function_name": "basic_antoine_vapor_pressure",
+    "keywords": [
+      "Antoine式で蒸気圧"
+    ],
+    "interpretation_hint": "係数適用範囲内での蒸気圧推算に使えます。"
+  },
+  {
+    "formula_id": "basic_antoine_temperature",
+    "name_ja": "Antoine式で沸点温度",
+    "category": "物性・基礎化工計算",
+    "summary": "Antoine式で沸点温度を計算します。",
+    "description": "Antoine式で沸点温度を計算します。改訂六版 化学工学便覧をもとに整理した便覧レベルの設計・概算式です。",
+    "equation_latex": "T = B /(A - log10 P) - C",
+    "inputs": [
+      {
+        "key": "antoine_a",
+        "label_ja": "Antoine A",
+        "description": "Antoine A",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "positive_only": false,
+        "nonzero": false
+      },
+      {
+        "key": "antoine_b",
+        "label_ja": "Antoine B",
+        "description": "Antoine B",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "positive_only": false,
+        "nonzero": false
+      },
+      {
+        "key": "antoine_c",
+        "label_ja": "Antoine C",
+        "description": "Antoine C",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "positive_only": false,
+        "nonzero": false
+      },
+      {
+        "key": "vapor_pressure",
+        "label_ja": "蒸気圧",
+        "description": "蒸気圧",
+        "standard_unit": "mmHg",
+        "allowed_units": [
+          "mmHg",
+          "kPa",
+          "Pa"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "temperature",
+        "label_ja": "温度",
+        "description": "温度",
+        "standard_unit": "degC",
+        "allowed_units": [
+          "degC",
+          "K"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "antoine_a": "Antoine A",
+      "antoine_b": "Antoine B",
+      "antoine_c": "Antoine C",
+      "vapor_pressure": "蒸気圧",
+      "temperature": "温度"
+    },
+    "applicability": [
+      "初期設計・概算評価",
+      "詳細設計前の目安計算"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて詳細相関式で再確認する"
+    ],
+    "cautions": [
+      "極端条件や適用範囲外では妥当性を再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第1章 物性および熱力学"
+    ],
+    "function_name": "basic_antoine_temperature",
+    "keywords": [
+      "Antoine式で沸点温度"
+    ],
+    "interpretation_hint": "所定圧力での飽和温度の簡易推算です。"
+  }
+]

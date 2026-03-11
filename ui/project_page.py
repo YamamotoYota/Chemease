@@ -45,14 +45,17 @@ def render_project_page(project_service: ProjectService) -> None:
 
     comparison_rows: list[dict[str, object]] = []
     for case in cases:
-        with st.expander(f"{case.formula_name} / {case.updated_at.strftime('%Y-%m-%d %H:%M')}"):
+        mode_label = "逆算" if case.calculation_mode == "solve" else "通常"
+        with st.expander(f"{case.formula_name} / {mode_label} / {case.updated_at.strftime('%Y-%m-%d %H:%M')}"):
             st.json(
                 {
                     "formula_id": case.formula_id,
+                    "calculation_mode": case.calculation_mode,
                     "input_values": case.input_values,
                     "input_units": case.input_units,
                     "normalized_inputs": case.normalized_inputs,
                     "output_values": case.output_values,
+                    "solve_metadata": case.solve_metadata,
                     "warnings": case.warnings,
                 },
                 expanded=False,

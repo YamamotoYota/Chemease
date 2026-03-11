@@ -1,0 +1,1603 @@
+[
+  {
+    "formula_id": "mass_peclet_number",
+    "name_ja": "Peclet数",
+    "category": "物質移動",
+    "summary": "移流と拡散の比を表す物質移動 Peclet数を求めます。",
+    "description": "移流と拡散の比を表す物質移動 Peclet数を求めます。 改訂六版 化学工学便覧の移動現象・拡散関連節をもとにした便覧レベルの概算式です。",
+    "equation_latex": "Pe = u L / D",
+    "inputs": [
+      {
+        "key": "velocity",
+        "label_ja": "流速",
+        "description": "代表流速",
+        "standard_unit": "m/s",
+        "allowed_units": [
+          "m/s"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "characteristic_length",
+        "label_ja": "代表長さ",
+        "description": "拡散距離の代表長さ",
+        "standard_unit": "m",
+        "allowed_units": [
+          "m",
+          "mm",
+          "cm"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "diffusivity",
+        "label_ja": "拡散係数",
+        "description": "分子拡散係数",
+        "standard_unit": "m^2/s",
+        "allowed_units": [
+          "m^2/s"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "peclet_number",
+        "label_ja": "Peclet数",
+        "description": "物質移動の Peclet数",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "velocity": "流速",
+      "characteristic_length": "代表長さ",
+      "diffusivity": "拡散係数",
+      "peclet_number": "Peclet数"
+    },
+    "applicability": [
+      "吸収・蒸発・拡散の概算",
+      "二重境膜モデルや無次元整理の初期検討"
+    ],
+    "assumptions": [
+      "代表物性を用いる",
+      "平衡関係や流れ場は別途仮定する"
+    ],
+    "cautions": [
+      "強い非理想系では平衡関係を再確認する",
+      "詳細設計では個別相関式を参照する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第2章 移動現象",
+      "改訂六版 化学工学便覧 物質移動関連節"
+    ],
+    "function_name": "mass_peclet_number",
+    "keywords": [
+      "Peclet数",
+      "Pe"
+    ],
+    "interpretation_hint": "移流支配か拡散支配かの目安です。"
+  },
+  {
+    "formula_id": "mass_biot_number",
+    "name_ja": "物質移動Biot数",
+    "category": "物質移動",
+    "summary": "外部物質移動抵抗と内部拡散抵抗の比を表すBiot数を求めます。",
+    "description": "外部物質移動抵抗と内部拡散抵抗の比を表すBiot数を求めます。 改訂六版 化学工学便覧の移動現象・拡散関連節をもとにした便覧レベルの概算式です。",
+    "equation_latex": "Bi_m = k L / D",
+    "inputs": [
+      {
+        "key": "mass_transfer_coefficient",
+        "label_ja": "物質移動係数",
+        "description": "個別物質移動係数",
+        "standard_unit": "m/s",
+        "allowed_units": [
+          "m/s"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "characteristic_length",
+        "label_ja": "代表長さ",
+        "description": "内部拡散の代表長さ",
+        "standard_unit": "m",
+        "allowed_units": [
+          "m",
+          "mm",
+          "cm"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "diffusivity",
+        "label_ja": "拡散係数",
+        "description": "有効または分子拡散係数",
+        "standard_unit": "m^2/s",
+        "allowed_units": [
+          "m^2/s"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "biot_number",
+        "label_ja": "Biot数",
+        "description": "物質移動の Biot数",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "mass_transfer_coefficient": "物質移動係数",
+      "characteristic_length": "代表長さ",
+      "diffusivity": "拡散係数",
+      "biot_number": "Biot数"
+    },
+    "applicability": [
+      "吸収・蒸発・拡散の概算",
+      "二重境膜モデルや無次元整理の初期検討"
+    ],
+    "assumptions": [
+      "代表物性を用いる",
+      "平衡関係や流れ場は別途仮定する"
+    ],
+    "cautions": [
+      "強い非理想系では平衡関係を再確認する",
+      "詳細設計では個別相関式を参照する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第2章 移動現象",
+      "改訂六版 化学工学便覧 物質移動関連節"
+    ],
+    "function_name": "mass_biot_number",
+    "keywords": [
+      "Biot数",
+      "内部拡散"
+    ],
+    "interpretation_hint": "粒子内拡散の重要性判定に使えます。"
+  },
+  {
+    "formula_id": "mass_knudsen_diffusivity",
+    "name_ja": "Knudsen拡散係数",
+    "category": "物質移動",
+    "summary": "細孔半径・温度・分子量から Knudsen拡散係数を求めます。",
+    "description": "細孔半径・温度・分子量から Knudsen拡散係数を求めます。 改訂六版 化学工学便覧の移動現象・拡散関連節をもとにした便覧レベルの概算式です。",
+    "equation_latex": "D_K = \\\\frac{2 r_p}{3} \\\\sqrt{\\\\frac{8RT}{\\\\pi M}}",
+    "inputs": [
+      {
+        "key": "pore_radius",
+        "label_ja": "細孔半径",
+        "description": "代表細孔半径",
+        "standard_unit": "m",
+        "allowed_units": [
+          "m",
+          "mm",
+          "cm"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "temperature",
+        "label_ja": "温度",
+        "description": "絶対温度",
+        "standard_unit": "K",
+        "allowed_units": [
+          "K",
+          "degC"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "molecular_weight",
+        "label_ja": "分子量",
+        "description": "気体分子量",
+        "standard_unit": "kg/mol",
+        "allowed_units": [
+          "kg/mol"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "knudsen_diffusivity",
+        "label_ja": "Knudsen拡散係数",
+        "description": "Knudsen 拡散領域の拡散係数",
+        "standard_unit": "m^2/s",
+        "allowed_units": [
+          "m^2/s"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "pore_radius": "細孔半径",
+      "temperature": "温度",
+      "molecular_weight": "分子量",
+      "knudsen_diffusivity": "Knudsen拡散係数"
+    },
+    "applicability": [
+      "吸収・蒸発・拡散の概算",
+      "二重境膜モデルや無次元整理の初期検討"
+    ],
+    "assumptions": [
+      "代表物性を用いる",
+      "平衡関係や流れ場は別途仮定する"
+    ],
+    "cautions": [
+      "強い非理想系では平衡関係を再確認する",
+      "詳細設計では個別相関式を参照する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第2章 移動現象",
+      "改訂六版 化学工学便覧 物質移動関連節"
+    ],
+    "function_name": "mass_knudsen_diffusivity",
+    "keywords": [
+      "Knudsen拡散",
+      "多孔質"
+    ],
+    "interpretation_hint": "細孔拡散の概算に使えます。"
+  },
+  {
+    "formula_id": "mass_effective_diffusivity",
+    "name_ja": "有効拡散係数",
+    "category": "物質移動",
+    "summary": "空隙率と曲路率から有効拡散係数を求めます。",
+    "description": "空隙率と曲路率から有効拡散係数を求めます。 改訂六版 化学工学便覧の移動現象・拡散関連節をもとにした便覧レベルの概算式です。",
+    "equation_latex": "D_{eff} = \\\\varepsilon D / \\\\tau",
+    "inputs": [
+      {
+        "key": "porosity",
+        "label_ja": "空隙率",
+        "description": "多孔質の空隙率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "diffusivity",
+        "label_ja": "拡散係数",
+        "description": "分子拡散係数",
+        "standard_unit": "m^2/s",
+        "allowed_units": [
+          "m^2/s"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "tortuosity",
+        "label_ja": "曲路率",
+        "description": "細孔曲路率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "effective_diffusivity",
+        "label_ja": "有効拡散係数",
+        "description": "多孔質内の有効拡散係数",
+        "standard_unit": "m^2/s",
+        "allowed_units": [
+          "m^2/s"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "porosity": "空隙率",
+      "diffusivity": "拡散係数",
+      "tortuosity": "曲路率",
+      "effective_diffusivity": "有効拡散係数"
+    },
+    "applicability": [
+      "吸収・蒸発・拡散の概算",
+      "二重境膜モデルや無次元整理の初期検討"
+    ],
+    "assumptions": [
+      "代表物性を用いる",
+      "平衡関係や流れ場は別途仮定する"
+    ],
+    "cautions": [
+      "強い非理想系では平衡関係を再確認する",
+      "詳細設計では個別相関式を参照する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第2章 移動現象",
+      "改訂六版 化学工学便覧 物質移動関連節"
+    ],
+    "function_name": "mass_effective_diffusivity",
+    "keywords": [
+      "有効拡散係数",
+      "多孔質"
+    ],
+    "interpretation_hint": "吸着剤や触媒内拡散の見積りに使えます。"
+  },
+  {
+    "formula_id": "mass_individual_flux",
+    "name_ja": "個別物質移動流束",
+    "category": "物質移動",
+    "summary": "物質移動係数と駆動力から個別流束を求めます。",
+    "description": "物質移動係数と駆動力から個別流束を求めます。 改訂六版 化学工学便覧の移動現象・拡散関連節をもとにした便覧レベルの概算式です。",
+    "equation_latex": "N = k \\\\Delta C",
+    "inputs": [
+      {
+        "key": "mass_transfer_coefficient",
+        "label_ja": "物質移動係数",
+        "description": "個別物質移動係数",
+        "standard_unit": "m/s",
+        "allowed_units": [
+          "m/s"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "concentration_difference",
+        "label_ja": "濃度差",
+        "description": "駆動濃度差",
+        "standard_unit": "mol/m^3",
+        "allowed_units": [
+          "mol/m^3",
+          "mol/L",
+          "kmol/m^3"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "molar_flux",
+        "label_ja": "モル流束",
+        "description": "単位面積当たりのモル流束",
+        "standard_unit": "mol/(m^2*s)",
+        "allowed_units": [
+          "mol/(m^2*s)"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "mass_transfer_coefficient": "物質移動係数",
+      "concentration_difference": "濃度差",
+      "molar_flux": "モル流束"
+    },
+    "applicability": [
+      "吸収・蒸発・拡散の概算",
+      "二重境膜モデルや無次元整理の初期検討"
+    ],
+    "assumptions": [
+      "代表物性を用いる",
+      "平衡関係や流れ場は別途仮定する"
+    ],
+    "cautions": [
+      "強い非理想系では平衡関係を再確認する",
+      "詳細設計では個別相関式を参照する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第2章 移動現象",
+      "改訂六版 化学工学便覧 物質移動関連節"
+    ],
+    "function_name": "mass_individual_flux",
+    "keywords": [
+      "物質移動流束",
+      "流束"
+    ],
+    "interpretation_hint": "境膜モデルでの流束概算に使えます。"
+  },
+  {
+    "formula_id": "mass_log_mean_driving_force",
+    "name_ja": "対数平均濃度差",
+    "category": "物質移動",
+    "summary": "入口側と出口側の駆動力から対数平均濃度差を求めます。",
+    "description": "入口側と出口側の駆動力から対数平均濃度差を求めます。 改訂六版 化学工学便覧の移動現象・拡散関連節をもとにした便覧レベルの概算式です。",
+    "equation_latex": "\\\\Delta C_{lm} = (\\\\Delta C_1 - \\\\Delta C_2)/\\\\ln(\\\\Delta C_1/\\\\Delta C_2)",
+    "inputs": [
+      {
+        "key": "driving_force_1",
+        "label_ja": "入口側駆動力",
+        "description": "一端側の濃度差や分圧差",
+        "standard_unit": "mol/m^3",
+        "allowed_units": [
+          "mol/m^3",
+          "mol/L",
+          "kmol/m^3"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "driving_force_2",
+        "label_ja": "出口側駆動力",
+        "description": "他端側の濃度差や分圧差",
+        "standard_unit": "mol/m^3",
+        "allowed_units": [
+          "mol/m^3",
+          "mol/L",
+          "kmol/m^3"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "log_mean_driving_force",
+        "label_ja": "対数平均駆動力",
+        "description": "対数平均化した物質移動駆動力",
+        "standard_unit": "mol/m^3",
+        "allowed_units": [
+          "mol/m^3",
+          "mol/L",
+          "kmol/m^3"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "driving_force_1": "入口側駆動力",
+      "driving_force_2": "出口側駆動力",
+      "log_mean_driving_force": "対数平均駆動力"
+    },
+    "applicability": [
+      "吸収・蒸発・拡散の概算",
+      "二重境膜モデルや無次元整理の初期検討"
+    ],
+    "assumptions": [
+      "代表物性を用いる",
+      "平衡関係や流れ場は別途仮定する"
+    ],
+    "cautions": [
+      "強い非理想系では平衡関係を再確認する",
+      "詳細設計では個別相関式を参照する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第2章 移動現象",
+      "改訂六版 化学工学便覧 物質移動関連節"
+    ],
+    "function_name": "mass_log_mean_driving_force",
+    "keywords": [
+      "対数平均濃度差",
+      "駆動力"
+    ],
+    "interpretation_hint": "向流・並流装置の平均駆動力整理に使えます。"
+  },
+  {
+    "formula_id": "mass_absorption_factor",
+    "name_ja": "吸収因子",
+    "category": "物質移動",
+    "summary": "液流量・気流量・平衡線勾配から吸収因子を求めます。",
+    "description": "液流量・気流量・平衡線勾配から吸収因子を求めます。 改訂六版 化学工学便覧の移動現象・拡散関連節をもとにした便覧レベルの概算式です。",
+    "equation_latex": "A = L /(m V)",
+    "inputs": [
+      {
+        "key": "liquid_flow",
+        "label_ja": "液相モル流量",
+        "description": "液相モル流量",
+        "standard_unit": "mol/s",
+        "allowed_units": [
+          "mol/s",
+          "kmol/h"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "equilibrium_slope",
+        "label_ja": "平衡線勾配",
+        "description": "平衡関係の勾配 m",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "gas_flow",
+        "label_ja": "気相モル流量",
+        "description": "気相モル流量",
+        "standard_unit": "mol/s",
+        "allowed_units": [
+          "mol/s",
+          "kmol/h"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "absorption_factor",
+        "label_ja": "吸収因子",
+        "description": "吸収操作のしやすさの指標",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "liquid_flow": "液相モル流量",
+      "equilibrium_slope": "平衡線勾配",
+      "gas_flow": "気相モル流量",
+      "absorption_factor": "吸収因子"
+    },
+    "applicability": [
+      "吸収・蒸発・拡散の概算",
+      "二重境膜モデルや無次元整理の初期検討"
+    ],
+    "assumptions": [
+      "代表物性を用いる",
+      "平衡関係や流れ場は別途仮定する"
+    ],
+    "cautions": [
+      "強い非理想系では平衡関係を再確認する",
+      "詳細設計では個別相関式を参照する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第2章 移動現象",
+      "改訂六版 化学工学便覧 物質移動関連節"
+    ],
+    "function_name": "mass_absorption_factor",
+    "keywords": [
+      "吸収因子",
+      "吸収"
+    ],
+    "interpretation_hint": "吸収塔の段数感覚をつかむ初期評価に使えます。"
+  },
+  {
+    "formula_id": "mass_stripping_factor",
+    "name_ja": "放散因子",
+    "category": "物質移動",
+    "summary": "液流量・気流量・平衡線勾配から放散因子を求めます。",
+    "description": "液流量・気流量・平衡線勾配から放散因子を求めます。 改訂六版 化学工学便覧の移動現象・拡散関連節をもとにした便覧レベルの概算式です。",
+    "equation_latex": "S = m V / L",
+    "inputs": [
+      {
+        "key": "equilibrium_slope",
+        "label_ja": "平衡線勾配",
+        "description": "平衡関係の勾配 m",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "gas_flow",
+        "label_ja": "気相モル流量",
+        "description": "気相モル流量",
+        "standard_unit": "mol/s",
+        "allowed_units": [
+          "mol/s",
+          "kmol/h"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "liquid_flow",
+        "label_ja": "液相モル流量",
+        "description": "液相モル流量",
+        "standard_unit": "mol/s",
+        "allowed_units": [
+          "mol/s",
+          "kmol/h"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "stripping_factor",
+        "label_ja": "放散因子",
+        "description": "放散操作のしやすさの指標",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "equilibrium_slope": "平衡線勾配",
+      "gas_flow": "気相モル流量",
+      "liquid_flow": "液相モル流量",
+      "stripping_factor": "放散因子"
+    },
+    "applicability": [
+      "吸収・蒸発・拡散の概算",
+      "二重境膜モデルや無次元整理の初期検討"
+    ],
+    "assumptions": [
+      "代表物性を用いる",
+      "平衡関係や流れ場は別途仮定する"
+    ],
+    "cautions": [
+      "強い非理想系では平衡関係を再確認する",
+      "詳細設計では個別相関式を参照する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第2章 移動現象",
+      "改訂六版 化学工学便覧 物質移動関連節"
+    ],
+    "function_name": "mass_stripping_factor",
+    "keywords": [
+      "放散因子",
+      "stripping"
+    ],
+    "interpretation_hint": "ストリッピング操作の概算に使えます。"
+  },
+  {
+    "formula_id": "mass_distribution_coefficient",
+    "name_ja": "分配係数",
+    "category": "物質移動",
+    "summary": "二相の濃度比から分配係数を求めます。",
+    "description": "二相の濃度比から分配係数を求めます。 改訂六版 化学工学便覧の移動現象・拡散関連節をもとにした便覧レベルの概算式です。",
+    "equation_latex": "K_D = C_1 / C_2",
+    "inputs": [
+      {
+        "key": "phase_1_concentration",
+        "label_ja": "相1濃度",
+        "description": "相1中の濃度",
+        "standard_unit": "mol/m^3",
+        "allowed_units": [
+          "mol/m^3",
+          "mol/L",
+          "kmol/m^3"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "phase_2_concentration",
+        "label_ja": "相2濃度",
+        "description": "相2中の濃度",
+        "standard_unit": "mol/m^3",
+        "allowed_units": [
+          "mol/m^3",
+          "mol/L",
+          "kmol/m^3"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "distribution_coefficient",
+        "label_ja": "分配係数",
+        "description": "相間分配のしやすさ",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "phase_1_concentration": "相1濃度",
+      "phase_2_concentration": "相2濃度",
+      "distribution_coefficient": "分配係数"
+    },
+    "applicability": [
+      "吸収・蒸発・拡散の概算",
+      "二重境膜モデルや無次元整理の初期検討"
+    ],
+    "assumptions": [
+      "代表物性を用いる",
+      "平衡関係や流れ場は別途仮定する"
+    ],
+    "cautions": [
+      "強い非理想系では平衡関係を再確認する",
+      "詳細設計では個別相関式を参照する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第2章 移動現象",
+      "改訂六版 化学工学便覧 物質移動関連節"
+    ],
+    "function_name": "mass_distribution_coefficient",
+    "keywords": [
+      "分配係数",
+      "distribution"
+    ],
+    "interpretation_hint": "抽出や吸収平衡の整理に使えます。"
+  },
+  {
+    "formula_id": "mass_partition_ratio",
+    "name_ja": "相間分配比",
+    "category": "物質移動",
+    "summary": "二相中の溶質濃度比を分配比として求めます。",
+    "description": "二相中の溶質濃度比を分配比として求めます。 改訂六版 化学工学便覧の移動現象・拡散関連節をもとにした便覧レベルの概算式です。",
+    "equation_latex": "R = C_A / C_B",
+    "inputs": [
+      {
+        "key": "solute_concentration_phase_a",
+        "label_ja": "A相濃度",
+        "description": "A相の溶質濃度",
+        "standard_unit": "mol/m^3",
+        "allowed_units": [
+          "mol/m^3",
+          "mol/L",
+          "kmol/m^3"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "solute_concentration_phase_b",
+        "label_ja": "B相濃度",
+        "description": "B相の溶質濃度",
+        "standard_unit": "mol/m^3",
+        "allowed_units": [
+          "mol/m^3",
+          "mol/L",
+          "kmol/m^3"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "partition_ratio",
+        "label_ja": "分配比",
+        "description": "A/B 相間の分配比",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "solute_concentration_phase_a": "A相濃度",
+      "solute_concentration_phase_b": "B相濃度",
+      "partition_ratio": "分配比"
+    },
+    "applicability": [
+      "吸収・蒸発・拡散の概算",
+      "二重境膜モデルや無次元整理の初期検討"
+    ],
+    "assumptions": [
+      "代表物性を用いる",
+      "平衡関係や流れ場は別途仮定する"
+    ],
+    "cautions": [
+      "強い非理想系では平衡関係を再確認する",
+      "詳細設計では個別相関式を参照する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第2章 移動現象",
+      "改訂六版 化学工学便覧 物質移動関連節"
+    ],
+    "function_name": "mass_partition_ratio",
+    "keywords": [
+      "分配比",
+      "液液平衡"
+    ],
+    "interpretation_hint": "液液抽出の概算整理に使えます。"
+  },
+  {
+    "formula_id": "mass_overall_gas_coefficient",
+    "name_ja": "総括気相物質移動係数",
+    "category": "物質移動",
+    "summary": "二重境膜モデルから総括気相物質移動係数を求めます。",
+    "description": "二重境膜モデルから総括気相物質移動係数を求めます。 改訂六版 化学工学便覧の移動現象・拡散関連節をもとにした便覧レベルの概算式です。",
+    "equation_latex": "1/K_G = 1/k_G + m/k_L",
+    "inputs": [
+      {
+        "key": "gas_side_coefficient",
+        "label_ja": "気相物質移動係数",
+        "description": "気相側係数",
+        "standard_unit": "m/s",
+        "allowed_units": [
+          "m/s"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "equilibrium_slope",
+        "label_ja": "平衡線勾配",
+        "description": "平衡線の勾配 m",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "liquid_side_coefficient",
+        "label_ja": "液相物質移動係数",
+        "description": "液相側係数",
+        "standard_unit": "m/s",
+        "allowed_units": [
+          "m/s"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "overall_gas_coefficient",
+        "label_ja": "総括気相係数",
+        "description": "総括気相基準の物質移動係数",
+        "standard_unit": "m/s",
+        "allowed_units": [
+          "m/s"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "gas_side_coefficient": "気相物質移動係数",
+      "equilibrium_slope": "平衡線勾配",
+      "liquid_side_coefficient": "液相物質移動係数",
+      "overall_gas_coefficient": "総括気相係数"
+    },
+    "applicability": [
+      "吸収・蒸発・拡散の概算",
+      "二重境膜モデルや無次元整理の初期検討"
+    ],
+    "assumptions": [
+      "代表物性を用いる",
+      "平衡関係や流れ場は別途仮定する"
+    ],
+    "cautions": [
+      "強い非理想系では平衡関係を再確認する",
+      "詳細設計では個別相関式を参照する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第2章 移動現象",
+      "改訂六版 化学工学便覧 物質移動関連節"
+    ],
+    "function_name": "mass_overall_gas_coefficient",
+    "keywords": [
+      "総括気相係数",
+      "二重境膜"
+    ],
+    "interpretation_hint": "吸収塔や放散塔の総括係数概算に使えます。"
+  },
+  {
+    "formula_id": "mass_overall_liquid_coefficient",
+    "name_ja": "総括液相物質移動係数",
+    "category": "物質移動",
+    "summary": "二重境膜モデルから総括液相物質移動係数を求めます。",
+    "description": "二重境膜モデルから総括液相物質移動係数を求めます。 改訂六版 化学工学便覧の移動現象・拡散関連節をもとにした便覧レベルの概算式です。",
+    "equation_latex": "1/K_L = 1/k_L + 1/(m k_G)",
+    "inputs": [
+      {
+        "key": "liquid_side_coefficient",
+        "label_ja": "液相物質移動係数",
+        "description": "液相側係数",
+        "standard_unit": "m/s",
+        "allowed_units": [
+          "m/s"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "equilibrium_slope",
+        "label_ja": "平衡線勾配",
+        "description": "平衡線の勾配 m",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "gas_side_coefficient",
+        "label_ja": "気相物質移動係数",
+        "description": "気相側係数",
+        "standard_unit": "m/s",
+        "allowed_units": [
+          "m/s"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "overall_liquid_coefficient",
+        "label_ja": "総括液相係数",
+        "description": "総括液相基準の物質移動係数",
+        "standard_unit": "m/s",
+        "allowed_units": [
+          "m/s"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "liquid_side_coefficient": "液相物質移動係数",
+      "equilibrium_slope": "平衡線勾配",
+      "gas_side_coefficient": "気相物質移動係数",
+      "overall_liquid_coefficient": "総括液相係数"
+    },
+    "applicability": [
+      "吸収・蒸発・拡散の概算",
+      "二重境膜モデルや無次元整理の初期検討"
+    ],
+    "assumptions": [
+      "代表物性を用いる",
+      "平衡関係や流れ場は別途仮定する"
+    ],
+    "cautions": [
+      "強い非理想系では平衡関係を再確認する",
+      "詳細設計では個別相関式を参照する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第2章 移動現象",
+      "改訂六版 化学工学便覧 物質移動関連節"
+    ],
+    "function_name": "mass_overall_liquid_coefficient",
+    "keywords": [
+      "総括液相係数",
+      "二重境膜"
+    ],
+    "interpretation_hint": "液相基準での装置整理に使えます。"
+  },
+  {
+    "formula_id": "mass_transfer_coefficient_from_sherwood",
+    "name_ja": "Sherwood数から物質移動係数",
+    "category": "物質移動",
+    "summary": "Sherwood数・拡散係数・代表長さから物質移動係数を求めます。",
+    "description": "Sherwood数・拡散係数・代表長さから物質移動係数を求めます。 改訂六版 化学工学便覧の移動現象・拡散関連節をもとにした便覧レベルの概算式です。",
+    "equation_latex": "k = Sh D / L",
+    "inputs": [
+      {
+        "key": "sherwood_number",
+        "label_ja": "Sherwood数",
+        "description": "Sherwood数",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "diffusivity",
+        "label_ja": "拡散係数",
+        "description": "分子拡散係数",
+        "standard_unit": "m^2/s",
+        "allowed_units": [
+          "m^2/s"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "characteristic_length",
+        "label_ja": "代表長さ",
+        "description": "代表長さ",
+        "standard_unit": "m",
+        "allowed_units": [
+          "m",
+          "mm",
+          "cm"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "mass_transfer_coefficient",
+        "label_ja": "物質移動係数",
+        "description": "Sherwood数から換算した係数",
+        "standard_unit": "m/s",
+        "allowed_units": [
+          "m/s"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "sherwood_number": "Sherwood数",
+      "diffusivity": "拡散係数",
+      "characteristic_length": "代表長さ",
+      "mass_transfer_coefficient": "物質移動係数"
+    },
+    "applicability": [
+      "吸収・蒸発・拡散の概算",
+      "二重境膜モデルや無次元整理の初期検討"
+    ],
+    "assumptions": [
+      "代表物性を用いる",
+      "平衡関係や流れ場は別途仮定する"
+    ],
+    "cautions": [
+      "強い非理想系では平衡関係を再確認する",
+      "詳細設計では個別相関式を参照する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第2章 移動現象",
+      "改訂六版 化学工学便覧 物質移動関連節"
+    ],
+    "function_name": "mass_transfer_coefficient_from_sherwood",
+    "keywords": [
+      "Sherwood数",
+      "物質移動係数"
+    ],
+    "interpretation_hint": "無次元相関の結果を実係数へ戻すときに使えます。"
+  },
+  {
+    "formula_id": "mass_sherwood_from_coefficient",
+    "name_ja": "物質移動係数からSherwood数",
+    "category": "物質移動",
+    "summary": "物質移動係数から Sherwood数を求めます。",
+    "description": "物質移動係数から Sherwood数を求めます。 改訂六版 化学工学便覧の移動現象・拡散関連節をもとにした便覧レベルの概算式です。",
+    "equation_latex": "Sh = k L / D",
+    "inputs": [
+      {
+        "key": "mass_transfer_coefficient",
+        "label_ja": "物質移動係数",
+        "description": "個別または総括物質移動係数",
+        "standard_unit": "m/s",
+        "allowed_units": [
+          "m/s"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "characteristic_length",
+        "label_ja": "代表長さ",
+        "description": "代表長さ",
+        "standard_unit": "m",
+        "allowed_units": [
+          "m",
+          "mm",
+          "cm"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "diffusivity",
+        "label_ja": "拡散係数",
+        "description": "分子拡散係数",
+        "standard_unit": "m^2/s",
+        "allowed_units": [
+          "m^2/s"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "sherwood_number",
+        "label_ja": "Sherwood数",
+        "description": "物質移動の無次元数",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "mass_transfer_coefficient": "物質移動係数",
+      "characteristic_length": "代表長さ",
+      "diffusivity": "拡散係数",
+      "sherwood_number": "Sherwood数"
+    },
+    "applicability": [
+      "吸収・蒸発・拡散の概算",
+      "二重境膜モデルや無次元整理の初期検討"
+    ],
+    "assumptions": [
+      "代表物性を用いる",
+      "平衡関係や流れ場は別途仮定する"
+    ],
+    "cautions": [
+      "強い非理想系では平衡関係を再確認する",
+      "詳細設計では個別相関式を参照する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第2章 移動現象",
+      "改訂六版 化学工学便覧 物質移動関連節"
+    ],
+    "function_name": "mass_sherwood_from_coefficient",
+    "keywords": [
+      "Sherwood数",
+      "相関式"
+    ],
+    "interpretation_hint": "実測係数を無次元相関へ整理するときに使えます。"
+  },
+  {
+    "formula_id": "mass_diffusion_time_scale",
+    "name_ja": "拡散時間スケール",
+    "category": "物質移動",
+    "summary": "拡散距離と拡散係数から拡散時間スケールを求めます。",
+    "description": "拡散距離と拡散係数から拡散時間スケールを求めます。 改訂六版 化学工学便覧の移動現象・拡散関連節をもとにした便覧レベルの概算式です。",
+    "equation_latex": "t_d = L^2 / D",
+    "inputs": [
+      {
+        "key": "characteristic_length",
+        "label_ja": "拡散距離",
+        "description": "代表拡散距離",
+        "standard_unit": "m",
+        "allowed_units": [
+          "m",
+          "mm",
+          "cm"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "diffusivity",
+        "label_ja": "拡散係数",
+        "description": "拡散係数",
+        "standard_unit": "m^2/s",
+        "allowed_units": [
+          "m^2/s"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "diffusion_time",
+        "label_ja": "拡散時間",
+        "description": "代表拡散時間",
+        "standard_unit": "s",
+        "allowed_units": [
+          "s",
+          "min",
+          "h"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "characteristic_length": "拡散距離",
+      "diffusivity": "拡散係数",
+      "diffusion_time": "拡散時間"
+    },
+    "applicability": [
+      "吸収・蒸発・拡散の概算",
+      "二重境膜モデルや無次元整理の初期検討"
+    ],
+    "assumptions": [
+      "代表物性を用いる",
+      "平衡関係や流れ場は別途仮定する"
+    ],
+    "cautions": [
+      "強い非理想系では平衡関係を再確認する",
+      "詳細設計では個別相関式を参照する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第2章 移動現象",
+      "改訂六版 化学工学便覧 物質移動関連節"
+    ],
+    "function_name": "mass_diffusion_time_scale",
+    "keywords": [
+      "拡散時間",
+      "time scale"
+    ],
+    "interpretation_hint": "拡散平衡に達する時間感覚を見積もれます。"
+  },
+  {
+    "formula_id": "mass_fourier_number",
+    "name_ja": "物質移動Fourier数",
+    "category": "物質移動",
+    "summary": "拡散の無次元時間を表す Fourier数を求めます。",
+    "description": "拡散の無次元時間を表す Fourier数を求めます。 改訂六版 化学工学便覧の移動現象・拡散関連節をもとにした便覧レベルの概算式です。",
+    "equation_latex": "Fo_m = D t / L^2",
+    "inputs": [
+      {
+        "key": "diffusivity",
+        "label_ja": "拡散係数",
+        "description": "拡散係数",
+        "standard_unit": "m^2/s",
+        "allowed_units": [
+          "m^2/s"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "time",
+        "label_ja": "時間",
+        "description": "経過時間",
+        "standard_unit": "s",
+        "allowed_units": [
+          "s",
+          "min",
+          "h"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "characteristic_length",
+        "label_ja": "代表長さ",
+        "description": "代表拡散距離",
+        "standard_unit": "m",
+        "allowed_units": [
+          "m",
+          "mm",
+          "cm"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "mass_fourier_number",
+        "label_ja": "Fourier数",
+        "description": "物質移動の無次元時間",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "diffusivity": "拡散係数",
+      "time": "時間",
+      "characteristic_length": "代表長さ",
+      "mass_fourier_number": "Fourier数"
+    },
+    "applicability": [
+      "吸収・蒸発・拡散の概算",
+      "二重境膜モデルや無次元整理の初期検討"
+    ],
+    "assumptions": [
+      "代表物性を用いる",
+      "平衡関係や流れ場は別途仮定する"
+    ],
+    "cautions": [
+      "強い非理想系では平衡関係を再確認する",
+      "詳細設計では個別相関式を参照する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第2章 移動現象",
+      "改訂六版 化学工学便覧 物質移動関連節"
+    ],
+    "function_name": "mass_fourier_number",
+    "keywords": [
+      "Fourier数",
+      "拡散"
+    ],
+    "interpretation_hint": "非定常拡散の進行度合いを整理できます。"
+  },
+  {
+    "formula_id": "mass_higbie_coefficient",
+    "name_ja": "Higbie浸透説の物質移動係数",
+    "category": "物質移動",
+    "summary": "接触時間から Higbie 浸透説の物質移動係数を求めます。",
+    "description": "接触時間から Higbie 浸透説の物質移動係数を求めます。 改訂六版 化学工学便覧の移動現象・拡散関連節をもとにした便覧レベルの概算式です。",
+    "equation_latex": "k = 2 \\\\sqrt{D /(\\\\pi t_c)}",
+    "inputs": [
+      {
+        "key": "diffusivity",
+        "label_ja": "拡散係数",
+        "description": "拡散係数",
+        "standard_unit": "m^2/s",
+        "allowed_units": [
+          "m^2/s"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "contact_time",
+        "label_ja": "接触時間",
+        "description": "界面更新までの接触時間",
+        "standard_unit": "s",
+        "allowed_units": [
+          "s",
+          "min",
+          "h"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "mass_transfer_coefficient",
+        "label_ja": "物質移動係数",
+        "description": "Higbie 浸透説による係数",
+        "standard_unit": "m/s",
+        "allowed_units": [
+          "m/s"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "diffusivity": "拡散係数",
+      "contact_time": "接触時間",
+      "mass_transfer_coefficient": "物質移動係数"
+    },
+    "applicability": [
+      "吸収・蒸発・拡散の概算",
+      "二重境膜モデルや無次元整理の初期検討"
+    ],
+    "assumptions": [
+      "代表物性を用いる",
+      "平衡関係や流れ場は別途仮定する"
+    ],
+    "cautions": [
+      "強い非理想系では平衡関係を再確認する",
+      "詳細設計では個別相関式を参照する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第2章 移動現象",
+      "改訂六版 化学工学便覧 物質移動関連節"
+    ],
+    "function_name": "mass_higbie_coefficient",
+    "keywords": [
+      "Higbie",
+      "浸透説"
+    ],
+    "interpretation_hint": "液滴・気泡の短時間接触での概算に使えます。"
+  },
+  {
+    "formula_id": "mass_surface_renewal_coefficient",
+    "name_ja": "表面更新説の物質移動係数",
+    "category": "物質移動",
+    "summary": "表面更新速度から Danckwerts 型の物質移動係数を求めます。",
+    "description": "表面更新速度から Danckwerts 型の物質移動係数を求めます。 改訂六版 化学工学便覧の移動現象・拡散関連節をもとにした便覧レベルの概算式です。",
+    "equation_latex": "k = \\\\sqrt{D s}",
+    "inputs": [
+      {
+        "key": "diffusivity",
+        "label_ja": "拡散係数",
+        "description": "拡散係数",
+        "standard_unit": "m^2/s",
+        "allowed_units": [
+          "m^2/s"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "surface_renewal_rate",
+        "label_ja": "表面更新速度",
+        "description": "表面更新速度 s",
+        "standard_unit": "1/s",
+        "allowed_units": [
+          "1/s"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "mass_transfer_coefficient",
+        "label_ja": "物質移動係数",
+        "description": "表面更新説による係数",
+        "standard_unit": "m/s",
+        "allowed_units": [
+          "m/s"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "diffusivity": "拡散係数",
+      "surface_renewal_rate": "表面更新速度",
+      "mass_transfer_coefficient": "物質移動係数"
+    },
+    "applicability": [
+      "吸収・蒸発・拡散の概算",
+      "二重境膜モデルや無次元整理の初期検討"
+    ],
+    "assumptions": [
+      "代表物性を用いる",
+      "平衡関係や流れ場は別途仮定する"
+    ],
+    "cautions": [
+      "強い非理想系では平衡関係を再確認する",
+      "詳細設計では個別相関式を参照する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第2章 移動現象",
+      "改訂六版 化学工学便覧 物質移動関連節"
+    ],
+    "function_name": "mass_surface_renewal_coefficient",
+    "keywords": [
+      "表面更新説",
+      "Danckwerts"
+    ],
+    "interpretation_hint": "界面撹乱が強い系の概算に使えます。"
+  },
+  {
+    "formula_id": "mass_saturation_ratio",
+    "name_ja": "飽和比",
+    "category": "物質移動",
+    "summary": "分圧と飽和蒸気圧から飽和比を求めます。",
+    "description": "分圧と飽和蒸気圧から飽和比を求めます。 改訂六版 化学工学便覧の移動現象・拡散関連節をもとにした便覧レベルの概算式です。",
+    "equation_latex": "S = p / p^*",
+    "inputs": [
+      {
+        "key": "partial_pressure",
+        "label_ja": "分圧",
+        "description": "対象成分の分圧",
+        "standard_unit": "Pa",
+        "allowed_units": [
+          "Pa",
+          "kPa",
+          "bar",
+          "mmHg"
+        ],
+        "positive_only": true,
+        "nonzero": true,
+        "pressure_basis_supported": true
+      },
+      {
+        "key": "vapor_pressure",
+        "label_ja": "飽和蒸気圧",
+        "description": "同温度での飽和蒸気圧",
+        "standard_unit": "Pa",
+        "allowed_units": [
+          "Pa",
+          "kPa",
+          "bar",
+          "mmHg"
+        ],
+        "positive_only": true,
+        "nonzero": true,
+        "pressure_basis_supported": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "saturation_ratio",
+        "label_ja": "飽和比",
+        "description": "相対湿り度に相当する比",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "partial_pressure": "分圧",
+      "vapor_pressure": "飽和蒸気圧",
+      "saturation_ratio": "飽和比"
+    },
+    "applicability": [
+      "吸収・蒸発・拡散の概算",
+      "二重境膜モデルや無次元整理の初期検討"
+    ],
+    "assumptions": [
+      "代表物性を用いる",
+      "平衡関係や流れ場は別途仮定する"
+    ],
+    "cautions": [
+      "強い非理想系では平衡関係を再確認する",
+      "詳細設計では個別相関式を参照する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第2章 移動現象",
+      "改訂六版 化学工学便覧 物質移動関連節"
+    ],
+    "function_name": "mass_saturation_ratio",
+    "keywords": [
+      "飽和比",
+      "蒸発"
+    ],
+    "interpretation_hint": "蒸発や凝縮の駆動力確認に使えます。"
+  },
+  {
+    "formula_id": "mass_interfacial_transfer_rate",
+    "name_ja": "界面移動速度",
+    "category": "物質移動",
+    "summary": "流束と界面積から全体の移動速度を求めます。",
+    "description": "流束と界面積から全体の移動速度を求めます。 改訂六版 化学工学便覧の移動現象・拡散関連節をもとにした便覧レベルの概算式です。",
+    "equation_latex": "\\\\dot{N} = N A_i",
+    "inputs": [
+      {
+        "key": "molar_flux",
+        "label_ja": "モル流束",
+        "description": "単位面積当たりのモル流束",
+        "standard_unit": "mol/(m^2*s)",
+        "allowed_units": [
+          "mol/(m^2*s)"
+        ],
+        "positive_only": true
+      },
+      {
+        "key": "interfacial_area",
+        "label_ja": "界面積",
+        "description": "有効界面積",
+        "standard_unit": "m^2",
+        "allowed_units": [
+          "m^2"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "transfer_rate",
+        "label_ja": "移動速度",
+        "description": "全界面積あたりの移動速度",
+        "standard_unit": "mol/s",
+        "allowed_units": [
+          "mol/s",
+          "kmol/h"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "molar_flux": "モル流束",
+      "interfacial_area": "界面積",
+      "transfer_rate": "移動速度"
+    },
+    "applicability": [
+      "吸収・蒸発・拡散の概算",
+      "二重境膜モデルや無次元整理の初期検討"
+    ],
+    "assumptions": [
+      "代表物性を用いる",
+      "平衡関係や流れ場は別途仮定する"
+    ],
+    "cautions": [
+      "強い非理想系では平衡関係を再確認する",
+      "詳細設計では個別相関式を参照する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第2章 移動現象",
+      "改訂六版 化学工学便覧 物質移動関連節"
+    ],
+    "function_name": "mass_interfacial_transfer_rate",
+    "keywords": [
+      "界面積",
+      "移動速度"
+    ],
+    "interpretation_hint": "吸収塔や液滴群の全体移動量整理に使えます。"
+  }
+]

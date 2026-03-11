@@ -1,0 +1,1643 @@
+[
+  {
+    "formula_id": "rx_zero_order_rate",
+    "name_ja": "零次反応速度",
+    "category": "反応工学",
+    "summary": "零次反応速度を計算します。",
+    "description": "零次反応速度を計算します。改訂六版 化学工学便覧をもとに整理した便覧レベルの設計・概算式です。",
+    "equation_latex": "r = k",
+    "inputs": [
+      {
+        "key": "rate_constant",
+        "label_ja": "速度定数",
+        "description": "速度定数",
+        "standard_unit": "mol/(m^3*s)",
+        "allowed_units": [
+          "mol/(m^3*s)"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "reaction_rate",
+        "label_ja": "反応速度",
+        "description": "反応速度",
+        "standard_unit": "mol/(m^3*s)",
+        "allowed_units": [
+          "mol/(m^3*s)"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "rate_constant": "速度定数",
+      "reaction_rate": "反応速度"
+    },
+    "applicability": [
+      "初期設計・概算評価",
+      "詳細設計前の目安計算"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて詳細相関式で再確認する"
+    ],
+    "cautions": [
+      "極端条件や多相系では適用性を再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第3章 反応速度と反応操作"
+    ],
+    "function_name": "rx_zero_order_rate",
+    "keywords": [
+      "零次反応速度"
+    ],
+    "interpretation_hint": "濃度に依らない速度式の粗い評価に使えます。"
+  },
+  {
+    "formula_id": "rx_second_order_rate",
+    "name_ja": "二次反応速度",
+    "category": "反応工学",
+    "summary": "二次反応速度を計算します。",
+    "description": "二次反応速度を計算します。改訂六版 化学工学便覧をもとに整理した便覧レベルの設計・概算式です。",
+    "equation_latex": "r = k C^2",
+    "inputs": [
+      {
+        "key": "rate_constant",
+        "label_ja": "速度定数",
+        "description": "速度定数",
+        "standard_unit": "m^3/(mol*s)",
+        "allowed_units": [
+          "m^3/(mol*s)"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "concentration",
+        "label_ja": "濃度",
+        "description": "濃度",
+        "standard_unit": "mol/m^3",
+        "allowed_units": [
+          "mol/m^3",
+          "mol/L",
+          "kmol/m^3"
+        ],
+        "positive_only": true,
+        "nonzero": false
+      }
+    ],
+    "outputs": [
+      {
+        "key": "reaction_rate",
+        "label_ja": "反応速度",
+        "description": "反応速度",
+        "standard_unit": "mol/(m^3*s)",
+        "allowed_units": [
+          "mol/(m^3*s)"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "rate_constant": "速度定数",
+      "concentration": "濃度",
+      "reaction_rate": "反応速度"
+    },
+    "applicability": [
+      "初期設計・概算評価",
+      "詳細設計前の目安計算"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて詳細相関式で再確認する"
+    ],
+    "cautions": [
+      "極端条件や多相系では適用性を再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第3章 反応速度と反応操作"
+    ],
+    "function_name": "rx_second_order_rate",
+    "keywords": [
+      "二次反応",
+      "速度式"
+    ],
+    "interpretation_hint": "濃度変化の影響が大きい系の比較に使えます。"
+  },
+  {
+    "formula_id": "rx_batch_zero_order_conversion",
+    "name_ja": "回分反応器の零次転化率",
+    "category": "反応工学",
+    "summary": "回分反応器の零次転化率を計算します。",
+    "description": "回分反応器の零次転化率を計算します。改訂六版 化学工学便覧をもとに整理した便覧レベルの設計・概算式です。",
+    "equation_latex": "X = k t / C_{A0}",
+    "inputs": [
+      {
+        "key": "rate_constant",
+        "label_ja": "速度定数",
+        "description": "速度定数",
+        "standard_unit": "mol/(m^3*s)",
+        "allowed_units": [
+          "mol/(m^3*s)"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "time",
+        "label_ja": "反応時間",
+        "description": "反応時間",
+        "standard_unit": "s",
+        "allowed_units": [
+          "s",
+          "min",
+          "h"
+        ],
+        "positive_only": true,
+        "nonzero": false
+      },
+      {
+        "key": "initial_concentration",
+        "label_ja": "初濃度",
+        "description": "初濃度",
+        "standard_unit": "mol/m^3",
+        "allowed_units": [
+          "mol/m^3",
+          "mol/L",
+          "kmol/m^3"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "conversion",
+        "label_ja": "転化率",
+        "description": "転化率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction",
+          "mol%"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "rate_constant": "速度定数",
+      "time": "反応時間",
+      "initial_concentration": "初濃度",
+      "conversion": "転化率"
+    },
+    "applicability": [
+      "初期設計・概算評価",
+      "詳細設計前の目安計算"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて詳細相関式で再確認する"
+    ],
+    "cautions": [
+      "極端条件や多相系では適用性を再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第3章 反応速度と反応操作"
+    ],
+    "function_name": "rx_batch_zero_order_conversion",
+    "keywords": [
+      "回分反応器の零次転化率"
+    ],
+    "interpretation_hint": "バッチ到達転化率の初期見積りに使えます。"
+  },
+  {
+    "formula_id": "rx_batch_second_order_conversion",
+    "name_ja": "回分反応器の二次転化率",
+    "category": "反応工学",
+    "summary": "回分反応器の二次転化率を計算します。",
+    "description": "回分反応器の二次転化率を計算します。改訂六版 化学工学便覧をもとに整理した便覧レベルの設計・概算式です。",
+    "equation_latex": "X = k C_{A0} t / (1 + k C_{A0} t)",
+    "inputs": [
+      {
+        "key": "rate_constant",
+        "label_ja": "速度定数",
+        "description": "速度定数",
+        "standard_unit": "m^3/(mol*s)",
+        "allowed_units": [
+          "m^3/(mol*s)"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "initial_concentration",
+        "label_ja": "初濃度",
+        "description": "初濃度",
+        "standard_unit": "mol/m^3",
+        "allowed_units": [
+          "mol/m^3",
+          "mol/L",
+          "kmol/m^3"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "time",
+        "label_ja": "反応時間",
+        "description": "反応時間",
+        "standard_unit": "s",
+        "allowed_units": [
+          "s",
+          "min",
+          "h"
+        ],
+        "positive_only": true,
+        "nonzero": false
+      }
+    ],
+    "outputs": [
+      {
+        "key": "conversion",
+        "label_ja": "転化率",
+        "description": "転化率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction",
+          "mol%"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "rate_constant": "速度定数",
+      "initial_concentration": "初濃度",
+      "time": "反応時間",
+      "conversion": "転化率"
+    },
+    "applicability": [
+      "初期設計・概算評価",
+      "詳細設計前の目安計算"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて詳細相関式で再確認する"
+    ],
+    "cautions": [
+      "極端条件や多相系では適用性を再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第3章 反応速度と反応操作"
+    ],
+    "function_name": "rx_batch_second_order_conversion",
+    "keywords": [
+      "回分反応器の二次転化率"
+    ],
+    "interpretation_hint": "二次速度式での到達転化率概算です。"
+  },
+  {
+    "formula_id": "rx_half_life_first_order",
+    "name_ja": "一次反応の半減期",
+    "category": "反応工学",
+    "summary": "一次反応の半減期を計算します。",
+    "description": "一次反応の半減期を計算します。改訂六版 化学工学便覧をもとに整理した便覧レベルの設計・概算式です。",
+    "equation_latex": "t_{1/2} = ln 2 / k",
+    "inputs": [
+      {
+        "key": "rate_constant",
+        "label_ja": "速度定数",
+        "description": "速度定数",
+        "standard_unit": "1/s",
+        "allowed_units": [
+          "1/s"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "half_life",
+        "label_ja": "半減期",
+        "description": "半減期",
+        "standard_unit": "s",
+        "allowed_units": [
+          "s",
+          "min",
+          "h"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "rate_constant": "速度定数",
+      "half_life": "半減期"
+    },
+    "applicability": [
+      "初期設計・概算評価",
+      "詳細設計前の目安計算"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて詳細相関式で再確認する"
+    ],
+    "cautions": [
+      "極端条件や多相系では適用性を再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第3章 反応速度と反応操作"
+    ],
+    "function_name": "rx_half_life_first_order",
+    "keywords": [
+      "一次反応の半減期"
+    ],
+    "interpretation_hint": "応答速度や保存安定性の比較に使えます。"
+  },
+  {
+    "formula_id": "rx_half_life_second_order",
+    "name_ja": "二次反応の半減期",
+    "category": "反応工学",
+    "summary": "二次反応の半減期を計算します。",
+    "description": "二次反応の半減期を計算します。改訂六版 化学工学便覧をもとに整理した便覧レベルの設計・概算式です。",
+    "equation_latex": "t_{1/2} = 1 / (k C_{A0})",
+    "inputs": [
+      {
+        "key": "rate_constant",
+        "label_ja": "速度定数",
+        "description": "速度定数",
+        "standard_unit": "m^3/(mol*s)",
+        "allowed_units": [
+          "m^3/(mol*s)"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "initial_concentration",
+        "label_ja": "初濃度",
+        "description": "初濃度",
+        "standard_unit": "mol/m^3",
+        "allowed_units": [
+          "mol/m^3",
+          "mol/L",
+          "kmol/m^3"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "half_life",
+        "label_ja": "半減期",
+        "description": "半減期",
+        "standard_unit": "s",
+        "allowed_units": [
+          "s",
+          "min",
+          "h"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "rate_constant": "速度定数",
+      "initial_concentration": "初濃度",
+      "half_life": "半減期"
+    },
+    "applicability": [
+      "初期設計・概算評価",
+      "詳細設計前の目安計算"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて詳細相関式で再確認する"
+    ],
+    "cautions": [
+      "極端条件や多相系では適用性を再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第3章 反応速度と反応操作"
+    ],
+    "function_name": "rx_half_life_second_order",
+    "keywords": [
+      "二次反応の半減期"
+    ],
+    "interpretation_hint": "初濃度依存の大きい系の比較に使えます。"
+  },
+  {
+    "formula_id": "rx_cstr_first_order_conversion_from_tau",
+    "name_ja": "CSTR一次反応転化率",
+    "category": "反応工学",
+    "summary": "CSTR一次反応転化率を計算します。",
+    "description": "CSTR一次反応転化率を計算します。改訂六版 化学工学便覧をもとに整理した便覧レベルの設計・概算式です。",
+    "equation_latex": "X = k tau / (1 + k tau)",
+    "inputs": [
+      {
+        "key": "rate_constant",
+        "label_ja": "速度定数",
+        "description": "速度定数",
+        "standard_unit": "1/s",
+        "allowed_units": [
+          "1/s"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "space_time",
+        "label_ja": "空間時間",
+        "description": "空間時間",
+        "standard_unit": "s",
+        "allowed_units": [
+          "s",
+          "min",
+          "h"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "conversion",
+        "label_ja": "転化率",
+        "description": "転化率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction",
+          "mol%"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "rate_constant": "速度定数",
+      "space_time": "空間時間",
+      "conversion": "転化率"
+    },
+    "applicability": [
+      "初期設計・概算評価",
+      "詳細設計前の目安計算"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて詳細相関式で再確認する"
+    ],
+    "cautions": [
+      "極端条件や多相系では適用性を再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第3章 反応速度と反応操作"
+    ],
+    "function_name": "rx_cstr_first_order_conversion_from_tau",
+    "keywords": [
+      "CSTR一次反応転化率"
+    ],
+    "interpretation_hint": "槽型反応器容量の当たり付けに使えます。"
+  },
+  {
+    "formula_id": "rx_pfr_first_order_conversion_from_tau",
+    "name_ja": "PFR一次反応転化率",
+    "category": "反応工学",
+    "summary": "PFR一次反応転化率を計算します。",
+    "description": "PFR一次反応転化率を計算します。改訂六版 化学工学便覧をもとに整理した便覧レベルの設計・概算式です。",
+    "equation_latex": "X = 1 - exp(-k tau)",
+    "inputs": [
+      {
+        "key": "rate_constant",
+        "label_ja": "速度定数",
+        "description": "速度定数",
+        "standard_unit": "1/s",
+        "allowed_units": [
+          "1/s"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "space_time",
+        "label_ja": "空間時間",
+        "description": "空間時間",
+        "standard_unit": "s",
+        "allowed_units": [
+          "s",
+          "min",
+          "h"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "conversion",
+        "label_ja": "転化率",
+        "description": "転化率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction",
+          "mol%"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "rate_constant": "速度定数",
+      "space_time": "空間時間",
+      "conversion": "転化率"
+    },
+    "applicability": [
+      "初期設計・概算評価",
+      "詳細設計前の目安計算"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて詳細相関式で再確認する"
+    ],
+    "cautions": [
+      "極端条件や多相系では適用性を再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第3章 反応速度と反応操作"
+    ],
+    "function_name": "rx_pfr_first_order_conversion_from_tau",
+    "keywords": [
+      "PFR一次反応転化率"
+    ],
+    "interpretation_hint": "管型反応器の容量比較に使えます。"
+  },
+  {
+    "formula_id": "rx_space_time",
+    "name_ja": "空間時間",
+    "category": "反応工学",
+    "summary": "空間時間を計算します。",
+    "description": "空間時間を計算します。改訂六版 化学工学便覧をもとに整理した便覧レベルの設計・概算式です。",
+    "equation_latex": "tau = V / Q",
+    "inputs": [
+      {
+        "key": "reactor_volume",
+        "label_ja": "反応器容積",
+        "description": "反応器容積",
+        "standard_unit": "m^3",
+        "allowed_units": [
+          "m^3",
+          "L"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "volumetric_flow",
+        "label_ja": "体積流量",
+        "description": "体積流量",
+        "standard_unit": "m^3/s",
+        "allowed_units": [
+          "m^3/s",
+          "m^3/h",
+          "L/min"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "space_time",
+        "label_ja": "空間時間",
+        "description": "空間時間",
+        "standard_unit": "s",
+        "allowed_units": [
+          "s",
+          "min",
+          "h"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "reactor_volume": "反応器容積",
+      "volumetric_flow": "体積流量",
+      "space_time": "空間時間"
+    },
+    "applicability": [
+      "初期設計・概算評価",
+      "詳細設計前の目安計算"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて詳細相関式で再確認する"
+    ],
+    "cautions": [
+      "極端条件や多相系では適用性を再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第3章 反応速度と反応操作"
+    ],
+    "function_name": "rx_space_time",
+    "keywords": [
+      "空間時間"
+    ],
+    "interpretation_hint": "反応器サイズと処理量のバランス確認に使えます。"
+  },
+  {
+    "formula_id": "rx_space_velocity",
+    "name_ja": "空間速度",
+    "category": "反応工学",
+    "summary": "空間速度を計算します。",
+    "description": "空間速度を計算します。改訂六版 化学工学便覧をもとに整理した便覧レベルの設計・概算式です。",
+    "equation_latex": "SV = Q / V",
+    "inputs": [
+      {
+        "key": "volumetric_flow",
+        "label_ja": "体積流量",
+        "description": "体積流量",
+        "standard_unit": "m^3/s",
+        "allowed_units": [
+          "m^3/s",
+          "m^3/h",
+          "L/min"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "reactor_volume",
+        "label_ja": "反応器容積",
+        "description": "反応器容積",
+        "standard_unit": "m^3",
+        "allowed_units": [
+          "m^3",
+          "L"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "space_velocity",
+        "label_ja": "空間速度",
+        "description": "空間速度",
+        "standard_unit": "1/s",
+        "allowed_units": [
+          "1/s",
+          "1/h"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "volumetric_flow": "体積流量",
+      "reactor_volume": "反応器容積",
+      "space_velocity": "空間速度"
+    },
+    "applicability": [
+      "初期設計・概算評価",
+      "詳細設計前の目安計算"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて詳細相関式で再確認する"
+    ],
+    "cautions": [
+      "極端条件や多相系では適用性を再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第3章 反応速度と反応操作"
+    ],
+    "function_name": "rx_space_velocity",
+    "keywords": [
+      "空間速度"
+    ],
+    "interpretation_hint": "触媒反応器の能力比較に使えます。"
+  },
+  {
+    "formula_id": "rx_rate_constant_ratio",
+    "name_ja": "速度定数比",
+    "category": "反応工学",
+    "summary": "速度定数比を計算します。",
+    "description": "速度定数比を計算します。改訂六版 化学工学便覧をもとに整理した便覧レベルの設計・概算式です。",
+    "equation_latex": "k_2 / k_1 = exp[-E_a/R (1/T_2 - 1/T_1)]",
+    "inputs": [
+      {
+        "key": "activation_energy",
+        "label_ja": "活性化エネルギー",
+        "description": "活性化エネルギー",
+        "standard_unit": "J/mol",
+        "allowed_units": [
+          "J/mol",
+          "kJ/mol"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "temperature_1",
+        "label_ja": "温度1",
+        "description": "温度1",
+        "standard_unit": "K",
+        "allowed_units": [
+          "K",
+          "degC"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "temperature_2",
+        "label_ja": "温度2",
+        "description": "温度2",
+        "standard_unit": "K",
+        "allowed_units": [
+          "K",
+          "degC"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "rate_constant_ratio",
+        "label_ja": "速度定数比",
+        "description": "速度定数比",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "activation_energy": "活性化エネルギー",
+      "temperature_1": "温度1",
+      "temperature_2": "温度2",
+      "rate_constant_ratio": "速度定数比"
+    },
+    "applicability": [
+      "初期設計・概算評価",
+      "詳細設計前の目安計算"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて詳細相関式で再確認する"
+    ],
+    "cautions": [
+      "極端条件や多相系では適用性を再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第3章 反応速度と反応操作"
+    ],
+    "function_name": "rx_rate_constant_ratio",
+    "keywords": [
+      "速度定数比"
+    ],
+    "interpretation_hint": "昇温効果の感度把握に有効です。"
+  },
+  {
+    "formula_id": "rx_activation_energy_from_two_points",
+    "name_ja": "2点データから活性化エネルギー",
+    "category": "反応工学",
+    "summary": "2点データから活性化エネルギーを計算します。",
+    "description": "2点データから活性化エネルギーを計算します。改訂六版 化学工学便覧をもとに整理した便覧レベルの設計・概算式です。",
+    "equation_latex": "E_a = R ln(k_2/k_1) / (1/T_1 - 1/T_2)",
+    "inputs": [
+      {
+        "key": "rate_constant_1",
+        "label_ja": "速度定数1",
+        "description": "速度定数1",
+        "standard_unit": "1/s",
+        "allowed_units": [
+          "1/s"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "rate_constant_2",
+        "label_ja": "速度定数2",
+        "description": "速度定数2",
+        "standard_unit": "1/s",
+        "allowed_units": [
+          "1/s"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "temperature_1",
+        "label_ja": "温度1",
+        "description": "温度1",
+        "standard_unit": "K",
+        "allowed_units": [
+          "K",
+          "degC"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "temperature_2",
+        "label_ja": "温度2",
+        "description": "温度2",
+        "standard_unit": "K",
+        "allowed_units": [
+          "K",
+          "degC"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "activation_energy",
+        "label_ja": "活性化エネルギー",
+        "description": "活性化エネルギー",
+        "standard_unit": "J/mol",
+        "allowed_units": [
+          "J/mol",
+          "kJ/mol"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "rate_constant_1": "速度定数1",
+      "rate_constant_2": "速度定数2",
+      "temperature_1": "温度1",
+      "temperature_2": "温度2",
+      "activation_energy": "活性化エネルギー"
+    },
+    "applicability": [
+      "初期設計・概算評価",
+      "詳細設計前の目安計算"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて詳細相関式で再確認する"
+    ],
+    "cautions": [
+      "極端条件や多相系では適用性を再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第3章 反応速度と反応操作"
+    ],
+    "function_name": "rx_activation_energy_from_two_points",
+    "keywords": [
+      "2点データから活性化エネルギー"
+    ],
+    "interpretation_hint": "ラボデータの整合確認に使えます。"
+  },
+  {
+    "formula_id": "rx_adiabatic_temperature_rise",
+    "name_ja": "断熱温度上昇",
+    "category": "反応工学",
+    "summary": "断熱温度上昇を計算します。",
+    "description": "断熱温度上昇を計算します。改訂六版 化学工学便覧をもとに整理した便覧レベルの設計・概算式です。",
+    "equation_latex": "Delta T_{ad} = -Delta H_r C_{A0} X / (rho C_p)",
+    "inputs": [
+      {
+        "key": "heat_of_reaction",
+        "label_ja": "反応熱",
+        "description": "反応熱",
+        "standard_unit": "J/mol",
+        "allowed_units": [
+          "J/mol",
+          "kJ/mol"
+        ],
+        "positive_only": false,
+        "nonzero": false
+      },
+      {
+        "key": "initial_concentration",
+        "label_ja": "初濃度",
+        "description": "初濃度",
+        "standard_unit": "mol/m^3",
+        "allowed_units": [
+          "mol/m^3",
+          "mol/L",
+          "kmol/m^3"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "conversion",
+        "label_ja": "転化率",
+        "description": "転化率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction",
+          "mol%"
+        ],
+        "positive_only": true,
+        "nonzero": false
+      },
+      {
+        "key": "volumetric_heat_capacity",
+        "label_ja": "体積熱容量",
+        "description": "体積熱容量",
+        "standard_unit": "J/(m^3*K)",
+        "allowed_units": [
+          "J/(m^3*K)",
+          "kJ/(m^3*K)"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "temperature_rise",
+        "label_ja": "断熱温度上昇",
+        "description": "断熱温度上昇",
+        "standard_unit": "K",
+        "allowed_units": [
+          "K",
+          "degC"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "heat_of_reaction": "反応熱",
+      "initial_concentration": "初濃度",
+      "conversion": "転化率",
+      "volumetric_heat_capacity": "体積熱容量",
+      "temperature_rise": "断熱温度上昇"
+    },
+    "applicability": [
+      "初期設計・概算評価",
+      "詳細設計前の目安計算"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて詳細相関式で再確認する"
+    ],
+    "cautions": [
+      "極端条件や多相系では適用性を再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第3章 反応速度と反応操作"
+    ],
+    "function_name": "rx_adiabatic_temperature_rise",
+    "keywords": [
+      "断熱温度上昇"
+    ],
+    "interpretation_hint": "発熱反応の温度上昇余裕確認に使えます。"
+  },
+  {
+    "formula_id": "rx_vant_hoff_equilibrium_constant",
+    "name_ja": "van't Hoff式",
+    "category": "反応工学",
+    "summary": "van't Hoff式を計算します。",
+    "description": "van't Hoff式を計算します。改訂六版 化学工学便覧をもとに整理した便覧レベルの設計・概算式です。",
+    "equation_latex": "K_2 = K_1 exp[-Delta H/R (1/T_2 - 1/T_1)]",
+    "inputs": [
+      {
+        "key": "equilibrium_constant_1",
+        "label_ja": "平衡定数1",
+        "description": "平衡定数1",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "reaction_enthalpy",
+        "label_ja": "反応エンタルピー",
+        "description": "反応エンタルピー",
+        "standard_unit": "J/mol",
+        "allowed_units": [
+          "J/mol",
+          "kJ/mol"
+        ],
+        "positive_only": false,
+        "nonzero": false
+      },
+      {
+        "key": "temperature_1",
+        "label_ja": "温度1",
+        "description": "温度1",
+        "standard_unit": "K",
+        "allowed_units": [
+          "K",
+          "degC"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "temperature_2",
+        "label_ja": "温度2",
+        "description": "温度2",
+        "standard_unit": "K",
+        "allowed_units": [
+          "K",
+          "degC"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "equilibrium_constant_2",
+        "label_ja": "平衡定数2",
+        "description": "平衡定数2",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "equilibrium_constant_1": "平衡定数1",
+      "reaction_enthalpy": "反応エンタルピー",
+      "temperature_1": "温度1",
+      "temperature_2": "温度2",
+      "equilibrium_constant_2": "平衡定数2"
+    },
+    "applicability": [
+      "初期設計・概算評価",
+      "詳細設計前の目安計算"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて詳細相関式で再確認する"
+    ],
+    "cautions": [
+      "極端条件や多相系では適用性を再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第3章 反応速度と反応操作"
+    ],
+    "function_name": "rx_vant_hoff_equilibrium_constant",
+    "keywords": [
+      "van't Hoff式"
+    ],
+    "interpretation_hint": "温度変更時の平衡シフトの把握に使えます。"
+  },
+  {
+    "formula_id": "rx_pfr_volume_from_rate",
+    "name_ja": "PFR必要容積",
+    "category": "反応工学",
+    "summary": "PFR必要容積を計算します。",
+    "description": "PFR必要容積を計算します。改訂六版 化学工学便覧をもとに整理した便覧レベルの設計・概算式です。",
+    "equation_latex": "V = F_{A0} X / r_A",
+    "inputs": [
+      {
+        "key": "molar_feed",
+        "label_ja": "供給モル流量",
+        "description": "供給モル流量",
+        "standard_unit": "mol/s",
+        "allowed_units": [
+          "mol/s",
+          "kmol/h"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "conversion",
+        "label_ja": "転化率",
+        "description": "転化率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction",
+          "mol%"
+        ],
+        "positive_only": true,
+        "nonzero": false
+      },
+      {
+        "key": "reaction_rate",
+        "label_ja": "反応速度",
+        "description": "反応速度",
+        "standard_unit": "mol/(m^3*s)",
+        "allowed_units": [
+          "mol/(m^3*s)"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "reactor_volume",
+        "label_ja": "必要容積",
+        "description": "必要容積",
+        "standard_unit": "m^3",
+        "allowed_units": [
+          "m^3",
+          "L"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "molar_feed": "供給モル流量",
+      "conversion": "転化率",
+      "reaction_rate": "反応速度",
+      "reactor_volume": "必要容積"
+    },
+    "applicability": [
+      "初期設計・概算評価",
+      "詳細設計前の目安計算"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて詳細相関式で再確認する"
+    ],
+    "cautions": [
+      "極端条件や多相系では適用性を再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第3章 反応速度と反応操作"
+    ],
+    "function_name": "rx_pfr_volume_from_rate",
+    "keywords": [
+      "PFR必要容積"
+    ],
+    "interpretation_hint": "PFRの粗い容量見積りに使えます。"
+  },
+  {
+    "formula_id": "rx_cstr_volume_from_rate",
+    "name_ja": "CSTR必要容積",
+    "category": "反応工学",
+    "summary": "CSTR必要容積を計算します。",
+    "description": "CSTR必要容積を計算します。改訂六版 化学工学便覧をもとに整理した便覧レベルの設計・概算式です。",
+    "equation_latex": "V = F_{A0} X / r_A",
+    "inputs": [
+      {
+        "key": "molar_feed",
+        "label_ja": "供給モル流量",
+        "description": "供給モル流量",
+        "standard_unit": "mol/s",
+        "allowed_units": [
+          "mol/s",
+          "kmol/h"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "conversion",
+        "label_ja": "転化率",
+        "description": "転化率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction",
+          "mol%"
+        ],
+        "positive_only": true,
+        "nonzero": false
+      },
+      {
+        "key": "reaction_rate",
+        "label_ja": "反応速度",
+        "description": "反応速度",
+        "standard_unit": "mol/(m^3*s)",
+        "allowed_units": [
+          "mol/(m^3*s)"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "reactor_volume",
+        "label_ja": "必要容積",
+        "description": "必要容積",
+        "standard_unit": "m^3",
+        "allowed_units": [
+          "m^3",
+          "L"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "molar_feed": "供給モル流量",
+      "conversion": "転化率",
+      "reaction_rate": "反応速度",
+      "reactor_volume": "必要容積"
+    },
+    "applicability": [
+      "初期設計・概算評価",
+      "詳細設計前の目安計算"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて詳細相関式で再確認する"
+    ],
+    "cautions": [
+      "極端条件や多相系では適用性を再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第3章 反応速度と反応操作"
+    ],
+    "function_name": "rx_cstr_volume_from_rate",
+    "keywords": [
+      "CSTR必要容積"
+    ],
+    "interpretation_hint": "CSTRの粗い容量見積りに使えます。"
+  },
+  {
+    "formula_id": "rx_batch_time_constant_rate",
+    "name_ja": "回分反応時間",
+    "category": "反応工学",
+    "summary": "回分反応時間を計算します。",
+    "description": "回分反応時間を計算します。改訂六版 化学工学便覧をもとに整理した便覧レベルの設計・概算式です。",
+    "equation_latex": "t = C_{A0} X / r_A",
+    "inputs": [
+      {
+        "key": "initial_concentration",
+        "label_ja": "初濃度",
+        "description": "初濃度",
+        "standard_unit": "mol/m^3",
+        "allowed_units": [
+          "mol/m^3",
+          "mol/L",
+          "kmol/m^3"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "conversion",
+        "label_ja": "転化率",
+        "description": "転化率",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction",
+          "mol%"
+        ],
+        "positive_only": true,
+        "nonzero": false
+      },
+      {
+        "key": "reaction_rate",
+        "label_ja": "反応速度",
+        "description": "反応速度",
+        "standard_unit": "mol/(m^3*s)",
+        "allowed_units": [
+          "mol/(m^3*s)"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "reaction_time",
+        "label_ja": "反応時間",
+        "description": "反応時間",
+        "standard_unit": "s",
+        "allowed_units": [
+          "s",
+          "min",
+          "h"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "initial_concentration": "初濃度",
+      "conversion": "転化率",
+      "reaction_rate": "反応速度",
+      "reaction_time": "反応時間"
+    },
+    "applicability": [
+      "初期設計・概算評価",
+      "詳細設計前の目安計算"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて詳細相関式で再確認する"
+    ],
+    "cautions": [
+      "極端条件や多相系では適用性を再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第3章 反応速度と反応操作"
+    ],
+    "function_name": "rx_batch_time_constant_rate",
+    "keywords": [
+      "回分反応時間"
+    ],
+    "interpretation_hint": "バッチ時間の初期試算に使えます。"
+  },
+  {
+    "formula_id": "rx_thiele_modulus_slab",
+    "name_ja": "Thiele数（平板）",
+    "category": "反応工学",
+    "summary": "Thiele数（平板）を計算します。",
+    "description": "Thiele数（平板）を計算します。改訂六版 化学工学便覧をもとに整理した便覧レベルの設計・概算式です。",
+    "equation_latex": "phi = L sqrt(k / D_e)",
+    "inputs": [
+      {
+        "key": "characteristic_length",
+        "label_ja": "代表長さ",
+        "description": "代表長さ",
+        "standard_unit": "m",
+        "allowed_units": [
+          "m",
+          "mm",
+          "cm"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "rate_constant",
+        "label_ja": "速度定数",
+        "description": "速度定数",
+        "standard_unit": "1/s",
+        "allowed_units": [
+          "1/s"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "effective_diffusivity",
+        "label_ja": "有効拡散係数",
+        "description": "有効拡散係数",
+        "standard_unit": "m^2/s",
+        "allowed_units": [
+          "m^2/s"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "thiele_modulus",
+        "label_ja": "Thiele数",
+        "description": "Thiele数",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "characteristic_length": "代表長さ",
+      "rate_constant": "速度定数",
+      "effective_diffusivity": "有効拡散係数",
+      "thiele_modulus": "Thiele数"
+    },
+    "applicability": [
+      "初期設計・概算評価",
+      "詳細設計前の目安計算"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて詳細相関式で再確認する"
+    ],
+    "cautions": [
+      "極端条件や多相系では適用性を再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第3章 反応速度と反応操作"
+    ],
+    "function_name": "rx_thiele_modulus_slab",
+    "keywords": [
+      "Thiele数（平板）"
+    ],
+    "interpretation_hint": "内拡散制限の目安です。"
+  },
+  {
+    "formula_id": "rx_effectiveness_factor_slab",
+    "name_ja": "有効係数（平板）",
+    "category": "反応工学",
+    "summary": "有効係数（平板）を計算します。",
+    "description": "有効係数（平板）を計算します。改訂六版 化学工学便覧をもとに整理した便覧レベルの設計・概算式です。",
+    "equation_latex": "eta = tanh(phi) / phi",
+    "inputs": [
+      {
+        "key": "thiele_modulus",
+        "label_ja": "Thiele数",
+        "description": "Thiele数",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "effectiveness_factor",
+        "label_ja": "有効係数",
+        "description": "有効係数",
+        "standard_unit": "fraction",
+        "allowed_units": [
+          "fraction"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "thiele_modulus": "Thiele数",
+      "effectiveness_factor": "有効係数"
+    },
+    "applicability": [
+      "初期設計・概算評価",
+      "詳細設計前の目安計算"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて詳細相関式で再確認する"
+    ],
+    "cautions": [
+      "極端条件や多相系では適用性を再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第3章 反応速度と反応操作"
+    ],
+    "function_name": "rx_effectiveness_factor_slab",
+    "keywords": [
+      "有効係数（平板）"
+    ],
+    "interpretation_hint": "1に近いほど拡散影響が小さいことを示します。"
+  },
+  {
+    "formula_id": "rx_heat_generation_rate",
+    "name_ja": "反応発熱速度",
+    "category": "反応工学",
+    "summary": "反応発熱速度を計算します。",
+    "description": "反応発熱速度を計算します。改訂六版 化学工学便覧をもとに整理した便覧レベルの設計・概算式です。",
+    "equation_latex": "Q_{gen} = -Delta H_r r V",
+    "inputs": [
+      {
+        "key": "heat_of_reaction",
+        "label_ja": "反応熱",
+        "description": "反応熱",
+        "standard_unit": "J/mol",
+        "allowed_units": [
+          "J/mol",
+          "kJ/mol"
+        ],
+        "positive_only": false,
+        "nonzero": false
+      },
+      {
+        "key": "reaction_rate",
+        "label_ja": "反応速度",
+        "description": "反応速度",
+        "standard_unit": "mol/(m^3*s)",
+        "allowed_units": [
+          "mol/(m^3*s)"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "reactor_volume",
+        "label_ja": "反応器容積",
+        "description": "反応器容積",
+        "standard_unit": "m^3",
+        "allowed_units": [
+          "m^3",
+          "L"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "heat_generation_rate",
+        "label_ja": "発熱速度",
+        "description": "発熱速度",
+        "standard_unit": "W",
+        "allowed_units": [
+          "W",
+          "kW"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "heat_of_reaction": "反応熱",
+      "reaction_rate": "反応速度",
+      "reactor_volume": "反応器容積",
+      "heat_generation_rate": "発熱速度"
+    },
+    "applicability": [
+      "初期設計・概算評価",
+      "詳細設計前の目安計算"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて詳細相関式で再確認する"
+    ],
+    "cautions": [
+      "極端条件や多相系では適用性を再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第3章 反応速度と反応操作"
+    ],
+    "function_name": "rx_heat_generation_rate",
+    "keywords": [
+      "反応発熱速度"
+    ],
+    "interpretation_hint": "除熱設備能力との比較に使えます。"
+  },
+  {
+    "formula_id": "rx_heat_removal_rate",
+    "name_ja": "除熱速度",
+    "category": "反応工学",
+    "summary": "除熱速度を計算します。",
+    "description": "除熱速度を計算します。改訂六版 化学工学便覧をもとに整理した便覧レベルの設計・概算式です。",
+    "equation_latex": "Q_{rem} = U A Delta T",
+    "inputs": [
+      {
+        "key": "overall_heat_transfer_coefficient",
+        "label_ja": "総括伝熱係数",
+        "description": "総括伝熱係数",
+        "standard_unit": "W/(m^2*K)",
+        "allowed_units": [
+          "W/(m^2*K)"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "area",
+        "label_ja": "伝熱面積",
+        "description": "伝熱面積",
+        "standard_unit": "m^2",
+        "allowed_units": [
+          "m^2",
+          "cm^2"
+        ],
+        "positive_only": true,
+        "nonzero": true
+      },
+      {
+        "key": "temperature_difference",
+        "label_ja": "温度差",
+        "description": "温度差",
+        "standard_unit": "K",
+        "allowed_units": [
+          "K",
+          "degC"
+        ],
+        "positive_only": true,
+        "nonzero": true,
+        "is_temperature_difference": true
+      }
+    ],
+    "outputs": [
+      {
+        "key": "heat_removal_rate",
+        "label_ja": "除熱速度",
+        "description": "除熱速度",
+        "standard_unit": "W",
+        "allowed_units": [
+          "W",
+          "kW"
+        ],
+        "required": false
+      }
+    ],
+    "variable_definitions": {
+      "overall_heat_transfer_coefficient": "総括伝熱係数",
+      "area": "伝熱面積",
+      "temperature_difference": "温度差",
+      "heat_removal_rate": "除熱速度"
+    },
+    "applicability": [
+      "初期設計・概算評価",
+      "詳細設計前の目安計算"
+    ],
+    "assumptions": [
+      "代表値・平均値で評価する",
+      "必要に応じて詳細相関式で再確認する"
+    ],
+    "cautions": [
+      "極端条件や多相系では適用性を再確認する"
+    ],
+    "references": [
+      "改訂六版 化学工学便覧 第3章 反応速度と反応操作"
+    ],
+    "function_name": "rx_heat_removal_rate",
+    "keywords": [
+      "除熱速度"
+    ],
+    "interpretation_hint": "温度制御余裕の確認に使えます。"
+  }
+]

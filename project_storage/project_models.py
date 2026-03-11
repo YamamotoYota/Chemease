@@ -36,5 +36,7 @@ class CalculationCase(BaseModel):
     warnings: list[str] = Field(default_factory=list)
     selected_properties: dict[str, str] = Field(default_factory=dict)
     overridden_properties: dict[str, dict[str, float | str]] = Field(default_factory=dict)
+    calculation_mode: str = "forward"
+    solve_metadata: dict[str, float | str] = Field(default_factory=dict)
     created_at: datetime
     updated_at: datetime
