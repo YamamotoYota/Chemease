@@ -42,6 +42,7 @@ def main() -> int:
         "streamlit",
         "run",
         app_path,
+        "--global.developmentMode=false",
         "--server.headless=true",
         f"--server.port={port}",
         "--browser.gatherUsageStats=false",

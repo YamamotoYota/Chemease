@@ -19,3 +19,8 @@ def test_build_script_uses_script_directory_and_python_module_entrypoints() -> N
     assert "$MyInvocation.MyCommand.Path" in text
     assert "-m', 'PyInstaller'" in text
     assert "-r', 'requirements.txt'" in text
+
+
+def test_launcher_disables_streamlit_development_mode() -> None:
+    text = Path("launcher.py").read_text(encoding="utf-8")
+    assert "--global.developmentMode=false" in text
