@@ -12,6 +12,9 @@ def test_spec_file_is_root_relative() -> None:
     text = Path("Chemease.spec").read_text(encoding="utf-8")
     assert "Path(SPECPATH).resolve()" in text
     assert "Path.cwd()" not in text
+    assert "iter_first_party_packages" in text
+    assert "discover_first_party_modules" in text
+    assert "datas.append((str(project_root / package_name), package_name))" in text
 
 
 def test_build_script_uses_script_directory_and_python_module_entrypoints() -> None:
