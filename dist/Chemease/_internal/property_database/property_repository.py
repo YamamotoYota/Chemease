@@ -9,10 +9,11 @@ import json
 from pathlib import Path
 
 from property_database.property_models import PropertyRecord
+from runtime_paths import get_custom_property_data_path, get_property_data_path
 
 
-BASE_PROPERTY_DATA_PATH = Path(__file__).resolve().parent.parent / "data" / "properties" / "substances.json"
-CUSTOM_PROPERTY_DATA_PATH = Path(__file__).resolve().parent.parent / "projects" / "custom_properties.json"
+BASE_PROPERTY_DATA_PATH = get_property_data_path()
+CUSTOM_PROPERTY_DATA_PATH = get_custom_property_data_path()
 
 
 class PropertyRepository:
@@ -23,8 +24,8 @@ class PropertyRepository:
         base_path: Path | None = None,
         custom_path: Path | None = None,
     ) -> None:
-        self.base_path = base_path or BASE_PROPERTY_DATA_PATH
-        self.custom_path = custom_path or CUSTOM_PROPERTY_DATA_PATH
+        self.base_path = base_path or get_property_data_path()
+        self.custom_path = custom_path or get_custom_property_data_path()
         self.custom_path.parent.mkdir(parents=True, exist_ok=True)
 
     def load_base_records(self) -> list[PropertyRecord]:

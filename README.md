@@ -93,6 +93,7 @@
 Chemease/
 ├─ app.py
 ├─ launcher.py
+├─ runtime_paths.py
 ├─ requirements.txt
 ├─ requirements-build.txt
 ├─ README.md
@@ -165,9 +166,7 @@ Chemease/
 │  │  └─ substances.json
 │  └─ sample_cases.json
 ├─ projects/
-│  ├─ .gitkeep
-│  ├─ custom_formulas.json
-│  └─ custom_properties.json
+│  └─ .gitkeep
 └─ tests/
    ├─ test_units.py
    ├─ test_custom_formula_features.py
@@ -222,6 +221,19 @@ streamlit run app.py
 - GUI 編集可能なカスタム式 DB
 - 単一出力式の逆算モード
 
+ユーザーデータの保存先は、ソース実行でも実行ファイルでも書き込み可能なユーザー領域に自動で切り替わります。
+
+- Windows: `%LOCALAPPDATA%\\Chemease`
+- macOS: `~/Library/Application Support/Chemease`
+- Linux: `${XDG_DATA_HOME:-~/.local/share}/Chemease`
+
+保存先を明示的に切り替えたい場合は、起動前に `CHEMEASE_USER_DATA_DIR` を設定してください。
+
+```powershell
+$env:CHEMEASE_USER_DATA_DIR = 'D:\ChemeaseData'
+streamlit run app.py
+```
+
 ### 実行ファイル
 
 ローカルビルド済みの Windows 実行ファイルは以下に出力されます。
@@ -244,7 +256,7 @@ python -m pip install -r requirements-build.txt
 python -m PyInstaller --noconfirm --clean Chemease.spec
 ```
 
-`build_exe.ps1` はスクリプト自身の配置場所を起点に動作するため、PowerShell の現在ディレクトリがリポジトリ直下でなくても実行できます。`launcher.py` が Streamlit サーバを起動し、ブラウザで `http://127.0.0.1:8501` を開きます。
+`build_exe.ps1` はスクリプト自身の配置場所を起点に動作するため、PowerShell の現在ディレクトリがリポジトリ直下でなくても実行できます。`launcher.py` は利用可能なローカルポートを自動選択して Streamlit サーバを起動し、ブラウザを開きます。実行ファイルには基礎データだけを同梱し、案件 DB やカスタム式・カスタム物性はユーザーごとの保存先へ書き込みます。
 
 ## テスト方法
 

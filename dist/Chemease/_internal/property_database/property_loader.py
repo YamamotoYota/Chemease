@@ -9,15 +9,16 @@ import json
 from pathlib import Path
 
 from property_database.property_models import PropertyRecord
+from runtime_paths import get_property_data_path
 
 
-PROPERTY_DATA_PATH = Path(__file__).resolve().parent.parent / "data" / "properties" / "substances.json"
+PROPERTY_DATA_PATH = get_property_data_path()
 
 
 def load_property_records(path: Path | None = None) -> list[PropertyRecord]:
     """Load all property records from the JSON data file."""
 
-    target_path = path or PROPERTY_DATA_PATH
+    target_path = path or get_property_data_path()
     raw_items = json.loads(target_path.read_text(encoding="utf-8"))
     return [PropertyRecord.model_validate(item) for item in raw_items]
 

@@ -12,6 +12,7 @@ import streamlit as st
 
 from formula_registry.models import FormulaDefinition, ValidationMessage
 from property_database.property_models import PROPERTY_FIELD_DEFINITIONS, PropertyRecord
+from ui.layout import render_empty_state, render_section_header
 
 
 PROPERTY_KEYS = [
@@ -22,6 +23,7 @@ PROPERTY_KEYS = [
     "thermal_conductivity",
     "latent_heat",
 ]
+PROPERTY_LABELS = {key: label for key, label, _ in PROPERTY_FIELD_DEFINITIONS}
 
 
 def get_effective_property_entry(
@@ -48,13 +50,12 @@ def property_record_to_dataframe(
     """Convert a property record into a display table."""
 
     rows: list[dict[str, Any]] = []
-    labels = {key: label for key, label, _ in PROPERTY_FIELD_DEFINITIONS}
     for key, _, _ in PROPERTY_FIELD_DEFINITIONS:
         entry = get_effective_property_entry(record, key, overrides)
         if entry is None:
             continue
         value, unit, note = entry
-        rows.append({"物性": labels[key], "値": value, "単位": unit, "備考": note})
+        rows.append({"物性": PROPERTY_LABELS[key], "値": value, "単位": unit, "備考": note})
     rows.extend(
         [
             {"物性": "相・代表状態", "値": record.phase_reference, "単位": "", "備考": ""},
@@ -68,28 +69,29 @@ def property_record_to_dataframe(
 def render_formula_information(definition: FormulaDefinition) -> None:
     """Render rich explanatory content for a formula."""
 
-    st.subheader(definition.name_ja)
-    st.caption(f"カテゴリ: {definition.category}")
-    st.write(definition.summary)
+    render_section_header(
+        definition.name_ja,
+        f"{definition.summary} カテゴリは「{definition.category}」です。",
+    )
     st.write(definition.description)
     st.latex(definition.equation_latex)
     if definition.is_user_defined and definition.expression:
-        st.caption("ユーザー定義 expression")
+        st.caption("この式はユーザー登録の expression から計算されます。")
         st.code(definition.expression, language="python")
 
     with st.expander("式の説明と前提", expanded=True):
-        st.markdown("**適用条件**")
-        for item in definition.applicability:
-            st.markdown(f"- {item}")
-        st.markdown("**前提**")
-        for item in definition.assumptions:
-            st.markdown(f"- {item}")
-        st.markdown("**注意事項・よくある誤用**")
-        for item in definition.cautions:
-            st.markdown(f"- {item}")
-        st.markdown("**参考情報**")
-        for item in definition.references:
-            st.markdown(f"- {item}")
+        for title, items, empty_text in [
+            ("適用条件", definition.applicability, "適用条件はまだ登録されていません。入力条件の妥当性を個別に確認してください。"),
+            ("前提", definition.assumptions, "前提条件はまだ登録されていません。式の想定範囲を便覧や元資料で確認してください。"),
+            ("注意事項・よくある誤用", definition.cautions, "特記事項はまだありません。単位と圧力基準の取り違えに注意してください。"),
+            ("参考情報", definition.references, "参考情報はまだ登録されていません。"),
+        ]:
+            st.markdown(f"**{title}**")
+            if items:
+                for item in items:
+                    st.markdown(f"- {item}")
+            else:
+                render_empty_state(title, empty_text)
 
     with st.expander("変数の意味", expanded=False):
         rows = []
@@ -104,6 +106,7 @@ def render_formula_information(definition: FormulaDefinition) -> None:
                 }
             )
         st.dataframe(pd.DataFrame(rows), use_container_width=True, hide_index=True)
+        st.caption("まず説明欄で変数の意味を確認し、そのあと単位を選んで値を入力すると取り違えを防ぎやすくなります。")
 
 
 def render_messages(messages: list[ValidationMessage]) -> None:

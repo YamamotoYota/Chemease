@@ -8,8 +8,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from formula_registry.loader import CUSTOM_FORMULA_DATA_PATH, FORMULA_DATA_DIR
 from formula_registry.models import FormulaDefinition
+from runtime_paths import get_custom_formula_data_path, get_formula_data_dir
 
 
 class CustomFormulaRepository:
@@ -20,8 +20,8 @@ class CustomFormulaRepository:
         custom_path: Path | None = None,
         base_dir: Path | None = None,
     ) -> None:
-        self.custom_path = custom_path or CUSTOM_FORMULA_DATA_PATH
-        self.base_dir = base_dir or FORMULA_DATA_DIR
+        self.custom_path = custom_path or get_custom_formula_data_path()
+        self.base_dir = base_dir or get_formula_data_dir()
         self.custom_path.parent.mkdir(parents=True, exist_ok=True)
 
     def load_custom_formulas(self) -> list[FormulaDefinition]:

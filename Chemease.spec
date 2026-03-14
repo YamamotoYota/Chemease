@@ -51,13 +51,24 @@ def discover_first_party_modules(root: Path, package_names: list[str]) -> list[s
     return sorted(set(module_names))
 
 
+def filter_hiddenimports(module_names: list[str]) -> list[str]:
+    """Drop package-internal tests and benchmarks from bundled hidden imports."""
+
+    filtered: list[str] = []
+    blocked_tokens = (".tests", ".benchmarks", ".conftest")
+    for module_name in module_names:
+        if any(token in module_name for token in blocked_tokens):
+            continue
+        filtered.append(module_name)
+    return filtered
+
+
 first_party_packages = iter_first_party_packages(project_root)
 first_party_hiddenimports = discover_first_party_modules(project_root, first_party_packages)
 
 datas: list[tuple[str, str]] = [
     (str(project_root / "app.py"), "."),
     (str(project_root / "data"), "data"),
-    (str(project_root / "projects"), "projects"),
     (str(project_root / "LICENSE"), "."),
     (str(project_root / "README.md"), "."),
 ]
@@ -71,7 +82,7 @@ for package_name in ["streamlit", "altair", "pydeck", "pandas", "pydantic", "pin
     collected_datas, collected_binaries, collected_hiddenimports = collect_all(package_name)
     datas += collected_datas
     binaries += collected_binaries
-    hiddenimports += collected_hiddenimports
+    hiddenimports += filter_hiddenimports(collected_hiddenimports)
 
 hiddenimports = sorted(set(hiddenimports))
 

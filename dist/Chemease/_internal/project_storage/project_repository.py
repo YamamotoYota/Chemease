@@ -12,16 +12,17 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from project_storage.project_models import CalculationCase, Project
+from runtime_paths import get_project_db_path
 
 
-DEFAULT_DB_PATH = Path(__file__).resolve().parent.parent / "projects" / "chemease.db"
+DEFAULT_DB_PATH = get_project_db_path()
 
 
 class ProjectRepository:
     """Persist projects and cases in SQLite."""
 
     def __init__(self, db_path: Path | None = None) -> None:
-        self.db_path = db_path or DEFAULT_DB_PATH
+        self.db_path = db_path or get_project_db_path()
         self.db_path.parent.mkdir(parents=True, exist_ok=True)
         self._initialize()
 
