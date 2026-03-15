@@ -12,8 +12,12 @@ def test_spec_file_is_root_relative() -> None:
     text = Path("Chemease.spec").read_text(encoding="utf-8")
     assert "Path(SPECPATH).resolve()" in text
     assert "Path.cwd()" not in text
+    assert "iter_first_party_module_files" in text
     assert "iter_first_party_packages" in text
     assert "discover_first_party_modules" in text
+    assert 'if path.name == "launcher.py"' in text
+    assert "for module_path in first_party_module_files:" in text
+    assert 'datas.append((str(module_path), "."))' in text
     assert "filter_hiddenimports" in text
     assert "datas.append((str(project_root / package_name), package_name))" in text
     assert '(str(project_root / "projects"), "projects")' not in text

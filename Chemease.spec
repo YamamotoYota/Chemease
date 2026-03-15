@@ -22,6 +22,17 @@ excluded_top_level_dirs = {
 }
 
 
+def iter_first_party_module_files(root: Path) -> list[Path]:
+    """Return root-level Python modules that the bundled app script imports directly."""
+
+    module_paths: list[Path] = []
+    for path in root.glob("*.py"):
+        if path.name == "launcher.py":
+            continue
+        module_paths.append(path)
+    return sorted(module_paths)
+
+
 def iter_first_party_packages(root: Path) -> list[str]:
     """Return top-level local packages that must be bundled with the app."""
 
@@ -63,17 +74,20 @@ def filter_hiddenimports(module_names: list[str]) -> list[str]:
     return filtered
 
 
+first_party_module_files = iter_first_party_module_files(project_root)
 first_party_packages = iter_first_party_packages(project_root)
 first_party_hiddenimports = discover_first_party_modules(project_root, first_party_packages)
 
 datas: list[tuple[str, str]] = [
-    (str(project_root / "app.py"), "."),
     (str(project_root / "data"), "data"),
     (str(project_root / "LICENSE"), "."),
     (str(project_root / "README.md"), "."),
 ]
 binaries: list[tuple[str, str]] = []
 hiddenimports: list[str] = list(first_party_hiddenimports)
+
+for module_path in first_party_module_files:
+    datas.append((str(module_path), "."))
 
 for package_name in first_party_packages:
     datas.append((str(project_root / package_name), package_name))
