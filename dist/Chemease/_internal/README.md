@@ -165,7 +165,8 @@ Chemease/
 │  ├─ properties/
 │  │  └─ substances.json
 │  └─ sample_cases.json
-├─ projects/
+├─ workspace/                  # 実行時に生成される共有データ保存先
+├─ projects/                   # 旧保存先。初回起動時に workspace へ移行
 │  └─ .gitkeep
 └─ tests/
    ├─ test_units.py
@@ -221,16 +222,17 @@ streamlit run app.py
 - GUI 編集可能なカスタム式 DB
 - 単一出力式の逆算モード
 
-ユーザーデータの保存先は、ソース実行でも実行ファイルでも書き込み可能なユーザー領域に自動で切り替わります。
+Chemease は、基礎データをアプリ同梱の読み取り専用領域から読み込み、案件 DB やカスタム式・カスタム物性はアプリ直下の共有用フォルダへ保存します。
 
-- Windows: `%LOCALAPPDATA%\\Chemease`
-- macOS: `~/Library/Application Support/Chemease`
-- Linux: `${XDG_DATA_HOME:-~/.local/share}/Chemease`
+- 既定の保存先: `workspace/`
+- 案件 DB: `workspace/chemease.db`
+- カスタム式: `workspace/custom_formulas.json`
+- カスタム物性: `workspace/custom_properties.json`
 
-保存先を明示的に切り替えたい場合は、起動前に `CHEMEASE_USER_DATA_DIR` を設定してください。
+保存先を明示的に切り替えたい場合は、起動前に `CHEMEASE_DATA_DIR` を設定してください。相対パスを指定した場合は、Chemease の配置フォルダ起点で解決されます。旧 `CHEMEASE_USER_DATA_DIR` も互換目的で引き続き利用できます。
 
 ```powershell
-$env:CHEMEASE_USER_DATA_DIR = 'D:\ChemeaseData'
+$env:CHEMEASE_DATA_DIR = 'D:\Shared\ChemeaseData'
 streamlit run app.py
 ```
 
@@ -256,7 +258,7 @@ python -m pip install -r requirements-build.txt
 python -m PyInstaller --noconfirm --clean Chemease.spec
 ```
 
-`build_exe.ps1` はスクリプト自身の配置場所を起点に動作するため、PowerShell の現在ディレクトリがリポジトリ直下でなくても実行できます。`launcher.py` は利用可能なローカルポートを自動選択して Streamlit サーバを起動し、ブラウザを開きます。実行ファイルには基礎データだけを同梱し、案件 DB やカスタム式・カスタム物性はユーザーごとの保存先へ書き込みます。
+`build_exe.ps1` はスクリプト自身の配置場所を起点に動作するため、PowerShell の現在ディレクトリがリポジトリ直下でなくても実行できます。`launcher.py` は利用可能なローカルポートを自動選択して Streamlit サーバを起動し、ブラウザを開きます。実行ファイルには基礎データだけを同梱し、案件 DB やカスタム式・カスタム物性は実行ファイルと同じ場所にある `workspace/`、または `CHEMEASE_DATA_DIR` で指定した共有先へ書き込みます。
 
 ## テスト方法
 
@@ -275,10 +277,10 @@ python -m pytest -q
 
 ## 物性 DB 更新方法
 
-物性 DB は、同梱 DB とユーザー編集 DB の 2 層構造です。
+物性 DB は、同梱 DB と共有ワークスペース上の編集 DB の 2 層構造です。
 
 - 同梱 DB: `data/properties/substances.json`
-- ユーザー編集 DB: `projects/custom_properties.json`
+- ユーザー編集 DB: `workspace/custom_properties.json`
 
 同梱 DB の大部分は、`Property.xlsx` をもとに整形しています。
 
@@ -289,7 +291,7 @@ python -m pytest -q
 3. `新規登録` または `既存編集` を選ぶ
 4. 物質名、別名、物性値、単位、出典、備考を入力する
 5. `DBへ保存` を押す
-6. ユーザー登録レコードは `projects/custom_properties.json` に保存される
+6. ユーザー登録レコードは `workspace/custom_properties.json` に保存される
 
 同じ `substance_id` を保存した場合、同梱 DB よりカスタム DB の値が優先されます。
 
@@ -339,7 +341,7 @@ python scripts/import_property_excel.py --excel "C:\path\to\Property.xlsx"
 3. 式名、カテゴリ、LaTeX、expression を入力する
 4. 入力変数と出力変数のキー、単位、制約を設定する
 5. `式を保存` を押す
-6. 保存先は `projects/custom_formulas.json`
+6. 保存先は `workspace/custom_formulas.json`
 
 現在の GUI 登録式は、単一出力の expression ベース式に対応しています。expression には入力変数キーのみを使います。
 
@@ -364,7 +366,7 @@ density * velocity * diameter / viscosity
 - `data/formulas/reaction.json`
 - `data/formulas/particles.json`
 - `data/formulas/basic.json`
-- `projects/custom_formulas.json`（GUI 管理式）
+- `workspace/custom_formulas.json`（GUI 管理式）
 
 最低限、以下を追加します。
 
@@ -402,7 +404,7 @@ density * velocity * diameter / viscosity
 
 保存先 DB:
 
-- `projects/chemease.db`
+- `workspace/chemease.db`
 
 ### 保存対象
 
@@ -442,9 +444,9 @@ density * velocity * diameter / viscosity
 ## サンプルデータ
 
 - 式定義: `data/formulas/*.json`
-- ユーザー式 DB: `projects/custom_formulas.json`
+- ユーザー式 DB: `workspace/custom_formulas.json`
 - 物性 DB: `data/properties/substances.json`
-- ユーザー物性 DB: `projects/custom_properties.json`
+- ユーザー物性 DB: `workspace/custom_properties.json`
 - Excel 取込スクリプト: `scripts/import_property_excel.py`
 - サンプルケース: `data/sample_cases.json`
 
@@ -468,5 +470,5 @@ density * velocity * diameter / viscosity
 
 - 多くの式は便覧レベルの簡易式、近似式です。
 - 物性値は代表値、参考値です。
-- GUI で編集した物性 DB はローカルの `projects/custom_properties.json` に保存されます。
+- GUI で編集した物性 DB は共有ワークスペースの `workspace/custom_properties.json` に保存されます。
 - 実機設計、法規対応、最終仕様決定では、必ず対象条件に合う最新データ、詳細設計式、実測値をご確認ください。

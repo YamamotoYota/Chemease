@@ -13,4 +13,4 @@ build/
 .streamlit/
 projects/*.db
 projects/*.sqlite3
-
+workspace/

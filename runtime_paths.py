@@ -13,11 +13,12 @@ from pathlib import Path
 
 
 APP_NAME = "Chemease"
+ENV_DATA_DIR = "CHEMEASE_DATA_DIR"
 ENV_USER_DATA_DIR = "CHEMEASE_USER_DATA_DIR"
 LEGACY_USER_DATA_FILENAMES = ("custom_formulas.json", "custom_properties.json", "chemease.db")
 
 
-def get_bundle_root() -> Path:
+def get_resource_root() -> Path:
     """Return the directory that contains bundled read-only resources."""
 
     if getattr(sys, "_MEIPASS", None):
@@ -25,8 +26,22 @@ def get_bundle_root() -> Path:
     return Path(__file__).resolve().parent
 
 
-def _default_user_data_root() -> Path:
-    """Return the per-user writable data directory for the current platform."""
+def get_app_root() -> Path:
+    """Return the directory that contains the executable or source application."""
+
+    if getattr(sys, "frozen", False):
+        return Path(sys.executable).resolve().parent
+    return Path(__file__).resolve().parent
+
+
+def get_bundle_root() -> Path:
+    """Backward-compatible alias for the bundled resource root."""
+
+    return get_resource_root()
+
+
+def _legacy_per_user_data_root() -> Path:
+    """Return the previous per-user storage location used by older releases."""
 
     if sys.platform == "win32":
         base_dir = os.getenv("LOCALAPPDATA") or os.getenv("APPDATA")
@@ -43,41 +58,69 @@ def _default_user_data_root() -> Path:
     return Path.home() / ".local" / "share" / APP_NAME
 
 
+def _resolve_storage_override() -> Path | None:
+    """Resolve an explicitly configured storage root."""
+
+    override = os.getenv(ENV_DATA_DIR) or os.getenv(ENV_USER_DATA_DIR)
+    if not override:
+        return None
+
+    path = Path(override).expanduser()
+    if path.is_absolute():
+        return path
+    return get_app_root() / path
+
+
+def _default_workspace_root() -> Path:
+    """Return the default shared workspace directory next to the app."""
+
+    return get_app_root() / "workspace"
+
+
 @lru_cache(maxsize=1)
 def get_user_data_root() -> Path:
-    """Return and create the writable user-data directory."""
+    """Return and create the writable Chemease data directory."""
 
-    override = os.getenv(ENV_USER_DATA_DIR)
-    root = Path(override).expanduser() if override else _default_user_data_root()
+    root = _resolve_storage_override() or _default_workspace_root()
     root.mkdir(parents=True, exist_ok=True)
     _migrate_legacy_user_data(root)
     return root
 
 
 def _migrate_legacy_user_data(target_root: Path) -> None:
-    """Copy legacy repo-local user data into the writable per-user directory once."""
+    """Copy legacy stored data into the active storage directory once."""
 
-    legacy_root = get_bundle_root() / "projects"
-    if legacy_root == target_root or not legacy_root.exists():
-        return
+    candidate_roots = [
+        get_app_root() / "projects",
+        _legacy_per_user_data_root(),
+    ]
 
-    for filename in LEGACY_USER_DATA_FILENAMES:
-        source_path = legacy_root / filename
-        target_path = target_root / filename
-        if source_path.exists() and not target_path.exists():
-            shutil.copy2(source_path, target_path)
+    seen: set[Path] = set()
+    for legacy_root in candidate_roots:
+        resolved_root = legacy_root.resolve()
+        if resolved_root in seen:
+            continue
+        seen.add(resolved_root)
+        if legacy_root == target_root or not legacy_root.exists():
+            continue
+
+        for filename in LEGACY_USER_DATA_FILENAMES:
+            source_path = legacy_root / filename
+            target_path = target_root / filename
+            if source_path.exists() and not target_path.exists():
+                shutil.copy2(source_path, target_path)
 
 
 def get_formula_data_dir() -> Path:
     """Return the bundled directory containing base formula JSON files."""
 
-    return get_bundle_root() / "data" / "formulas"
+    return get_resource_root() / "data" / "formulas"
 
 
 def get_property_data_path() -> Path:
     """Return the bundled path containing base property data."""
 
-    return get_bundle_root() / "data" / "properties" / "substances.json"
+    return get_resource_root() / "data" / "properties" / "substances.json"
 
 
 def get_custom_formula_data_path() -> Path:

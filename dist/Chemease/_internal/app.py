@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import streamlit as st
 
+from app_runtime import stop_application
 from calculator_engine.engine import CalculationEngine
 from formula_registry.custom_formula_service import get_custom_formula_service
 from formula_registry.registry import get_registry
@@ -66,7 +67,15 @@ def main() -> None:
                 "独自の計算式は式管理で追加すると、すぐ計算画面に反映されます。",
             ],
         )
-        st.caption(f"ユーザーデータ保存先: {describe_user_data_root()}")
+        st.caption(f"共有データ保存先: {describe_user_data_root()}")
+        render_note(
+            "アプリの停止",
+            "ローカルで起動している Chemease を終了したい場合は、下のボタンを押してください。ブラウザタブだけでなく、Streamlit サーバー自体を停止します。",
+            tone="warn",
+        )
+        if st.button("アプリを停止する", use_container_width=True):
+            stop_application()
+            st.stop()
 
     if page == "ホーム":
         render_home_page(registry)
